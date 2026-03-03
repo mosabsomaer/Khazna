@@ -8,11 +8,11 @@ export const SOCIAL_LINKS = {
 };
 
 export const CONTRIBUTORS = [
-  { name: "Ahmed Ali", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Ahmed", url: "https://example.com/ahmed" },
-  { name: "Sara Smith", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Sara", url: "https://example.com/sara" },
-  { name: "Omar Khaleel", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Omar", url: "https://example.com/omar" },
-  { name: "Huda Ben", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Huda", url: "https://example.com/huda" },
-  { name: "Karim Zayd", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Karim", url: "https://example.com/karim" },
+  { id: "ahmed", name: "Ahmed Ali", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Ahmed", url: "https://example.com/ahmed" },
+  { id: "sara", name: "Sara Smith", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Sara", url: "https://example.com/sara" },
+  { id: "omar", name: "Omar Khaleel", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Omar", url: "https://example.com/omar" },
+  { id: "huda", name: "Huda Ben", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Huda", url: "https://example.com/huda" },
+  { id: "karim", name: "Karim Zayd", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Karim", url: "https://example.com/karim" },
 ];
 
 export const BANKS: Bank[] = [

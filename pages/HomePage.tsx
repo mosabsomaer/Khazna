@@ -135,7 +135,7 @@ export function HomePage(): JSX.Element {
                 {/* Logo */}
                 <img
                   src={getLogoUrl(item)}
-                  alt={item.name}
+                  alt={t('entityNames.' + item.id)}
                   className={`object-contain transition-all duration-200 ${
                     logoVariant === 'mono' ? 'brightness-0 dark:invert' : ''
                   }`}
@@ -146,7 +146,7 @@ export function HomePage(): JSX.Element {
                 />
 
                 {/* Name */}
-                <span className="text-xs text-muted-subtle font-medium truncate w-full text-center">{item.name}</span>
+                <span className="text-xs text-muted-subtle font-medium truncate w-full text-center">{t('entityNames.' + item.id)}</span>
               </button>
             );
           })}

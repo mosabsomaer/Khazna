@@ -1,5 +1,6 @@
 
 import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Bank, PaymentMethod } from '../types';
 import { Badge } from './Badge';
 import { useUIContext } from '../hooks/useUIContext';
@@ -10,6 +11,7 @@ interface LogoCardProps {
 
 export function LogoCard({ item }: LogoCardProps): JSX.Element {
   const { setSelectedItem, selectedItem } = useUIContext();
+  const { t } = useTranslation();
 
   const isSelected = selectedItem?.id === item.id;
 
@@ -34,14 +36,14 @@ export function LogoCard({ item }: LogoCardProps): JSX.Element {
         <div className="w-full h-20 flex items-center justify-center transition-all duration-300">
           <img
             src={item.logoUrl}
-            alt={item.name}
+            alt={t('entityNames.' + item.id)}
             className="max-w-full max-h-full object-contain"
           />
         </div>
       </button>
 
       <span className="text-sm font-medium text-muted group-hover:text-primary transition-colors text-center px-1">
-        {item.name}
+        {t('entityNames.' + item.id)}
       </span>
     </div>
   );

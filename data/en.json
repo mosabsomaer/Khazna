@@ -59,5 +59,57 @@
   "figma": {
     "figma": "Figma",
     "viewOnFigma": "View on Figma"
+  },
+  "entityNames": {
+    "wahda-bank": "Wahda Bank",
+    "sahara-bank": "Sahara Bank",
+    "yaqqen-bank": "Yaqqen Bank",
+    "north-bank": "North Africa Bank",
+    "bcd-bank": "Commerce & Development Bank",
+    "atib-bank": "ATIB Bank",
+    "daman-islamic-bank": "Daman Islamic Bank",
+    "group-bank": "Group Bank",
+    "investment-bank": "Investment Bank",
+    "islamic-bank": "Islamic Bank",
+    "tadamun-bank": "Tadamun Bank",
+    "united-bank": "United Bank",
+    "sadad": "Sadad",
+    "edfa3li": "Edfa3li",
+    "mobicash": "MobiCash",
+    "masrafy-pay": "Masrafy Pay",
+    "masrafy-plus": "Masrafy Plus",
+    "ly-pay": "LY Pay",
+    "al-seraj-pay": "Al Seraj Pay",
+    "mobimal": "MobiMal",
+    "nab4pay": "NAB4Pay",
+    "onepay": "OnePay",
+    "sahara-pay": "Sahara Pay",
+    "tlync": "Tlync",
+    "yussor-pay": "Yussor Pay"
+  },
+  "contributorNames": {
+    "ahmed": "Ahmed Ali",
+    "sara": "Sara Smith",
+    "omar": "Omar Khaleel",
+    "huda": "Huda Ben",
+    "karim": "Karim Zayd"
+  },
+  "screenshotLabels": {
+    "Login": "Login",
+    "Accounts": "Accounts",
+    "Welcome": "Welcome",
+    "Card Details": "Card Details",
+    "Profile": "Profile",
+    "Splash Screen": "Splash Screen",
+    "Home Dashboard": "Home Dashboard",
+    "Transfer": "Transfer",
+    "Settings": "Settings"
+  },
+  "screenshotCategories": {
+    "onboarding": "Onboarding",
+    "dashboard": "Dashboard",
+    "transaction": "Transaction",
+    "settings": "Settings",
+    "auth": "Authentication"
   }
 }

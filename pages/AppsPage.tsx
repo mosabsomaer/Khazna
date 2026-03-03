@@ -44,7 +44,7 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
               >
                 <img
                   src={screen.url}
-                  alt={`${app.name} Screen ${index + 1}`}
+                  alt={`${t('entityNames.' + app.id)} ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -94,10 +94,10 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
       {/* Meta Info */}
       <div className="flex items-center gap-3 px-1">
         <div className="rounded-xl bg-surface border border-border overflow-hidden flex-shrink-0 p-2">
-          <img src={app.logoUrl} alt={app.name} className="w-8 h-8 object-contain" />
+          <img src={app.logoUrl} alt={t('entityNames.' + app.id)} className="w-8 h-8 object-contain" />
         </div>
         <div className="flex flex-col">
-          <h3 className="text-sm font-semibold text-primary leading-tight group-hover:underline decoration-border-subtle underline-offset-4">{app.name}</h3>
+          <h3 className="text-sm font-semibold text-primary leading-tight group-hover:underline decoration-border-subtle underline-offset-4">{t('entityNames.' + app.id)}</h3>
           <span className="text-xs text-muted-subtle mt-0.5">{screenCount} {t('common.screens')}</span>
         </div>
       </div>
@@ -109,10 +109,12 @@ export function AppsPage(): JSX.Element {
   const { searchQuery } = useUIContext();
   const { t } = useTranslation();
 
-  const apps = BANKS.filter(bank =>
-    bank.hasScreenshots &&
-    bank.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const apps = BANKS.filter(bank => {
+    if (!bank.hasScreenshots) return false;
+    const query = searchQuery.toLowerCase();
+    const translatedName = t('entityNames.' + bank.id).toLowerCase();
+    return bank.name.toLowerCase().includes(query) || translatedName.includes(query);
+  });
 
   return (
     <div className="pb-20">

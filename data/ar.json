@@ -59,5 +59,57 @@
   "figma": {
     "figma": "Figma",
     "viewOnFigma": "عرض في Figma"
+  },
+  "entityNames": {
+    "wahda-bank": "مصرف الوحدة",
+    "sahara-bank": "مصرف الصحاري",
+    "yaqqen-bank": "مصرف يقين",
+    "north-bank": "مصرف شمال أفريقيا",
+    "bcd-bank": "مصرف التجارة والتنمية",
+    "atib-bank": "المصرف العربي التونسي",
+    "daman-islamic-bank": "مصرف الضمان الإسلامي",
+    "group-bank": "مصرف المجموعة",
+    "investment-bank": "مصرف الاستثمار",
+    "islamic-bank": "المصرف الإسلامي",
+    "tadamun-bank": "مصرف التضامن",
+    "united-bank": "المصرف المتحد",
+    "sadad": "سداد",
+    "edfa3li": "ادفعلي",
+    "mobicash": "موبي كاش",
+    "masrafy-pay": "مصرفي باي",
+    "masrafy-plus": "مصرفي بلس",
+    "ly-pay": "ليبيا باي",
+    "al-seraj-pay": "السراج باي",
+    "mobimal": "موبي مال",
+    "nab4pay": "ناب فور باي",
+    "onepay": "ون باي",
+    "sahara-pay": "صحاري باي",
+    "tlync": "تلينك",
+    "yussor-pay": "يسر باي"
+  },
+  "contributorNames": {
+    "ahmed": "أحمد علي",
+    "sara": "سارة سميث",
+    "omar": "عمر خليل",
+    "huda": "هدى بن",
+    "karim": "كريم زيد"
+  },
+  "screenshotLabels": {
+    "Login": "تسجيل الدخول",
+    "Accounts": "الحسابات",
+    "Welcome": "مرحبًا",
+    "Card Details": "تفاصيل البطاقة",
+    "Profile": "الملف الشخصي",
+    "Splash Screen": "شاشة البداية",
+    "Home Dashboard": "لوحة التحكم",
+    "Transfer": "التحويل",
+    "Settings": "الإعدادات"
+  },
+  "screenshotCategories": {
+    "onboarding": "البدء",
+    "dashboard": "لوحة التحكم",
+    "transaction": "المعاملات",
+    "settings": "الإعدادات",
+    "auth": "المصادقة"
   }
 }

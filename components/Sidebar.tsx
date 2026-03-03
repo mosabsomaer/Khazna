@@ -165,7 +165,7 @@ export function Sidebar(): JSX.Element | null {
 
             <img
               src={resolvedUrl}
-              alt={selectedItem.name}
+              alt={t('entityNames.' + selectedItem.id)}
               className={`relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 ${
                 logoVariant === 'mono' ? 'brightness-0 dark:invert' : ''
               }`}
@@ -176,7 +176,7 @@ export function Sidebar(): JSX.Element | null {
             {/* Info Header */}
             <div>
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <h1 className="text-2xl font-bold text-primary">{selectedItem.name}</h1>
+                <h1 className="text-2xl font-bold text-primary">{t('entityNames.' + selectedItem.id)}</h1>
                 {selectedItem.figmaUrl && (
                   <FigmaLink href={selectedItem.figmaUrl} tooltipPosition="bottom" className="bg-surface-hover/50" />
                 )}

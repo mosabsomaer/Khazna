@@ -114,10 +114,10 @@ export function AppDetailPage(): JSX.Element {
               <ArrowLeft size={20} className="rtl:rotate-180" />
             </Link>
             <div className="flex items-center gap-3">
-              <img src={bank.logoUrl} alt={bank.name} className="w-10 h-10 rounded-lg bg-surface object-cover" />
+              <img src={bank.logoUrl} alt={t('entityNames.' + bank.id)} className="w-10 h-10 rounded-lg bg-surface object-cover" />
               <div>
                 <div className="flex items-center gap-3">
-                  <h1 className="text-xl font-bold text-primary">{bank.name}</h1>
+                  <h1 className="text-xl font-bold text-primary">{t('entityNames.' + bank.id)}</h1>
                   {bank.figmaUrl && (
                     <FigmaLink href={bank.figmaUrl} tooltipPosition="top" className="bg-surface" />
                   )}
@@ -160,7 +160,7 @@ export function AppDetailPage(): JSX.Element {
               >
                 <img
                   src={screen.url}
-                  alt={screen.label}
+                  alt={t('screenshotLabels.' + screen.label)}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
@@ -172,8 +172,8 @@ export function AppDetailPage(): JSX.Element {
                 </div>
               </button>
               <div className="text-center">
-                <h3 className="text-sm font-medium text-muted">{screen.label}</h3>
-                <p className="text-[10px] text-muted-subtle uppercase tracking-wider mt-0.5">{screen.category}</p>
+                <h3 className="text-sm font-medium text-muted">{t('screenshotLabels.' + screen.label)}</h3>
+                <p className="text-[10px] text-muted-subtle uppercase tracking-wider mt-0.5">{t('screenshotCategories.' + screen.category)}</p>
               </div>
             </div>
           ))
@@ -218,13 +218,13 @@ export function AppDetailPage(): JSX.Element {
             >
               <img
                 src={selectedScreen.url}
-                alt={selectedScreen.label}
+                alt={t('screenshotLabels.' + selectedScreen.label)}
                 className="max-h-[85vh] w-auto object-contain rounded-lg shadow-2xl ring-1 ring-white/10"
               />
 
               <div className="flex items-center gap-4 bg-zinc-900/80 px-6 py-3 rounded-full backdrop-blur-md border border-white/10">
                 <div className="text-center">
-                  <h3 className="text-sm font-medium text-white">{selectedScreen.label}</h3>
+                  <h3 className="text-sm font-medium text-white">{t('screenshotLabels.' + selectedScreen.label)}</h3>
                 </div>
 
                 <div className="h-4 w-px bg-zinc-700" />
