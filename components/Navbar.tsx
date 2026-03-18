@@ -1,23 +1,19 @@
 import type { JSX } from 'react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, LayoutGrid, Smartphone, Menu, X, Github, Figma, Mail } from 'lucide-react';
+import { LayoutGrid, Smartphone, Menu, X, Github, Figma, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useUIContext } from '../hooks/useUIContext';
 import { useLanguage } from '../hooks/useLanguage';
 import { ThemeToggle } from './ThemeToggle';
 import { SOCIAL_LINKS } from '../constants';
 
 export function Navbar(): JSX.Element {
-  const { searchQuery, setSearchQuery } = useUIContext();
   const { t } = useTranslation();
   const { currentLanguage, toggleLanguage } = useLanguage();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isAppsPage = location.pathname.includes('/apps');
-  const isHomePage = location.pathname === '/';
-  const searchPlaceholder = isAppsPage ? t('navbar.searchApps') : t('navbar.searchLogos');
 
   function handleMobileNav(): void {
     setIsMobileMenuOpen(false);
@@ -50,22 +46,6 @@ export function Navbar(): JSX.Element {
             </Link>
           </nav>
         </div>
-
-        {/* Center: Search (Desktop) - hidden on homepage */}
-        {!isHomePage && (
-          <div className="flex-1 max-w-md hidden md:block">
-            <div className="relative">
-              <Search className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-subtle h-4 w-4" />
-              <input
-                type="text"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-10 rounded-lg bg-surface border border-border ps-10 pe-4 text-sm text-primary placeholder:text-muted-subtle focus:outline-none focus:ring-1 focus:ring-ring transition-all"
-              />
-            </div>
-          </div>
-        )}
 
         {/* Right: Actions (Desktop) */}
         <div className="hidden md:flex items-center gap-2">
@@ -126,18 +106,6 @@ export function Navbar(): JSX.Element {
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-border bg-background absolute start-0 end-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto px-4 py-6 flex flex-col gap-6 animate-in slide-in-from-top-4 fade-in duration-200 shadow-2xl">
-
-          {/* Mobile Search */}
-          <div className="relative">
-            <Search className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-subtle h-4 w-4" />
-            <input
-              type="text"
-              placeholder={searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-12 rounded-lg bg-surface border border-border ps-10 pe-4 text-base text-primary placeholder:text-muted-subtle focus:outline-none focus:ring-1 focus:ring-ring transition-all"
-            />
-          </div>
 
           {/* Mobile Nav Links */}
           <nav className="flex flex-col gap-2">

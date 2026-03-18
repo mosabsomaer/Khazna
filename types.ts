@@ -36,8 +36,6 @@ export type LogoVariant = 'mono' | 'branded' | 'logomark';
 export type Theme = 'light' | 'dark';
 
 export interface UIContextType {
-  searchQuery: string;
-  setSearchQuery: (query: string) => void;
   selectedItem: SelectedItem;
   setSelectedItem: (item: SelectedItem) => void;
   isSidebarOpen: boolean;

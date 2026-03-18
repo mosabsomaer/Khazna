@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { BANKS, MOCK_SCREENSHOTS } from '../constants';
-import { useUIContext } from '../hooks/useUIContext';
 import { Badge } from '../components/Badge';
 import { Bank } from '../types';
 
@@ -106,15 +105,9 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 }
 
 export function AppsPage(): JSX.Element {
-  const { searchQuery } = useUIContext();
   const { t } = useTranslation();
 
-  const apps = BANKS.filter(bank => {
-    if (!bank.hasScreenshots) return false;
-    const query = searchQuery.toLowerCase();
-    const translatedName = t('entityNames.' + bank.id).toLowerCase();
-    return bank.name.toLowerCase().includes(query) || translatedName.includes(query);
-  });
+  const apps = BANKS.filter(bank => bank.hasScreenshots);
 
   return (
     <div className="pb-20">

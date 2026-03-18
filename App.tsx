@@ -46,7 +46,6 @@ function ScrollToTop(): null {
 }
 
 function App(): JSX.Element {
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedItem, setSelectedItemState] = useState<SelectedItem>(null);
   const [logoVariant, setLogoVariant] = useState<LogoVariant>('branded');
   const [theme, setTheme] = useState<Theme>(() => {
@@ -121,8 +120,6 @@ function App(): JSX.Element {
   }, [theme]);
 
   const contextValue = useMemo<UIContextType>(() => ({
-    searchQuery,
-    setSearchQuery,
     selectedItem,
     setSelectedItem,
     isSidebarOpen,
@@ -132,7 +129,7 @@ function App(): JSX.Element {
     getLogoUrl,
     theme,
     toggleTheme,
-  }), [searchQuery, selectedItem, isSidebarOpen, setSelectedItem, closeSidebar, logoVariant, getLogoUrl, theme, toggleTheme]);
+  }), [selectedItem, isSidebarOpen, setSelectedItem, closeSidebar, logoVariant, getLogoUrl, theme, toggleTheme]);
 
   return (
     <UIContext.Provider value={contextValue}>
