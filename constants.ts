@@ -4,7 +4,7 @@ import { Bank, PaymentMethod, Screenshot } from './types';
 export const SOCIAL_LINKS = {
   github: "https://github.com",
   figma: "https://figma.com",
-  email: "mailto:hello@khaznaui.com"
+  email: "mailto:hello@khazna.ly"
 };
 
 export const CONTRIBUTORS = [
