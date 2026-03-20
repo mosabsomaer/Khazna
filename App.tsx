@@ -4,7 +4,7 @@ import { createContext, useCallback, useEffect, useMemo, useRef, useState } from
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { Contributors } from './components/Contributors';
 import { Navbar } from './components/Navbar';
-import { Sidebar } from './components/Sidebar';
+import { DetailPanel } from './components/DetailPanel';
 import { useUIContext } from './hooks/useUIContext';
 import { AppDetailPage } from './pages/AppDetailPage';
 import { AppsPage } from './pages/AppsPage';
@@ -14,7 +14,7 @@ import { BaseEntity, LogoVariant, SelectedItem, Theme, UIContextType } from './t
 export const UIContext = createContext<UIContextType | null>(null);
 
 function Layout({ children }: { children: React.ReactNode }): JSX.Element {
-  const { isSidebarOpen, closeSidebar } = useUIContext();
+  const { closeSidebar } = useUIContext();
   const location = useLocation();
 
   useEffect(() => {
@@ -22,15 +22,15 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
   }, [location.pathname, closeSidebar]);
 
   return (
-    <div className="min-h-screen bg-background text-primary flex flex-col">
+    <div className="min-h-screen bg-background text-primary">
       <Navbar />
-      <div className={`relative transition-all duration-300 flex-1 flex flex-col ${isSidebarOpen ? 'md:me-[400px]' : ''}`}>
+      <div className="relative transition-all duration-300 flex-1 flex flex-col">
         <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">
           {children}
         </main>
         <Contributors />
       </div>
-      <Sidebar />
+      <DetailPanel />
     </div>
   );
 }

@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Khazna UI - Libyan Banking Assets</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,104 +18,6 @@
         document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
       })();
     </script>
-
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'Noto Sans Arabic', 'sans-serif'],
-            },
-            colors: {
-              background: 'var(--color-background)',
-              surface: 'var(--color-surface)',
-              'surface-hover': 'var(--color-surface-hover)',
-              elevated: 'var(--color-elevated)',
-              border: 'var(--color-border)',
-              'border-subtle': 'var(--color-border-subtle)',
-              primary: 'var(--color-primary)',
-              muted: 'var(--color-muted)',
-              'muted-subtle': 'var(--color-muted-subtle)',
-              dim: 'var(--color-dim)',
-              ring: 'var(--color-ring)',
-              'accent-bg': 'var(--color-accent-bg)',
-              'accent-text': 'var(--color-accent-text)',
-            }
-          }
-        }
-      }
-    </script>
-    <style>
-      /* Light theme (default) */
-      :root {
-        --color-background: #ffffff;
-        --color-surface: #f4f4f5;        /* zinc-100 */
-        --color-surface-hover: #e4e4e7;  /* zinc-200 */
-        --color-elevated: #fafafa;        /* zinc-50 */
-        --color-border: #e4e4e7;          /* zinc-200 */
-        --color-border-subtle: #d4d4d8;  /* zinc-300 */
-        --color-primary: #18181b;         /* zinc-900 */
-        --color-muted: #71717a;           /* zinc-500 */
-        --color-muted-subtle: #a1a1aa;   /* zinc-400 */
-        --color-dim: #52525b;             /* zinc-600 */
-        --color-ring: #d4d4d8;            /* zinc-300 */
-        --color-accent-bg: #18181b;       /* zinc-900 */
-        --color-accent-text: #ffffff;
-        --color-slider-track: #d4d4d8;
-        --color-slider-thumb: #18181b;
-        --color-scrollbar-track: #f4f4f5;
-        --color-scrollbar-thumb: #d4d4d8;
-        --color-scrollbar-thumb-hover: #a1a1aa;
-        --color-selection-bg: #d4d4d8;
-        --color-selection-text: #18181b;
-      }
-
-      /* Dark theme */
-      .dark {
-        --color-background: #080808;
-        --color-surface: #18181b;         /* zinc-900 */
-        --color-surface-hover: #27272a;   /* zinc-800 */
-        --color-elevated: #09090b;        /* zinc-950 */
-        --color-border: #27272a;          /* zinc-800 */
-        --color-border-subtle: #3f3f46;  /* zinc-700 */
-        --color-primary: #ffffff;
-        --color-muted: #a1a1aa;           /* zinc-400 */
-        --color-muted-subtle: #71717a;   /* zinc-500 */
-        --color-dim: #52525b;             /* zinc-600 */
-        --color-ring: #3f3f46;            /* zinc-700 */
-        --color-accent-bg: #f4f4f5;       /* zinc-100 */
-        --color-accent-text: #18181b;     /* zinc-900 */
-        --color-slider-track: #3f3f46;
-        --color-slider-thumb: #ffffff;
-        --color-scrollbar-track: #080808;
-        --color-scrollbar-thumb: #27272a;
-        --color-scrollbar-thumb-hover: #3f3f46;
-        --color-selection-bg: #3f3f46;
-        --color-selection-text: #ffffff;
-      }
-
-      /* Custom scrollbar for webkit */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--color-scrollbar-track);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--color-scrollbar-thumb);
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--color-scrollbar-thumb-hover);
-      }
-
-      ::selection {
-        background: var(--color-selection-bg);
-        color: var(--color-selection-text);
-      }
-    </style>
   <script type="importmap">
 {
   "imports": {

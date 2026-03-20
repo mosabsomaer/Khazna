@@ -42,7 +42,7 @@ export function LogoCard({ item }: LogoCardProps): JSX.Element {
         </div>
       </button>
 
-      <span className="text-sm font-medium text-muted group-hover:text-primary transition-colors text-center px-1">
+      <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors text-center px-1">
         {t('entityNames.' + item.id)}
       </span>
     </div>

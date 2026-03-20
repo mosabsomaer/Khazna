@@ -11,7 +11,7 @@ export function Badge({ type, className = '' }: BadgeProps): JSX.Element {
 
   const styles = type === 'new'
     ? 'bg-accent-bg text-accent-text border-border font-semibold'
-    : 'bg-surface-hover text-muted border-border-subtle';
+    : 'bg-surface-hover text-muted-foreground border-border-subtle';
 
   const label = type === 'new' ? t('badge.new') : t('badge.updated');
 

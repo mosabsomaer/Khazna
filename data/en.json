@@ -46,11 +46,22 @@
   "contributors": {
     "contributors": "Contributors",
     "dontLoseThis": "Don't lose this",
-    "bookmarkDescription": "This might be the last time we meet. Save the website and bookmark it now to ensure you always have access to these assets.",
+    "followLine1": "you probably won't see this website again.",
+    "followLine2": "save us so we can make you a better",
     "tapShare": "Tap share icon to bookmark",
-    "missingSomething": "Missing something?",
-    "contributeDescription": "Notice a missing bank or outdated logo? Become a contributor and add it to the collection.",
-    "becomeContributor": "Become a contributor"
+    "roles": {
+      "coder": "coder",
+      "developer": "developer",
+      "designer": "designer",
+      "uiDesigner": "UI designer",
+      "contentManager": "content manager",
+      "graphicDesigner": "graphic designer",
+      "brandDesigner": "brand designer"
+    },
+    "missingSomething": "Join the community",
+    "contributeDescription": "Join our growing community of contributors and help build the most comprehensive fintech UI resource in Libya.",
+    "becomeContributor": "Become a contributor",
+    "viewOnGithub": "View on GitHub"
   },
   "badge": {
     "new": "New",

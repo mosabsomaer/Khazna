@@ -109,7 +109,7 @@ export function AppDetailPage(): JSX.Element {
           <div className="flex items-center gap-4">
             <Link
               to="/apps"
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:bg-surface-hover transition-colors text-muted hover:text-primary"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:bg-surface-hover transition-colors text-muted-foreground hover:text-primary"
             >
               <ArrowLeft size={20} className="rtl:rotate-180" />
             </Link>
@@ -131,7 +131,7 @@ export function AppDetailPage(): JSX.Element {
                       <button
                         onClick={handleDownloadAll}
                         disabled={isDownloadingAll}
-                        className="flex items-center gap-1 text-muted hover:text-primary hover:underline disabled:opacity-50 disabled:no-underline disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center gap-1 text-muted-foreground hover:text-primary hover:underline disabled:opacity-50 disabled:no-underline disabled:cursor-not-allowed transition-colors"
                       >
                         {isDownloadingAll ? (
                           <Loader2 size={10} className="animate-spin" />
@@ -172,7 +172,7 @@ export function AppDetailPage(): JSX.Element {
                 </div>
               </button>
               <div className="text-center">
-                <h3 className="text-sm font-medium text-muted">{t('screenshotLabels.' + screen.label)}</h3>
+                <h3 className="text-sm font-medium text-muted-foreground">{t('screenshotLabels.' + screen.label)}</h3>
                 <p className="text-[10px] text-muted-subtle uppercase tracking-wider mt-0.5">{t('screenshotCategories.' + screen.category)}</p>
               </div>
             </div>

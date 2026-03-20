@@ -25,21 +25,25 @@ export function Navbar(): JSX.Element {
 
         {/* Left: Brand & Desktop Nav */}
         <div className="flex items-center gap-8">
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-primary z-50">
-            Khazna UI
+          <Link to="/" className="z-50">
+            <img
+              src={currentLanguage === 'ar' ? '/ar-logo.svg' : '/en-logo.svg'}
+              alt="Khazna UI"
+              className="h-6 invert dark:invert-0"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
             <Link
               to="/"
-              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${!isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted hover:text-primary hover:bg-surface'}`}
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${!isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted-foreground hover:text-primary hover:bg-surface'}`}
             >
               <LayoutGrid size={16} />
               {t('navbar.logos')}
             </Link>
             <Link
               to="/apps"
-              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted hover:text-primary hover:bg-surface'}`}
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted-foreground hover:text-primary hover:bg-surface'}`}
             >
               <Smartphone size={16} />
               {t('navbar.apps')}
@@ -53,7 +57,7 @@ export function Navbar(): JSX.Element {
             href={SOCIAL_LINKS.github}
             target="_blank"
             rel="noreferrer"
-            className="p-2 text-muted hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
+            className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
             title="GitHub"
           >
             <Github size={20} />
@@ -62,7 +66,7 @@ export function Navbar(): JSX.Element {
             href={SOCIAL_LINKS.figma}
             target="_blank"
             rel="noreferrer"
-            className="p-2 text-muted hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
+            className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
             title="Figma Community"
           >
             <Figma size={20} />
@@ -71,7 +75,7 @@ export function Navbar(): JSX.Element {
           <ThemeToggle />
           <button
             onClick={toggleLanguage}
-            className="px-3 py-1.5 text-xs font-bold rounded-full border border-border text-muted hover:text-primary hover:bg-surface-hover transition-colors"
+            className="px-3 py-1.5 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary hover:bg-surface-hover transition-colors"
           >
             {currentLanguage === 'ar' ? 'EN' : 'AR'}
           </button>
@@ -90,13 +94,13 @@ export function Navbar(): JSX.Element {
           <ThemeToggle />
           <button
             onClick={toggleLanguage}
-            className="px-2.5 py-1 text-xs font-bold rounded-full border border-border text-muted hover:text-primary transition-colors"
+            className="px-2.5 py-1 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary transition-colors"
           >
             {currentLanguage === 'ar' ? 'EN' : 'AR'}
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-muted hover:text-primary rounded-md"
+            className="p-2 text-muted-foreground hover:text-primary rounded-md"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -112,7 +116,7 @@ export function Navbar(): JSX.Element {
             <Link
               to="/"
               onClick={handleMobileNav}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${!isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted hover:bg-surface hover:text-primary'}`}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${!isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted-foreground hover:bg-surface hover:text-primary'}`}
             >
               <LayoutGrid size={20} />
               {t('navbar.logos')}
@@ -120,7 +124,7 @@ export function Navbar(): JSX.Element {
             <Link
               to="/apps"
               onClick={handleMobileNav}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted hover:bg-surface hover:text-primary'}`}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${isAppsPage ? 'bg-surface-hover text-primary' : 'text-muted-foreground hover:bg-surface hover:text-primary'}`}
             >
               <Smartphone size={20} />
               {t('navbar.apps')}
@@ -138,7 +142,7 @@ export function Navbar(): JSX.Element {
                   href={SOCIAL_LINKS.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-3 bg-surface text-muted hover:text-primary rounded-lg border border-border"
+                  className="p-3 bg-surface text-muted-foreground hover:text-primary rounded-lg border border-border"
                 >
                   <Github size={20} />
                 </a>
@@ -146,7 +150,7 @@ export function Navbar(): JSX.Element {
                   href={SOCIAL_LINKS.figma}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-3 bg-surface text-muted hover:text-primary rounded-lg border border-border"
+                  className="p-3 bg-surface text-muted-foreground hover:text-primary rounded-lg border border-border"
                 >
                   <Figma size={20} />
                 </a>

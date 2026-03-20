@@ -1,2 +1,8 @@
 https://codepen.io/antlio/pen/LYVVXLJ
 https://codepen.io/saranya-mohan/pen/bGEqRXe
+
+
+watch the filters and how they categories payment methods and banks  where its 1 list that 
+has groups so we have longer scroll, it also mean that users will more likely discover the
+ payment methods section because it involves 0 click while current solution requires 1 click
+https://www.isocons.app/

@@ -7,6 +7,7 @@ import { useUIContext } from '../hooks/useUIContext';
 import { generateCode } from '../utils/generators';
 import { downloadBlob, convertSvgToImage } from '../utils/download';
 import { FigmaLink } from './FigmaLink';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
 
 const MOCK_SVG_CONTENT = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,10 +54,9 @@ function makeMonoSvg(svg: string): string {
     .replace(/stroke="(?!none)[^"]*"/g, 'stroke="white"');
 }
 
-export function Sidebar(): JSX.Element | null {
+export function DetailPanel(): JSX.Element | null {
   const { selectedItem, isSidebarOpen, closeSidebar, logoVariant, getLogoUrl } = useUIContext();
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<'download' | 'code'>('download');
   const [codeFormat, setCodeFormat] = useState('React');
   const [copied, setCopied] = useState(false);
   const [svgContent, setSvgContent] = useState<string>('');
@@ -189,31 +189,23 @@ export function Sidebar(): JSX.Element | null {
             </div>
 
             {/* Tabs */}
-            <div className="space-y-6">
-              <div className="flex border-b border-border relative">
-                <button
-                  onClick={() => setActiveTab('download')}
-                  className={`flex-1 pb-3 text-sm font-medium transition-colors flex items-center justify-center gap-2 ${activeTab === 'download' ? 'text-primary' : 'text-muted-subtle hover:text-muted'}`}
+            <Tabs defaultValue="download">
+              <TabsList className="w-full rounded-none border-b border-border bg-transparent p-0 h-auto">
+                <TabsTrigger
+                  value="download"
+                  className="flex-1 rounded-none border-b-2 border-transparent pb-3 pt-0 px-0 text-sm font-medium text-muted-subtle shadow-none transition-colors data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:bg-transparent hover:text-muted-foreground gap-2"
                 >
                   <ImageIcon size={16} /> {t('sidebar.assets')}
-                </button>
-                <button
-                  onClick={() => setActiveTab('code')}
-                  className={`flex-1 pb-3 text-sm font-medium transition-colors flex items-center justify-center gap-2 ${activeTab === 'code' ? 'text-primary' : 'text-muted-subtle hover:text-muted'}`}
+                </TabsTrigger>
+                <TabsTrigger
+                  value="code"
+                  className="flex-1 rounded-none border-b-2 border-transparent pb-3 pt-0 px-0 text-sm font-medium text-muted-subtle shadow-none transition-colors data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:bg-transparent hover:text-muted-foreground gap-2"
                 >
                   <FileCode size={16} /> {t('sidebar.code')}
-                </button>
+                </TabsTrigger>
+              </TabsList>
 
-                <div
-                  className="absolute bottom-0 h-0.5 bg-primary transition-all duration-300"
-                  style={{
-                    left: activeTab === 'download' ? '0%' : '50%',
-                    width: '50%'
-                  }}
-                />
-              </div>
-
-              {activeTab === 'download' ? (
+              <TabsContent value="download" className="mt-6">
                 <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   {['SVG', 'PNG', 'WebP'].map(fmt => (
                     <button
@@ -236,7 +228,9 @@ export function Sidebar(): JSX.Element | null {
                     </button>
                   ))}
                 </div>
-              ) : (
+              </TabsContent>
+
+              <TabsContent value="code" className="mt-6">
                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <div className="grid grid-cols-4 gap-2">
                     {['React', 'Vue', 'Svelte', 'HTML'].map(fmt => (
@@ -283,8 +277,8 @@ export function Sidebar(): JSX.Element | null {
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       ) : (

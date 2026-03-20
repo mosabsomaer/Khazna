@@ -113,7 +113,7 @@ export function AppsPage(): JSX.Element {
     <div className="pb-20">
       <div className="py-12 border-b border-border/50">
         <h1 className="text-3xl font-bold text-primary mb-2">{t('apps.title')}</h1>
-        <p className="text-muted max-w-2xl">
+        <p className="text-muted-foreground max-w-2xl">
           {t('apps.description')}
         </p>
       </div>

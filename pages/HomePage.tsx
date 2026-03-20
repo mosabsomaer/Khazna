@@ -32,7 +32,7 @@ export function HomePage(): JSX.Element {
     <div className="pb-8">
       <div className="py-12 border-b border-border/50">
         <h1 className="text-3xl font-bold text-primary mb-2">{t('home.title')}</h1>
-        <p className="text-muted max-w-2xl">
+        <p className="text-muted-foreground max-w-2xl">
           {t('home.description')}
         </p>
       </div>
@@ -46,10 +46,10 @@ export function HomePage(): JSX.Element {
               key={cat.key}
               onClick={() => setActiveCategory(cat.key)}
               className={`
-                relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors
+                relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors cursor-pointer
                 ${activeCategory === cat.key
                   ? 'text-primary'
-                  : 'text-muted-subtle hover:text-muted'
+                  : 'text-muted-subtle hover:text-muted-foreground'
                 }
               `}
             >
@@ -72,7 +72,7 @@ export function HomePage(): JSX.Element {
 
         {/* Size Slider (center) */}
         <div className="flex items-center gap-3">
-          <span className="text-sm font-bold text-muted">{t('home.size')}</span>
+          <span className="text-sm font-bold text-muted-foreground">{t('home.size')}</span>
           <input
             type="range"
             min="100"
@@ -81,7 +81,7 @@ export function HomePage(): JSX.Element {
             onChange={(e) => setLogoSize(Number(e.target.value))}
             className="range-slider w-48"
           />
-          <span className="text-sm font-bold text-muted tabular-nums w-8 text-end">{logoSize}</span>
+          <span className="text-sm font-bold text-muted-foreground tabular-nums w-8 text-end">{logoSize}</span>
         </div>
 
         {/* Style Toggle */}
@@ -94,7 +94,7 @@ export function HomePage(): JSX.Element {
                 px-4 py-1.5 text-sm font-medium rounded-md transition-all
                 ${logoVariant === v.key
                   ? 'bg-surface-hover text-primary shadow-sm'
-                  : 'text-muted hover:text-primary'
+                  : 'text-muted-foreground hover:text-primary'
                 }
               `}
             >

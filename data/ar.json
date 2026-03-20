@@ -46,11 +46,22 @@
   "contributors": {
     "contributors": "المساهمون",
     "dontLoseThis": "لا تفقد هذا الموقع",
-    "bookmarkDescription": "قد تكون هذه آخر مرة نلتقي فيها. احفظ الموقع وأضفه للمفضلة الآن لضمان وصولك الدائم لهذه الموارد.",
+    "followLine1": "على الأغلب لن ترى هذا الموقع مرة أخرى.",
+    "followLine2": "احفظنا حتى نجعلك افضل",
     "tapShare": "اضغط على أيقونة المشاركة للحفظ",
-    "missingSomething": "هل ينقص شيء؟",
-    "contributeDescription": "لاحظت مصرفًا مفقودًا أو شعارًا قديمًا؟ كن مساهمًا وأضفه إلى المجموعة.",
-    "becomeContributor": "كن مساهمًا"
+    "roles": {
+      "coder": "مبرمج",
+      "developer": "مطور",
+      "designer": "مصمم",
+      "uiDesigner": "مصمم واجهات",
+      "contentManager": "مدير محتوى",
+      "graphicDesigner": "مصمم جرافيك",
+      "brandDesigner": "مصمم هوية"
+    },
+    "missingSomething": "انضم إلى المجتمع",
+    "contributeDescription": "انضم إلى مجتمعنا المتنامي من المساهمين وساعد في بناء أشمل مورد لواجهات التكنولوجيا المالية في ليبيا.",
+    "becomeContributor": "كن مساهمًا",
+    "viewOnGithub": "عرض على GitHub"
   },
   "badge": {
     "new": "جديد",
