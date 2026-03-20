@@ -1,6 +1,3 @@
-
-export type ItemType = 'bank' | 'payment_method';
-
 export interface BaseEntity {
   id: string;
   name: string;

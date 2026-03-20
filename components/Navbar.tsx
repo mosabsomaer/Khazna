@@ -1,11 +1,11 @@
+import { Figma, Github, LayoutGrid, Mail, Menu, Smartphone, X } from 'lucide-react';
 import type { JSX } from 'react';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { LayoutGrid, Smartphone, Menu, X, Github, Figma, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
+import { SOCIAL_LINKS } from '../constants';
 import { useLanguage } from '../hooks/useLanguage';
 import { ThemeToggle } from './ThemeToggle';
-import { SOCIAL_LINKS } from '../constants';
 
 export function Navbar(): JSX.Element {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export function Navbar(): JSX.Element {
           <Link to="/" className="z-50">
             <img
               src={currentLanguage === 'ar' ? '/ar-logo.svg' : '/en-logo.svg'}
-              alt="Khazna UI"
+              alt="Khazna"
               className="h-6 invert dark:invert-0"
             />
           </Link>
