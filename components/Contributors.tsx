@@ -3,8 +3,9 @@ import { ArrowUpRight, Command, Keyboard } from 'lucide-react';
 import type { JSX } from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BANKS, CONTRIBUTORS, SOCIAL_LINKS } from '../constants';
+import { BANKS, SOCIAL_LINKS } from '../constants';
 import { TextMarquee } from './text-marquee';
+import { TestimonialSection } from './ui/testimonials';
 
 const ROLE_KEYS = ['developer', 'uiDesigner', 'coder', 'graphicDesigner', 'contentManager', 'designer', 'brandDesigner'] as const;
 
@@ -28,29 +29,45 @@ export function Contributors(): JSX.Element {
     }
   }, []);
 
+  const testimonials = [
+    {
+      id: 1,
+      name: t('testimonials.sara.name'),
+      role: t('testimonials.sara.role'),
+      quote: t('testimonials.sara.quote'),
+      imageSrc: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop&crop=face',
+      url: 'https://www.linkedin.com/in/sara-s-35545b305/',
+    },
+    {
+      id: 2,
+      name: t('testimonials.mosab.name'),
+      role: t('testimonials.mosab.role'),
+      quote: t('testimonials.mosab.quote'),
+      imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&crop=face',
+      url: 'https://www.linkedin.com/in/mosab-omaer-763b18232/',
+    },
+    {
+      id: 3,
+      name: t('testimonials.moaad.name'),
+      role: t('testimonials.moaad.role'),
+      quote: t('testimonials.moaad.quote'),
+      imageSrc: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=800&fit=crop&crop=face',
+      url: 'https://www.linkedin.com/in/moaadalnaeli/',
+    },
+  ];
+
   return (
     <section className=" border-t border-border/50 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-elevated/50 pointer-events-none" />
 
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {/* Contributors */}
-        <div className="flex flex-col items-center justify-center py-16">
-          <p className="text-muted-subtle text-sm font-medium mb-6 uppercase tracking-wider">{t('contributors.contributors')}</p>
-
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {CONTRIBUTORS.map((c, i) => (
-              <a key={i} href={c.url} target="_blank" rel="noopener noreferrer" className="group/avatar relative cursor-pointer">
-                <div className="w-10 h-10 rounded-xl overflow-hidden border border-border bg-surface transition-all duration-300 group-hover/avatar:scale-110 group-hover/avatar:border-border-subtle">
-                  <img src={c.avatar} alt={t('contributorNames.' + c.id)} className="w-full h-full object-cover grayscale group-hover/avatar:grayscale-0 transition-all" />
-                </div>
-                <div className="absolute bottom-full start-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-surface-hover text-primary text-[10px] rounded opacity-0 group-hover/avatar:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-border-subtle">
-                  {t('contributorNames.' + c.id)}
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
+        {/* Testimonials */}
+        <TestimonialSection
+          title={t('testimonials.title')}
+          subtitle={t('testimonials.subtitle')}
+          testimonials={testimonials}
+        />
 
         {/* Community Card */}
         <div className="relative bg-surface/40 border border-border/60 rounded-3xl p-10 md:p-14 overflow-hidden mb-6">

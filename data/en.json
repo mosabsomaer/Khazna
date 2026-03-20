@@ -98,6 +98,25 @@
     "tlync": "Tlync",
     "yussor-pay": "Yussor Pay"
   },
+  "testimonials": {
+    "title": "Meet the Team",
+    "subtitle": "The people behind KhaznaUI, building Libya's fintech design resource.",
+    "sara": {
+      "name": "Sara Shemisa",
+      "role": "UI Designer",
+      "quote": "Design is about solving real problems. KhaznaUI gives Libyan developers a head start with polished, ready-to-use patterns."
+    },
+    "mosab": {
+      "name": "Mosab Omaer",
+      "role": "Developer",
+      "quote": "We built KhaznaUI to bridge the gap between design and development in Libya's growing fintech ecosystem."
+    },
+    "moaad": {
+      "name": "Moaad Elhuni",
+      "role": "Designer",
+      "quote": "Great products start with great design systems. KhaznaUI is our contribution to the Libyan tech community."
+    }
+  },
   "contributorNames": {
     "ahmed": "Ahmed Ali",
     "sara": "Sara Smith",

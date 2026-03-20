@@ -8,6 +8,7 @@ interface Testimonial {
   name: string;
   role: string;
   imageSrc: string;
+  url?: string;
 }
 
 // TypeScript interface for the component's props
@@ -50,13 +51,13 @@ export const TestimonialSection = ({
   };
 
   return (
-    <section className="w-full bg-background py-16 sm:py-24">
+    <section className="w-full py-16 sm:py-24">
       <div className="container mx-auto max-w-6xl px-4 text-center">
         {/* Section Header */}
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
           {title}
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted">
           {subtitle}
         </p>
 
@@ -69,9 +70,12 @@ export const TestimonialSection = ({
           viewport={{ once: true, amount: 0.2 }}
         >
           {testimonials.map((testimonial) => (
-            <motion.div
+            <motion.a
               key={testimonial.id}
-              className="relative overflow-hidden rounded-lg bg-card shadow-sm"
+              href={testimonial.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative overflow-hidden rounded-2xl border border-border bg-surface shadow-sm cursor-pointer block"
               variants={itemVariants}
             >
               <div className="relative">
@@ -85,7 +89,7 @@ export const TestimonialSection = ({
               </div>
 
               {/* Content within the card */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-left text-white">
+              <div className="absolute bottom-0 start-0 end-0 p-6 text-start text-white">
                 <Quote
                   className="mb-4 h-8 w-8 text-white/40"
                   aria-hidden="true"
@@ -94,15 +98,15 @@ export const TestimonialSection = ({
                   {testimonial.quote}
                 </blockquote>
                 <figcaption className="mt-4">
-                  <p className="font-semibold text-card-white/100">
+                  <p className="font-semibold">
                     &mdash; {testimonial.name},
-                    <span className="ml-1 text-white/60">
+                    <span className="ms-1 text-white/60">
                       {testimonial.role}
                     </span>
                   </p>
                 </figcaption>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
       </div>
