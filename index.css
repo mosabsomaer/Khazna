@@ -135,7 +135,7 @@
   --primary-foreground: #18181b;
   --secondary: #27272a;
   --secondary-foreground: #ffffff;
-  --muted: #27272a;
+  --muted: #303032;
   --muted-foreground: #a1a1aa;
   --accent: #27272a;
   --accent-foreground: #ffffff;
@@ -155,8 +155,8 @@
   --surface-hover: #27272a;
   --elevated: #09090b;
   --border-subtle: #3f3f46;
-  --muted-subtle: #71717a;
-  --dim: #52525b;
+  --muted-subtle: #a1a1aa;
+  --dim: #71717a;
   --accent-bg: #f4f4f5;
   --accent-text: #18181b;
 

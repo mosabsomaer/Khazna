@@ -1,13 +1,13 @@
 
+import { Check, Copy, Download, FileCode, Image as ImageIcon, LayoutGrid, Loader2, X } from 'lucide-react';
 import type { JSX } from 'react';
-import { useState, useEffect, useMemo } from 'react';
-import { X, Download, Copy, Check, LayoutGrid, FileCode, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUIContext } from '../hooks/useUIContext';
+import { convertSvgToImage, downloadBlob } from '../utils/download';
 import { generateCode } from '../utils/generators';
-import { downloadBlob, convertSvgToImage } from '../utils/download';
 import { FigmaLink } from './FigmaLink';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 
 const MOCK_SVG_CONTENT = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -142,7 +142,7 @@ export function DetailPanel(): JSX.Element | null {
     `}>
       {/* Header */}
       <div className="h-16 flex items-center justify-between px-4 border-b border-border bg-background/95 backdrop-blur z-10">
-        <h2 className="text-sm font-semibold text-muted uppercase tracking-wider flex items-center gap-2">
+        <h2 className="text-sm font-semibold text-dim uppercase tracking-wider flex items-center gap-2">
           <LayoutGrid size={14} /> {t('sidebar.details')}
         </h2>
         <button
@@ -214,7 +214,7 @@ export function DetailPanel(): JSX.Element | null {
                       disabled={!!isProcessing}
                       className="group w-full flex items-center justify-between px-4 py-3.5 rounded-xl border border-border bg-surface/30 hover:bg-surface hover:border-border-subtle active:scale-[0.98] transition-all duration-200 outline-none focus:ring-1 focus:ring-ring"
                     >
-                      <span className="text-sm font-medium text-muted group-hover:text-primary transition-colors">
+                      <span className="text-sm font-medium text-dim group-hover:text-primary transition-colors">
                         {fmt}
                       </span>
 
@@ -240,8 +240,8 @@ export function DetailPanel(): JSX.Element | null {
                         className={`
                           py-2 text-[10px] sm:text-xs font-medium rounded-lg border transition-all duration-200
                           ${codeFormat === fmt
-                            ? 'bg-accent-bg text-accent-text border-accent-bg shadow-lg'
-                            : 'bg-transparent text-muted border-border hover:border-border-subtle hover:bg-surface'}
+                            ? 'bg-accent-bg text-accent border-accent-bg shadow-lg'
+                            : 'bg-transparent text-dim border-border hover:border-border-subtle hover:bg-surface'}
                         `}
                       >
                         {fmt}
@@ -253,7 +253,7 @@ export function DetailPanel(): JSX.Element | null {
                     className="relative group cursor-pointer overflow-hidden rounded-lg border border-border bg-elevated"
                     onClick={handleCopy}
                   >
-                    <pre className="p-4 font-mono text-xs text-muted overflow-x-auto h-64 custom-scrollbar leading-relaxed">
+                    <pre className="p-4 font-mono text-xs text-dim overflow-x-auto h-64 custom-scrollbar leading-relaxed">
                       <code>{generatedCode}</code>
                     </pre>
 
