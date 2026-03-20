@@ -35,7 +35,7 @@ export function Contributors(): JSX.Element {
       name: t('testimonials.sara.name'),
       role: t('testimonials.sara.role'),
       quote: t('testimonials.sara.quote'),
-      imageSrc: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop&crop=face',
+      imageSrc: '/founders/Sara.webp',
       url: 'https://www.linkedin.com/in/sara-s-35545b305/',
     },
     {
@@ -43,7 +43,7 @@ export function Contributors(): JSX.Element {
       name: t('testimonials.mosab.name'),
       role: t('testimonials.mosab.role'),
       quote: t('testimonials.mosab.quote'),
-      imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&crop=face',
+      imageSrc: '/founders/Mosab.webp',
       url: 'https://www.linkedin.com/in/mosab-omaer-763b18232/',
     },
     {
@@ -51,7 +51,7 @@ export function Contributors(): JSX.Element {
       name: t('testimonials.moaad.name'),
       role: t('testimonials.moaad.role'),
       quote: t('testimonials.moaad.quote'),
-      imageSrc: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=800&fit=crop&crop=face',
+      imageSrc: '/founders/Moo.webp',
       url: 'https://www.linkedin.com/in/moaadalnaeli/',
     },
   ];
