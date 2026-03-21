@@ -1,145 +1,145 @@
 {
-  "common": {
-    "download": "Download",
-    "copied": "Copied!",
-    "back": "Back",
-    "clickToCopy": "Click to copy",
-    "screens": "Screens",
-    "noScreenshots": "No screenshots available",
-    "community": "Community"
-  },
-  "navbar": {
-    "logos": "Logos",
-    "apps": "Apps",
-    "searchLogos": "Search logos...",
-    "searchApps": "Search apps...",
-    "contribute": "Contribute"
-  },
-  "home": {
-    "title": "Logo Library",
-    "description": "A collection of logos for Libyan banks and payment methods. Available in mono, branded, and logomark variants.",
-    "banks": "Banks",
-    "paymentMethods": "Payment Methods",
-    "mono": "Mono",
-    "branded": "Branded",
-    "logomark": "Logomark",
-    "size": "size"
-  },
-  "apps": {
-    "title": "App UI Gallery",
-    "description": "Explore user interface patterns from real Libyan applications. Curated screenshots for research and inspiration.",
-    "noAppsFound": "No apps found matching your search.",
-    "noScreenshotsBank": "No screenshots available for this bank."
-  },
-  "sidebar": {
-    "details": "Details",
-    "assets": "Assets",
-    "code": "Code",
-    "noLogoSelected": "No logo selected",
-    "selectFromGrid": "Select an item from the grid to view details",
-    "downloadAll": "Download All",
-    "zipping": "Zipping...",
-    "downloadFailed": "Could not convert image. Try downloading as SVG.",
-    "downloadImageFailed": "Failed to download image.",
-    "zipFailed": "Failed to create zip file."
-  },
-  "contributors": {
-    "contributors": "Contributors",
-    "dontLoseThis": "Don't lose this",
-    "followLine1": "you probably won't see this website again.",
-    "followLine2": "save us so we can make you a better",
-    "tapShare": "Tap share icon to bookmark",
-    "roles": {
-      "coder": "coder",
-      "developer": "developer",
-      "designer": "designer",
-      "uiDesigner": "UI designer",
-      "contentManager": "content manager",
-      "graphicDesigner": "graphic designer",
-      "brandDesigner": "brand designer"
-    },
-    "missingSomething": "Join the community",
-    "contributeDescription": "Join our growing community of contributors and help build the most comprehensive fintech UI resource in Libya.",
-    "becomeContributor": "Become a contributor",
-    "viewOnGithub": "View on GitHub"
-  },
-  "badge": {
-    "new": "New",
-    "updated": "Updated"
-  },
-  "figma": {
-    "figma": "Figma",
-    "viewOnFigma": "View on Figma"
-  },
-  "entityNames": {
-    "wahda-bank": "Wahda Bank",
-    "sahara-bank": "Sahara Bank",
-    "yaqqen-bank": "Yaqqen Bank",
-    "north-bank": "North Africa Bank",
-    "bcd-bank": "Commerce & Development Bank",
-    "atib-bank": "ATIB Bank",
-    "daman-islamic-bank": "Daman Islamic Bank",
-    "group-bank": "Group Bank",
-    "investment-bank": "Investment Bank",
-    "islamic-bank": "Islamic Bank",
-    "tadamun-bank": "Tadamun Bank",
-    "united-bank": "United Bank",
-    "sadad": "Sadad",
-    "edfa3li": "Edfa3li",
-    "mobicash": "MobiCash",
-    "masrafy-pay": "Masrafy Pay",
-    "masrafy-plus": "Masrafy Plus",
-    "ly-pay": "LY Pay",
-    "al-seraj-pay": "Al Seraj Pay",
-    "mobimal": "MobiMal",
-    "nab4pay": "NAB4Pay",
-    "onepay": "OnePay",
-    "sahara-pay": "Sahara Pay",
-    "tlync": "Tlync",
-    "yussor-pay": "Yussor Pay"
-  },
-  "testimonials": {
-    "title": "Meet the Team",
-    "subtitle": "The people behind Khazna, building Libya's fintech design resource.",
-    "sara": {
-      "name": "Sara Shemisa",
-      "role": "UI Designer",
-      "quote": "Design is about solving real problems. Khazna gives Libyan developers a head start with polished, ready-to-use patterns."
-    },
-    "mosab": {
-      "name": "Mosab Omaer",
-      "role": "Developer",
-      "quote": "We built Khazna to bridge the gap between design and development in Libya's growing fintech ecosystem."
-    },
-    "moaad": {
-      "name": "Moaad Elhuni",
-      "role": "Designer",
-      "quote": "Great products start with great design systems. Khazna is our contribution to the Libyan tech community."
-    }
-  },
-  "contributorNames": {
-    "ahmed": "Ahmed Ali",
-    "sara": "Sara Smith",
-    "omar": "Omar Khaleel",
-    "huda": "Huda Ben",
-    "karim": "Karim Zayd"
-  },
-  "screenshotLabels": {
-    "Login": "Login",
-    "Accounts": "Accounts",
-    "Welcome": "Welcome",
-    "Card Details": "Card Details",
-    "Profile": "Profile",
-    "Splash Screen": "Splash Screen",
-    "Home Dashboard": "Home Dashboard",
-    "Transfer": "Transfer",
-    "Settings": "Settings"
-  },
-  "screenshotCategories": {
-    "onboarding": "Onboarding",
-    "dashboard": "Dashboard",
-    "transaction": "Transaction",
-    "settings": "Settings",
-    "auth": "Authentication"
-  }
+	"common": {
+		"download": "Download",
+		"copied": "Copied!",
+		"back": "Back",
+		"clickToCopy": "Click to copy",
+		"screens": "Screens",
+		"noScreenshots": "No screenshots available",
+		"community": "Community"
+	},
+	"navbar": {
+		"logos": "Logos",
+		"apps": "Apps",
+		"searchLogos": "Search logos...",
+		"searchApps": "Search apps...",
+		"contribute": "Contribute"
+	},
+	"home": {
+		"title": "Logo Library",
+		"description": "A collection of logos for Libyan banks and payment methods. Available in mono, branded, and logomark variants.",
+		"banks": "Banks",
+		"paymentMethods": "Payment Methods",
+		"mono": "Mono",
+		"branded": "Branded",
+		"logomark": "Logomark",
+		"size": "size"
+	},
+	"apps": {
+		"title": "App UI Gallery",
+		"description": "Explore user interface patterns from real Libyan applications. Curated screenshots for research and inspiration.",
+		"noAppsFound": "No apps found matching your search.",
+		"noScreenshotsBank": "No screenshots available for this bank."
+	},
+	"sidebar": {
+		"details": "Details",
+		"assets": "Assets",
+		"code": "Code",
+		"noLogoSelected": "No logo selected",
+		"selectFromGrid": "Select an item from the grid to view details",
+		"downloadAll": "Download All",
+		"zipping": "Zipping...",
+		"downloadFailed": "Could not convert image. Try downloading as SVG.",
+		"downloadImageFailed": "Failed to download image.",
+		"zipFailed": "Failed to create zip file."
+	},
+	"contributors": {
+		"contributors": "Contributors",
+		"dontLoseThis": "Don't lose this",
+		"followLine1": "you probably won't see this website again.",
+		"followLine2": "save us so we can make you a better",
+		"tapShare": "Tap share icon to bookmark",
+		"roles": {
+			"coder": "coder",
+			"developer": "developer",
+			"designer": "designer",
+			"uiDesigner": "UI designer",
+			"contentManager": "content manager",
+			"graphicDesigner": "graphic designer",
+			"brandDesigner": "brand designer"
+		},
+		"missingSomething": "Join the community",
+		"contributeDescription": "Join our growing community of contributors and help build the most comprehensive fintech UI resource in Libya.",
+		"becomeContributor": "Become a contributor",
+		"viewOnGithub": "View on GitHub"
+	},
+	"badge": {
+		"new": "New",
+		"updated": "Updated"
+	},
+	"figma": {
+		"figma": "Figma",
+		"viewOnFigma": "View on Figma"
+	},
+	"entityNames": {
+		"wahda-bank": "Wahda Bank",
+		"sahara-bank": "Sahara Bank",
+		"yaqqen-bank": "Yaqqen Bank",
+		"north-bank": "North Africa Bank",
+		"bcd-bank": "Commerce & Development Bank",
+		"atib-bank": "ATIB Bank",
+		"daman-islamic-bank": "Daman Islamic Bank",
+		"group-bank": "Group Bank",
+		"investment-bank": "Investment Bank",
+		"islamic-bank": "Islamic Bank",
+		"tadamun-bank": "Tadamun Bank",
+		"united-bank": "United Bank",
+		"sadad": "Sadad",
+		"edfa3li": "Edfa3li",
+		"mobicash": "MobiCash",
+		"masrafy-pay": "Masrafy Pay",
+		"masrafy-plus": "Masrafy Plus",
+		"ly-pay": "LY Pay",
+		"al-seraj-pay": "Al Seraj Pay",
+		"mobimal": "MobiMal",
+		"nab4pay": "NAB4Pay",
+		"onepay": "OnePay",
+		"sahara-pay": "Sahara Pay",
+		"tlync": "Tlync",
+		"yussor-pay": "Yussor Pay"
+	},
+	"testimonials": {
+		"title": "Meet the Team",
+		"subtitle": "The people behind Khazna, building Libya's fintech design resource.",
+		"sara": {
+			"name": "Sara Shemisa",
+			"role": "UI Designer",
+			"quote": "Design is about solving real problems. Khazna gives Libyan developers a head start with polished, ready-to-use patterns."
+		},
+		"mosab": {
+			"name": "Mosab Omaer",
+			"role": "Developer",
+			"quote": "We built Khazna to bridge the gap between design and development in Libya's growing fintech ecosystem."
+		},
+		"moaad": {
+			"name": "Moaad Elhuni",
+			"role": "Designer",
+			"quote": "Great products start with great design systems. Khazna is our contribution to the Libyan tech community."
+		}
+	},
+	"contributorNames": {
+		"ahmed": "Ahmed Ali",
+		"sara": "Sara Smith",
+		"omar": "Omar Khaleel",
+		"huda": "Huda Ben",
+		"karim": "Karim Zayd"
+	},
+	"screenshotLabels": {
+		"Login": "Login",
+		"Accounts": "Accounts",
+		"Welcome": "Welcome",
+		"Card Details": "Card Details",
+		"Profile": "Profile",
+		"Splash Screen": "Splash Screen",
+		"Home Dashboard": "Home Dashboard",
+		"Transfer": "Transfer",
+		"Settings": "Settings"
+	},
+	"screenshotCategories": {
+		"onboarding": "Onboarding",
+		"dashboard": "Dashboard",
+		"transaction": "Transaction",
+		"settings": "Settings",
+		"auth": "Authentication"
+	}
 }

@@ -10,7 +10,7 @@
 
     <!-- FOUC prevention: apply theme + language before paint -->
     <script>
-      (function() {
+      (() => {
         var theme = localStorage.getItem('khazna-theme') || 'light';
         var lang = localStorage.getItem('khazna-lang') || 'ar';
         if (theme === 'dark') document.documentElement.classList.add('dark');

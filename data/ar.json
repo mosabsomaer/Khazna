@@ -1,145 +1,145 @@
 {
-  "common": {
-    "download": "تحميل",
-    "copied": "تم النسخ!",
-    "back": "رجوع",
-    "clickToCopy": "انقر للنسخ",
-    "screens": "شاشات",
-    "noScreenshots": "لا توجد لقطات شاشة",
-    "community": "المجتمع"
-  },
-  "navbar": {
-    "logos": "الشعارات",
-    "apps": "التطبيقات",
-    "searchLogos": "ابحث عن شعار...",
-    "searchApps": "ابحث عن تطبيق...",
-    "contribute": "ساهم معنا"
-  },
-  "home": {
-    "title": "مكتبة الشعارات",
-    "description": "مجموعة شعارات للمصارف الليبية وطرق الدفع. متوفرة بنسخ أحادية اللون وملونة ورمزية.",
-    "banks": "المصارف",
-    "paymentMethods": "طرق الدفع",
-    "mono": "أحادي",
-    "branded": "ملون",
-    "logomark": "رمز",
-    "size": "الحجم"
-  },
-  "apps": {
-    "title": "معرض واجهات التطبيقات",
-    "description": "استكشف أنماط واجهات المستخدم من التطبيقات المصرفية الليبية. لقطات شاشة مختارة للبحث والإلهام.",
-    "noAppsFound": "لم يتم العثور على تطبيقات مطابقة لبحثك.",
-    "noScreenshotsBank": "لا توجد لقطات شاشة لهذا المصرف."
-  },
-  "sidebar": {
-    "details": "التفاصيل",
-    "assets": "الملفات",
-    "code": "الكود",
-    "noLogoSelected": "لم يتم اختيار شعار",
-    "selectFromGrid": "اختر عنصرًا من الشبكة لعرض التفاصيل",
-    "downloadAll": "تحميل الكل",
-    "zipping": "جاري الضغط...",
-    "downloadFailed": "تعذر تحويل الصورة. جرب التحميل كـ SVG.",
-    "downloadImageFailed": "فشل تحميل الصورة.",
-    "zipFailed": "فشل إنشاء ملف مضغوط."
-  },
-  "contributors": {
-    "contributors": "المساهمون",
-    "dontLoseThis": "لا تفقد هذا الموقع",
-    "followLine1": "على الأغلب لن ترى هذا الموقع مرة أخرى.",
-    "followLine2": "احفظنا حتى نجعلك افضل",
-    "tapShare": "اضغط على أيقونة المشاركة للحفظ",
-    "roles": {
-      "coder": "مبرمج",
-      "developer": "مطور",
-      "designer": "مصمم",
-      "uiDesigner": "مصمم واجهات",
-      "contentManager": "مدير محتوى",
-      "graphicDesigner": "مصمم جرافيك",
-      "brandDesigner": "مصمم هوية"
-    },
-    "missingSomething": "انضم إلى المجتمع",
-    "contributeDescription": "انضم إلى مجتمعنا المتنامي من المساهمين وساعد في بناء أشمل مورد لواجهات التكنولوجيا المالية في ليبيا.",
-    "becomeContributor": "كن مساهمًا",
-    "viewOnGithub": "عرض على GitHub"
-  },
-  "badge": {
-    "new": "جديد",
-    "updated": "محدّث"
-  },
-  "figma": {
-    "figma": "Figma",
-    "viewOnFigma": "عرض في Figma"
-  },
-  "entityNames": {
-    "wahda-bank": "مصرف الوحدة",
-    "sahara-bank": "مصرف الصحاري",
-    "yaqqen-bank": "مصرف يقين",
-    "north-bank": "مصرف شمال أفريقيا",
-    "bcd-bank": "مصرف التجارة والتنمية",
-    "atib-bank": "المصرف العربي التونسي",
-    "daman-islamic-bank": "مصرف الضمان الإسلامي",
-    "group-bank": "مصرف المجموعة",
-    "investment-bank": "مصرف الاستثمار",
-    "islamic-bank": "المصرف الإسلامي",
-    "tadamun-bank": "مصرف التضامن",
-    "united-bank": "المصرف المتحد",
-    "sadad": "سداد",
-    "edfa3li": "ادفعلي",
-    "mobicash": "موبي كاش",
-    "masrafy-pay": "مصرفي باي",
-    "masrafy-plus": "مصرفي بلس",
-    "ly-pay": "ليبيا باي",
-    "al-seraj-pay": "السراج باي",
-    "mobimal": "موبي مال",
-    "nab4pay": "ناب فور باي",
-    "onepay": "ون باي",
-    "sahara-pay": "صحاري باي",
-    "tlync": "تلينك",
-    "yussor-pay": "يسر باي"
-  },
-  "testimonials": {
-    "title": "تعرف على الفريق",
-    "subtitle": "الأشخاص وراء خزنة، يبنون مصدر تصميم التكنولوجيا المالية في ليبيا.",
-    "sara": {
-      "name": "سارة الشميسة",
-      "role": "مصممة واجهات",
-      "quote": "التصميم هو حل مشاكل حقيقية. خزنة يو آي تمنح المطورين الليبيين انطلاقة بأنماط جاهزة ومصقولة."
-    },
-    "mosab": {
-      "name": "مصعب عمر",
-      "role": "مطور",
-      "quote": "بنينا خزنة يو آي لسد الفجوة بين التصميم والتطوير في منظومة التكنولوجيا المالية المتنامية في ليبيا."
-    },
-    "moaad": {
-      "name": "معاد الهوني",
-      "role": "مصمم",
-      "quote": "المنتجات الرائعة تبدأ بأنظمة تصميم رائعة. خزنة يو آي هي مساهمتنا لمجتمع التقنية الليبي."
-    }
-  },
-  "contributorNames": {
-    "ahmed": "أحمد علي",
-    "sara": "سارة سميث",
-    "omar": "عمر خليل",
-    "huda": "هدى بن",
-    "karim": "كريم زيد"
-  },
-  "screenshotLabels": {
-    "Login": "تسجيل الدخول",
-    "Accounts": "الحسابات",
-    "Welcome": "مرحبًا",
-    "Card Details": "تفاصيل البطاقة",
-    "Profile": "الملف الشخصي",
-    "Splash Screen": "شاشة البداية",
-    "Home Dashboard": "لوحة التحكم",
-    "Transfer": "التحويل",
-    "Settings": "الإعدادات"
-  },
-  "screenshotCategories": {
-    "onboarding": "البدء",
-    "dashboard": "لوحة التحكم",
-    "transaction": "المعاملات",
-    "settings": "الإعدادات",
-    "auth": "المصادقة"
-  }
+	"common": {
+		"download": "تحميل",
+		"copied": "تم النسخ!",
+		"back": "رجوع",
+		"clickToCopy": "انقر للنسخ",
+		"screens": "شاشات",
+		"noScreenshots": "لا توجد لقطات شاشة",
+		"community": "المجتمع"
+	},
+	"navbar": {
+		"logos": "الشعارات",
+		"apps": "التطبيقات",
+		"searchLogos": "ابحث عن شعار...",
+		"searchApps": "ابحث عن تطبيق...",
+		"contribute": "ساهم معنا"
+	},
+	"home": {
+		"title": "مكتبة الشعارات",
+		"description": "مجموعة شعارات للمصارف الليبية وطرق الدفع. متوفرة بنسخ أحادية اللون وملونة ورمزية.",
+		"banks": "المصارف",
+		"paymentMethods": "طرق الدفع",
+		"mono": "أحادي",
+		"branded": "ملون",
+		"logomark": "رمز",
+		"size": "الحجم"
+	},
+	"apps": {
+		"title": "معرض واجهات التطبيقات",
+		"description": "استكشف أنماط واجهات المستخدم من التطبيقات المصرفية الليبية. لقطات شاشة مختارة للبحث والإلهام.",
+		"noAppsFound": "لم يتم العثور على تطبيقات مطابقة لبحثك.",
+		"noScreenshotsBank": "لا توجد لقطات شاشة لهذا المصرف."
+	},
+	"sidebar": {
+		"details": "التفاصيل",
+		"assets": "الملفات",
+		"code": "الكود",
+		"noLogoSelected": "لم يتم اختيار شعار",
+		"selectFromGrid": "اختر عنصرًا من الشبكة لعرض التفاصيل",
+		"downloadAll": "تحميل الكل",
+		"zipping": "جاري الضغط...",
+		"downloadFailed": "تعذر تحويل الصورة. جرب التحميل كـ SVG.",
+		"downloadImageFailed": "فشل تحميل الصورة.",
+		"zipFailed": "فشل إنشاء ملف مضغوط."
+	},
+	"contributors": {
+		"contributors": "المساهمون",
+		"dontLoseThis": "لا تفقد هذا الموقع",
+		"followLine1": "على الأغلب لن ترى هذا الموقع مرة أخرى.",
+		"followLine2": "احفظنا حتى نجعلك افضل",
+		"tapShare": "اضغط على أيقونة المشاركة للحفظ",
+		"roles": {
+			"coder": "مبرمج",
+			"developer": "مطور",
+			"designer": "مصمم",
+			"uiDesigner": "مصمم واجهات",
+			"contentManager": "مدير محتوى",
+			"graphicDesigner": "مصمم جرافيك",
+			"brandDesigner": "مصمم هوية"
+		},
+		"missingSomething": "انضم إلى المجتمع",
+		"contributeDescription": "انضم إلى مجتمعنا المتنامي من المساهمين وساعد في بناء أشمل مورد لواجهات التكنولوجيا المالية في ليبيا.",
+		"becomeContributor": "كن مساهمًا",
+		"viewOnGithub": "عرض على GitHub"
+	},
+	"badge": {
+		"new": "جديد",
+		"updated": "محدّث"
+	},
+	"figma": {
+		"figma": "Figma",
+		"viewOnFigma": "عرض في Figma"
+	},
+	"entityNames": {
+		"wahda-bank": "مصرف الوحدة",
+		"sahara-bank": "مصرف الصحاري",
+		"yaqqen-bank": "مصرف يقين",
+		"north-bank": "مصرف شمال أفريقيا",
+		"bcd-bank": "مصرف التجارة والتنمية",
+		"atib-bank": "المصرف العربي التونسي",
+		"daman-islamic-bank": "مصرف الضمان الإسلامي",
+		"group-bank": "مصرف المجموعة",
+		"investment-bank": "مصرف الاستثمار",
+		"islamic-bank": "المصرف الإسلامي",
+		"tadamun-bank": "مصرف التضامن",
+		"united-bank": "المصرف المتحد",
+		"sadad": "سداد",
+		"edfa3li": "ادفعلي",
+		"mobicash": "موبي كاش",
+		"masrafy-pay": "مصرفي باي",
+		"masrafy-plus": "مصرفي بلس",
+		"ly-pay": "ليبيا باي",
+		"al-seraj-pay": "السراج باي",
+		"mobimal": "موبي مال",
+		"nab4pay": "ناب فور باي",
+		"onepay": "ون باي",
+		"sahara-pay": "صحاري باي",
+		"tlync": "تلينك",
+		"yussor-pay": "يسر باي"
+	},
+	"testimonials": {
+		"title": "تعرف على الفريق",
+		"subtitle": "الأشخاص وراء خزنة، يبنون مصدر تصميم التكنولوجيا المالية في ليبيا.",
+		"sara": {
+			"name": "سارة الشميسة",
+			"role": "مصممة واجهات",
+			"quote": "التصميم هو حل مشاكل حقيقية. خزنة يو آي تمنح المطورين الليبيين انطلاقة بأنماط جاهزة ومصقولة."
+		},
+		"mosab": {
+			"name": "مصعب عمر",
+			"role": "مطور",
+			"quote": "بنينا خزنة يو آي لسد الفجوة بين التصميم والتطوير في منظومة التكنولوجيا المالية المتنامية في ليبيا."
+		},
+		"moaad": {
+			"name": "معاد الهوني",
+			"role": "مصمم",
+			"quote": "المنتجات الرائعة تبدأ بأنظمة تصميم رائعة. خزنة يو آي هي مساهمتنا لمجتمع التقنية الليبي."
+		}
+	},
+	"contributorNames": {
+		"ahmed": "أحمد علي",
+		"sara": "سارة سميث",
+		"omar": "عمر خليل",
+		"huda": "هدى بن",
+		"karim": "كريم زيد"
+	},
+	"screenshotLabels": {
+		"Login": "تسجيل الدخول",
+		"Accounts": "الحسابات",
+		"Welcome": "مرحبًا",
+		"Card Details": "تفاصيل البطاقة",
+		"Profile": "الملف الشخصي",
+		"Splash Screen": "شاشة البداية",
+		"Home Dashboard": "لوحة التحكم",
+		"Transfer": "التحويل",
+		"Settings": "الإعدادات"
+	},
+	"screenshotCategories": {
+		"onboarding": "البدء",
+		"dashboard": "لوحة التحكم",
+		"transaction": "المعاملات",
+		"settings": "الإعدادات",
+		"auth": "المصادقة"
+	}
 }
