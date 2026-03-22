@@ -189,6 +189,23 @@
 	}
 }
 
+/* ─── Shiki syntax highlighting dual-theme ─── */
+.shiki,
+.shiki span {
+	color: var(--shiki-light);
+	background-color: transparent;
+}
+
+.dark .shiki,
+.dark .shiki span {
+	color: var(--shiki-dark);
+	background-color: transparent;
+}
+
+.shiki {
+	background-color: transparent !important;
+}
+
 /* ─── Custom scrollbar (webkit) ─── */
 ::-webkit-scrollbar {
 	width: 8px;
@@ -253,39 +270,34 @@
 	border-radius: 999px;
 }
 
-/* ─── Slide-block theme transition ─── */
-.slide-block {
-	position: fixed;
-	inset: 0;
+/* ─── Circle-expand theme transition (View Transitions API) ─── */
+
+/* Explicit opt-in for the root element */
+:root {
+	view-transition-name: root;
+}
+
+/* Disable default cross-fade; JS drives the clip-path animation */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+/* Old snapshot sits beneath */
+::view-transition-old(root) {
+	z-index: 1;
+}
+
+/* New snapshot sits on top and receives the clip-path circle animation from JS */
+::view-transition-new(root) {
 	z-index: 9999;
-	pointer-events: none;
-	transform: translateY(100%);
 }
 
-.slide-block.phase-cover {
-	pointer-events: all;
-	animation: slide-cover 0.35s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-}
-
-.slide-block.phase-reveal {
-	pointer-events: all;
-	animation: slide-reveal 0.35s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-}
-
-@keyframes slide-cover {
-	from {
-		transform: translateY(100%);
-	}
-	to {
-		transform: translateY(0);
-	}
-}
-
-@keyframes slide-reveal {
-	from {
-		transform: translateY(0);
-	}
-	to {
-		transform: translateY(-100%);
+/* Respect reduced motion: skip the transition entirely */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-duration: 0s !important;
 	}
 }

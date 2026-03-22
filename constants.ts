@@ -1,8 +1,8 @@
 import type { Bank, PaymentMethod, Screenshot } from "./types";
 
 export const SOCIAL_LINKS = {
-	github: "https://github.com",
-	figma: "https://figma.com",
+	github: "https://github.com/mosabsomaer/Khazna",
+	figma: "https://www.figma.com/design/eREKtHmHAHgfZIWI3kSjxP/Khazna",
 	email: "mailto:hello@khazna.ly",
 };
 
@@ -48,7 +48,6 @@ export const BANKS: Bank[] = [
 		colors: ["#034694", "#27AAE2", "#1A75BC"],
 		hasScreenshots: true,
 		type: "bank",
-		figmaUrl: "https://figma.com/file/wahda",
 	},
 	{
 		id: "sahara-bank",
@@ -59,7 +58,6 @@ export const BANKS: Bank[] = [
 		hasScreenshots: true,
 		isNew: true,
 		type: "bank",
-		figmaUrl: "https://figma.com/file/sahara",
 	},
 	{
 		id: "yaqqen-bank",
@@ -160,7 +158,6 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		logoUrl: "/logos/payment-methods/sadad.svg",
 		colors: ["#67696B"],
 		type: "payment_method",
-		figmaUrl: "https://figma.com/file/sadad",
 	},
 	{
 		id: "edfa3li",

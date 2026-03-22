@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 export function useLanguage() {
 	const { i18n } = useTranslation();
 
-	const currentLanguage = i18n.language || "ar";
+	const currentLanguage = i18n.language || "en";
 	const isRTL = currentLanguage === "ar";
 
 	const toggleLanguage = useCallback(() => {

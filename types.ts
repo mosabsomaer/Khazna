@@ -41,5 +41,5 @@ export interface UIContextType {
 	setLogoVariant: (variant: LogoVariant) => void;
 	getLogoUrl: (item: BaseEntity) => string;
 	theme: Theme;
-	toggleTheme: () => void;
+	toggleTheme: (originRect?: DOMRect) => void;
 }

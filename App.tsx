@@ -1,5 +1,7 @@
 import type { JSX } from "react";
 import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Contributors } from "./components/Contributors";
 import { DetailPanel } from "./components/DetailPanel";
@@ -15,6 +17,7 @@ export const UIContext = createContext<UIContextType | null>(null);
 function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 	const { closeSidebar } = useUIContext();
 	const _location = useLocation();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		closeSidebar();
@@ -28,6 +31,18 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 					{children}
 				</main>
 				<Contributors />
+				<footer className="border-t border-border/30 py-4 text-center">
+					<a
+						href="https://binary.ly"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+					>
+						{t('footer.hostedBy')}
+						<img src="/binary-logo.svg" alt="Binary" className="h-4 w-4 dark:invert" />
+						<span className="font-medium">Binary</span>
+					</a>
+				</footer>
 			</div>
 			<DetailPanel />
 		</div>
@@ -51,7 +66,6 @@ function App(): JSX.Element {
 		return (localStorage.getItem("khazna-theme") as Theme) || "light";
 	});
 
-	const slideRef = useRef<HTMLDivElement>(null);
 	const isAnimating = useRef(false);
 
 	const isSidebarOpen = !!selectedItem;
@@ -72,54 +86,122 @@ function App(): JSX.Element {
 		[logoVariant],
 	);
 
-	// Sync theme class to <html> and localStorage
+	// Sync theme class to <html> and localStorage.
 	useEffect(() => {
-		const html = document.documentElement;
-		if (theme === "dark") {
-			html.classList.add("dark");
-		} else {
-			html.classList.remove("dark");
-		}
+		document.documentElement.classList.toggle("dark", theme === "dark");
 		localStorage.setItem("khazna-theme", theme);
 	}, [theme]);
 
-	const toggleTheme = useCallback(() => {
-		if (isAnimating.current) return;
-		isAnimating.current = true;
+	const toggleTheme = useCallback(
+		(originRect?: DOMRect) => {
+			if (isAnimating.current) return;
 
-		const el = slideRef.current;
-		if (!el) {
-			setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-			isAnimating.current = false;
-			return;
-		}
+			const nextTheme = theme === "dark" ? "light" : "dark";
 
-		// Set the block color to the INCOMING theme's background
-		const nextTheme = theme === "dark" ? "light" : "dark";
-		el.style.backgroundColor = nextTheme === "dark" ? "#080808" : "#ffffff";
+			// Respect prefers-reduced-motion: instant switch, no animation
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				setTheme(nextTheme);
+				return;
+			}
 
-		// Phase 1: cover
-		el.className = "slide-block phase-cover";
+			isAnimating.current = true;
 
-		const onCoverEnd = () => {
-			el.removeEventListener("animationend", onCoverEnd);
-			// Switch theme at midpoint
-			setTheme(nextTheme);
+			// Calculate circle origin from button center, fallback to top-right
+			const x = originRect
+				? originRect.left + originRect.width / 2
+				: window.innerWidth - 48;
+			const y = originRect
+				? originRect.top + originRect.height / 2
+				: 32;
 
-			// Phase 2: reveal
-			requestAnimationFrame(() => {
-				el.className = "slide-block phase-reveal";
+			// Maximum radius needed to cover the entire viewport from the origin
+			const maxRadius = Math.hypot(
+				Math.max(x, window.innerWidth - x),
+				Math.max(y, window.innerHeight - y),
+			);
 
-				const onRevealEnd = () => {
-					el.removeEventListener("animationend", onRevealEnd);
-					el.className = "slide-block";
+			// --- View Transitions API path (Chrome 111+, Edge 111+, Safari 18+) ---
+			if (document.startViewTransition) {
+				const transition = document.startViewTransition(() => {
+					// flushSync ensures React renders synchronously so the
+					// View Transitions API captures the correct "after" snapshot
+					// without any intermediate flash.
+					flushSync(() => {
+						setTheme(nextTheme);
+					});
+				});
+
+				transition.ready.then(() => {
+					document.documentElement.animate(
+						{
+							clipPath: [
+								`circle(0px at ${x}px ${y}px)`,
+								`circle(${maxRadius}px at ${x}px ${y}px)`,
+							],
+						},
+						{
+							duration: 600,
+							easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+							pseudoElement: "::view-transition-new(root)",
+						},
+					);
+				});
+
+				transition.finished.then(() => {
 					isAnimating.current = false;
-				};
-				el.addEventListener("animationend", onRevealEnd);
-			});
-		};
-		el.addEventListener("animationend", onCoverEnd);
-	}, [theme]);
+				});
+
+				return;
+			}
+
+			// --- Fallback: overlay div with clip-path + Web Animations API ---
+			if (typeof Element.prototype.animate === "function") {
+				const overlay = document.createElement("div");
+				overlay.style.cssText = `
+					position: fixed;
+					inset: 0;
+					z-index: 9999;
+					background: ${nextTheme === "dark" ? "#080808" : "#ffffff"};
+					pointer-events: none;
+					clip-path: circle(0px at ${x}px ${y}px);
+				`;
+				document.body.appendChild(overlay);
+
+				const animation = overlay.animate(
+					{
+						clipPath: [
+							`circle(0px at ${x}px ${y}px)`,
+							`circle(${maxRadius}px at ${x}px ${y}px)`,
+						],
+					},
+					{
+						duration: 600,
+						easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+						fill: "forwards",
+					},
+				);
+
+				// Switch theme when the circle covers ~40% of the viewport
+				setTimeout(() => {
+					flushSync(() => {
+						setTheme(nextTheme);
+					});
+				}, 250);
+
+				animation.finished.then(() => {
+					overlay.remove();
+					isAnimating.current = false;
+				});
+
+				return;
+			}
+
+			// --- Ultimate fallback: instant switch ---
+			setTheme(nextTheme);
+			isAnimating.current = false;
+		},
+		[theme],
+	);
 
 	const contextValue = useMemo<UIContextType>(
 		() => ({
@@ -157,7 +239,6 @@ function App(): JSX.Element {
 					</Routes>
 				</Layout>
 			</MemoryRouter>
-			<div ref={slideRef} className="slide-block" />
 		</UIContext.Provider>
 	);
 }

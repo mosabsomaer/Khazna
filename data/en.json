@@ -141,5 +141,8 @@
 		"transaction": "Transaction",
 		"settings": "Settings",
 		"auth": "Authentication"
+	},
+	"footer": {
+		"hostedBy": "Hosted by"
 	}
 }

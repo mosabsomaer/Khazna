@@ -15,7 +15,15 @@ import { useUIContext } from "../hooks/useUIContext";
 import { convertSvgToImage, downloadBlob } from "../utils/download";
 import { generateCode } from "../utils/generators";
 import { FigmaLink } from "./FigmaLink";
+import { CodeBlock } from "./ui/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+
+const FORMAT_TO_LANG: Record<string, string> = {
+	React: "tsx",
+	Vue: "vue",
+	Svelte: "svelte",
+	HTML: "html",
+};
 
 const MOCK_SVG_CONTENT = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -274,9 +282,11 @@ export function DetailPanel(): JSX.Element | null {
 										className="relative group cursor-pointer overflow-hidden rounded-lg border border-border bg-elevated"
 										onClick={handleCopy}
 									>
-										<pre className="p-4 font-mono text-xs text-dim overflow-x-auto h-64 custom-scrollbar leading-relaxed">
-											<code>{generatedCode}</code>
-										</pre>
+										<CodeBlock
+											code={generatedCode}
+											language={FORMAT_TO_LANG[codeFormat]}
+											className="p-4 font-mono text-xs overflow-x-auto h-64 custom-scrollbar leading-relaxed"
+										/>
 
 										<div
 											className={`

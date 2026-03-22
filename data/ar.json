@@ -141,5 +141,8 @@
 		"transaction": "المعاملات",
 		"settings": "الإعدادات",
 		"auth": "المصادقة"
+	},
+	"footer": {
+		"hostedBy": "استضافة"
 	}
 }
