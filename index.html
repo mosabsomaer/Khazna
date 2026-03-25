@@ -6,12 +6,17 @@
     <title>Khazna - Libyan Media Assets</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- FOUC prevention: apply theme + language before paint -->
     <script>
       (() => {
-        var theme = localStorage.getItem('khazna-theme') || 'light';
+        var theme = localStorage.getItem('khazna-theme');
+        if (!theme) {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        }
         var lang = localStorage.getItem('khazna-lang') || 'ar';
         if (theme === 'dark') document.documentElement.classList.add('dark');
         document.documentElement.lang = lang;

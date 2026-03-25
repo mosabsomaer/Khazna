@@ -1,10 +1,18 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'Ghroob';
+  src: url('/fonts/GHROOBARABICITF-LIGHT.TTF') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: 'Inter', 'Noto Sans Arabic', sans-serif;
+  --font-sans: 'Inter', 'Ghroob', sans-serif;
 
   /* shadcn tokens */
   --color-background: var(--background);
