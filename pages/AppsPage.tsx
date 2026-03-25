@@ -5,10 +5,12 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Badge } from "../components/Badge";
 import { BANKS, MOCK_SCREENSHOTS } from "../constants";
+import { useSound } from "../hooks/useSound";
 import type { Bank } from "../types";
 
 function AppCard({ app }: { app: Bank }): JSX.Element {
 	const { t } = useTranslation();
+	const play = useSound();
 	const screenshots = MOCK_SCREENSHOTS[app.id] || [];
 	const screenCount = screenshots.length;
 	const hasScreens = screenCount > 0;
@@ -17,12 +19,14 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 	function nextSlide(e: React.MouseEvent): void {
 		e.preventDefault();
 		e.stopPropagation();
+		play("swipe");
 		setCurrentSlide((prev) => (prev + 1) % screenshots.length);
 	}
 
 	function prevSlide(e: React.MouseEvent): void {
 		e.preventDefault();
 		e.stopPropagation();
+		play("swipe");
 		setCurrentSlide((prev) => (prev - 1 + screenshots.length) % screenshots.length);
 	}
 

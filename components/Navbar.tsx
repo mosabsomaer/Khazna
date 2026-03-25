@@ -5,11 +5,14 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { SOCIAL_LINKS } from "../constants";
 import { useLanguage } from "../hooks/useLanguage";
+import { useSound } from "../hooks/useSound";
+import { SoundToggle } from "./SoundToggle";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar(): JSX.Element {
 	const { t } = useTranslation();
 	const { currentLanguage, toggleLanguage } = useLanguage();
+	const play = useSound();
 	const location = useLocation();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -24,7 +27,7 @@ export function Navbar(): JSX.Element {
 			<div className="max-w-[1600px] mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
 				{/* Left: Brand & Desktop Nav */}
 				<div className="flex items-center gap-8">
-					<Link to="/" className="z-50">
+					<Link to="/" className="z-50" onClick={() => play("tap")}>
 						<img
 							src={currentLanguage === "ar" ? "/ar-logo.svg" : "/en-logo.svg"}
 							alt="Khazna"
@@ -35,6 +38,7 @@ export function Navbar(): JSX.Element {
 					<nav className="hidden md:flex items-center gap-1">
 						<Link
 							to="/"
+							onClick={() => play("tap")}
 							className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${!isAppsPage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:text-primary hover:bg-surface"}`}
 						>
 							<LayoutGrid size={16} />
@@ -42,6 +46,7 @@ export function Navbar(): JSX.Element {
 						</Link>
 						<Link
 							to="/apps"
+							onClick={() => play("tap")}
 							className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isAppsPage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:text-primary hover:bg-surface"}`}
 						>
 							<Smartphone size={16} />
@@ -71,9 +76,10 @@ export function Navbar(): JSX.Element {
 						<Figma size={20} />
 					</a>
 					<div className="w-px h-4 bg-border mx-1" />
+					<SoundToggle />
 					<ThemeToggle />
 					<button
-						onClick={toggleLanguage}
+						onClick={() => { play("button"); toggleLanguage(); }}
 						className="px-3 py-1.5 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary hover:bg-surface-hover transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
@@ -90,15 +96,16 @@ export function Navbar(): JSX.Element {
 
 				{/* Mobile Menu Toggle */}
 				<div className="md:hidden flex items-center gap-2">
+					<SoundToggle />
 					<ThemeToggle />
 					<button
-						onClick={toggleLanguage}
+						onClick={() => { play("button"); toggleLanguage(); }}
 						className="px-2.5 py-1 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
 					</button>
 					<button
-						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+						onClick={() => { play(isMobileMenuOpen ? "transition_down" : "transition_up"); setIsMobileMenuOpen(!isMobileMenuOpen); }}
 						className="p-2 text-muted-foreground hover:text-primary rounded-md"
 					>
 						{isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -113,7 +120,7 @@ export function Navbar(): JSX.Element {
 					<nav className="flex flex-col gap-2">
 						<Link
 							to="/"
-							onClick={handleMobileNav}
+							onClick={() => { play("tap"); handleMobileNav(); }}
 							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${!isAppsPage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
 						>
 							<LayoutGrid size={20} />
@@ -121,7 +128,7 @@ export function Navbar(): JSX.Element {
 						</Link>
 						<Link
 							to="/apps"
-							onClick={handleMobileNav}
+							onClick={() => { play("tap"); handleMobileNav(); }}
 							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${isAppsPage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
 						>
 							<Smartphone size={20} />

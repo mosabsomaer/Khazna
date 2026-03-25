@@ -11,6 +11,7 @@ import {
 import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
 import { convertSvgToImage, downloadBlob } from "../utils/download";
 import { generateCode } from "../utils/generators";
@@ -34,8 +35,10 @@ const MOCK_SVG_CONTENT = `<svg width="24" height="24" viewBox="0 0 24 24" fill="
 function ColorPill({ color }: { color: string }): JSX.Element {
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
+	const play = useSound();
 
 	function handleCopy(): void {
+		play("copy-svg");
 		navigator.clipboard.writeText(color);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 600);
@@ -75,6 +78,7 @@ function makeMonoSvg(svg: string): string {
 export function DetailPanel(): JSX.Element | null {
 	const { selectedItem, isSidebarOpen, closeSidebar, logoVariant, getLogoUrl } = useUIContext();
 	const { t } = useTranslation();
+	const play = useSound();
 	const [codeFormat, setCodeFormat] = useState("React");
 	const [copied, setCopied] = useState(false);
 	const [svgContent, setSvgContent] = useState<string>("");
@@ -116,6 +120,7 @@ export function DetailPanel(): JSX.Element | null {
 	}, [activeSvg, codeFormat, selectedItem]);
 
 	function handleCopy(): void {
+		play("copy-svg");
 		navigator.clipboard.writeText(generatedCode);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 600);
@@ -124,6 +129,7 @@ export function DetailPanel(): JSX.Element | null {
 	async function handleDownload(format: string): Promise<void> {
 		if (!selectedItem || !activeSvg || isProcessing) return;
 
+		play("download");
 		setIsProcessing(format);
 		const variantSuffix = logoVariant !== "branded" ? `-${logoVariant}` : "";
 		const filename = `${selectedItem.id}-${selectedItem.name.toLowerCase().replace(/\s+/g, "-")}${variantSuffix}`;
@@ -166,7 +172,7 @@ export function DetailPanel(): JSX.Element | null {
 					<LayoutGrid size={14} /> {t("sidebar.details")}
 				</h2>
 				<button
-					onClick={closeSidebar}
+					onClick={() => { play("transition_down"); closeSidebar(); }}
 					className="p-2 text-muted-subtle hover:text-primary hover:bg-surface-hover rounded-full transition-colors outline-none focus:bg-surface-hover"
 				>
 					<X size={20} />
@@ -263,7 +269,7 @@ export function DetailPanel(): JSX.Element | null {
 										{["React", "Vue", "Svelte", "HTML"].map((fmt) => (
 											<button
 												key={fmt}
-												onClick={() => setCodeFormat(fmt)}
+												onClick={() => { play("select"); setCodeFormat(fmt); }}
 												className={`
                           py-2 text-[10px] sm:text-xs font-medium rounded-lg border transition-all duration-200
                           ${

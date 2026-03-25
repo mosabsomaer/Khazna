@@ -15,12 +15,14 @@ import { useTranslation } from "react-i18next";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { FigmaLink } from "../components/FigmaLink";
 import { BANKS, MOCK_SCREENSHOTS } from "../constants";
+import { useSound } from "../hooks/useSound";
 import type { Screenshot } from "../types";
 import { downloadBlob } from "../utils/download";
 
 export function AppDetailPage(): JSX.Element {
 	const { bankId } = useParams<{ bankId: string }>();
 	const { t } = useTranslation();
+	const play = useSound();
 	const [selectedScreen, setSelectedScreen] = useState<Screenshot | null>(null);
 	const [isDownloadingAll, setIsDownloadingAll] = useState(false);
 	const [isDownloadingSingle, setIsDownloadingSingle] = useState(false);
@@ -34,6 +36,7 @@ export function AppDetailPage(): JSX.Element {
 			const currentIndex = screenshots.findIndex((s) => s.id === selectedScreen.id);
 			if (currentIndex === -1) return;
 
+			play("swipe");
 			const newIndex =
 				direction === "next"
 					? (currentIndex + 1) % screenshots.length
@@ -41,7 +44,7 @@ export function AppDetailPage(): JSX.Element {
 
 			setSelectedScreen(screenshots[newIndex]);
 		},
-		[selectedScreen, screenshots],
+		[selectedScreen, screenshots, play],
 	);
 
 	useEffect(() => {
@@ -65,6 +68,7 @@ export function AppDetailPage(): JSX.Element {
 		async (screen: Screenshot) => {
 			if (!bank) return;
 			try {
+				play("download");
 				setIsDownloadingSingle(true);
 				const response = await fetch(screen.url);
 				const blob = await response.blob();
@@ -77,13 +81,14 @@ export function AppDetailPage(): JSX.Element {
 				setIsDownloadingSingle(false);
 			}
 		},
-		[bank, t],
+		[bank, t, play],
 	);
 
 	const handleDownloadAll = useCallback(async () => {
 		if (!bank || screenshots.length === 0) return;
 
 		try {
+			play("download");
 			setIsDownloadingAll(true);
 			const zip = new JSZip();
 			const folder = zip.folder(bank.name.replace(/\s+/g, "-"));
@@ -110,7 +115,7 @@ export function AppDetailPage(): JSX.Element {
 		} finally {
 			setIsDownloadingAll(false);
 		}
-	}, [bank, screenshots, t]);
+	}, [bank, screenshots, t, play]);
 
 	if (!bank) {
 		return <Navigate to="/apps" replace />;
@@ -176,7 +181,7 @@ export function AppDetailPage(): JSX.Element {
 					screenshots.map((screen) => (
 						<div key={screen.id} className="group flex flex-col gap-3">
 							<button
-								onClick={() => setSelectedScreen(screen)}
+								onClick={() => { play("transition_up"); setSelectedScreen(screen); }}
 								className="relative aspect-9/19 w-full rounded-2xl overflow-hidden border border-border bg-surface cursor-pointer outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
 							>
 								<img
@@ -213,7 +218,7 @@ export function AppDetailPage(): JSX.Element {
 			{selectedScreen && (
 				<div
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
-					onClick={() => setSelectedScreen(null)}
+					onClick={() => { play("transition_down"); setSelectedScreen(null); }}
 				>
 					<button
 						onClick={(e) => {
@@ -238,6 +243,7 @@ export function AppDetailPage(): JSX.Element {
 					<button
 						onClick={(e) => {
 							e.stopPropagation();
+							play("transition_down");
 							setSelectedScreen(null);
 						}}
 						className="absolute top-4 end-4 p-2 text-zinc-400 hover:text-white bg-zinc-800/50 hover:bg-zinc-800 rounded-full transition-colors z-50"

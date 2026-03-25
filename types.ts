@@ -42,4 +42,6 @@ export interface UIContextType {
 	getLogoUrl: (item: BaseEntity) => string;
 	theme: Theme;
 	toggleTheme: (originRect?: DOMRect) => void;
+	soundEnabled: boolean;
+	toggleSound: () => void;
 }

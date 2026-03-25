@@ -63,9 +63,19 @@ function App(): JSX.Element {
 	const [selectedItem, setSelectedItemState] = useState<SelectedItem>(null);
 	const [logoVariant, setLogoVariant] = useState<LogoVariant>("branded");
 	const [theme, setTheme] = useState<Theme>(() => {
-		return (localStorage.getItem("khazna-theme") as Theme) || "light";
+		const stored = localStorage.getItem("khazna-theme") as Theme | null;
+		if (stored) return stored;
+		return window.matchMedia?.("(prefers-color-scheme: dark)").matches
+			? "dark"
+			: "light";
 	});
 
+	const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
+		return localStorage.getItem("khazna-sound") === "true";
+	});
+
+	// Track whether the user has explicitly chosen a theme (vs auto-detected from system)
+	const hasExplicitChoice = useRef(!!localStorage.getItem("khazna-theme"));
 	const isAnimating = useRef(false);
 
 	const isSidebarOpen = !!selectedItem;
@@ -86,17 +96,30 @@ function App(): JSX.Element {
 		[logoVariant],
 	);
 
-	// Sync theme class to <html> and localStorage.
+	// Sync theme class to <html>. Only persist to localStorage if the user
+	// explicitly toggled (not auto-detected from system preference), so that
+	// subsequent visits re-check the OS preference.
 	useEffect(() => {
 		document.documentElement.classList.toggle("dark", theme === "dark");
-		localStorage.setItem("khazna-theme", theme);
+		if (hasExplicitChoice.current) {
+			localStorage.setItem("khazna-theme", theme);
+		}
 	}, [theme]);
+
+	const toggleSound = useCallback(() => {
+		setSoundEnabled((prev) => {
+			const next = !prev;
+			localStorage.setItem("khazna-sound", String(next));
+			return next;
+		});
+	}, []);
 
 	const toggleTheme = useCallback(
 		(originRect?: DOMRect) => {
 			if (isAnimating.current) return;
 
 			const nextTheme = theme === "dark" ? "light" : "dark";
+			hasExplicitChoice.current = true;
 
 			// Respect prefers-reduced-motion: instant switch, no animation
 			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -214,6 +237,8 @@ function App(): JSX.Element {
 			getLogoUrl,
 			theme,
 			toggleTheme,
+			soundEnabled,
+			toggleSound,
 		}),
 		[
 			selectedItem,
@@ -224,6 +249,8 @@ function App(): JSX.Element {
 			getLogoUrl,
 			theme,
 			toggleTheme,
+			soundEnabled,
+			toggleSound,
 		],
 	);
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Badge } from "../components/Badge";
 import { BANKS, PAYMENT_METHODS } from "../constants";
+import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
 import type { LogoVariant } from "../types";
 
@@ -11,6 +12,7 @@ type Category = "banks" | "payment_methods";
 export function HomePage(): JSX.Element {
 	const { setSelectedItem, selectedItem, logoVariant, setLogoVariant, getLogoUrl } = useUIContext();
 	const { t } = useTranslation();
+	const play = useSound();
 	const [activeCategory, setActiveCategory] = useState<Category>("banks");
 	const [logoSize, setLogoSize] = useState(100);
 
@@ -41,7 +43,7 @@ export function HomePage(): JSX.Element {
 					{categories.map((cat) => (
 						<button
 							key={cat.key}
-							onClick={() => setActiveCategory(cat.key)}
+							onClick={() => { play("select"); setActiveCategory(cat.key); }}
 							className={`
                 relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors cursor-pointer
                 ${
@@ -88,7 +90,7 @@ export function HomePage(): JSX.Element {
 					{variants.map((v) => (
 						<button
 							key={v.key}
-							onClick={() => setLogoVariant(v.key)}
+							onClick={() => { play("tap"); setLogoVariant(v.key); }}
 							className={`
                 px-4 py-1.5 text-sm font-medium rounded-md transition-all
                 ${
@@ -112,7 +114,7 @@ export function HomePage(): JSX.Element {
 						return (
 							<button
 								key={item.id}
-								onClick={() => setSelectedItem(item)}
+								onClick={() => { play("transition_up"); setSelectedItem(item); }}
 								className={`
                   relative flex flex-col items-center justify-center gap-3
                   border-e border-b border-border
