@@ -129,6 +129,7 @@ export function AppDetailPage(): JSX.Element {
 					<div className="flex items-center gap-4">
 						<Link
 							to="/apps"
+							onClick={() => play("transition_down")}
 							className="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:bg-surface-hover transition-colors text-muted-foreground hover:text-primary"
 						>
 							<ArrowLeft size={20} className="rtl:rotate-180" />

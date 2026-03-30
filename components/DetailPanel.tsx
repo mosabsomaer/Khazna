@@ -56,7 +56,7 @@ function ColorPill({ color }: { color: string }): JSX.Element {
 	return (
 		<button
 			onClick={handleCopy}
-			className="flex items-center justify-center px-4 py-2 rounded-full border border-white/10 shadow-sm transition-all hover:scale-105 active:scale-95"
+			className="flex items-center justify-center px-4 py-2 rounded-full border border-black/10 dark:border-white/10 shadow-sm transition-all hover:scale-105 active:scale-95"
 			style={{ backgroundColor: color }}
 			title={t("common.clickToCopy")}
 		>
@@ -162,7 +162,7 @@ export function DetailPanel(): JSX.Element | null {
       w-full md:w-[400px]
       bg-background border-s border-border
       transform transition-transform duration-300 ease-in-out
-      flex flex-col shadow-2xl shadow-black
+      flex flex-col shadow-2xl shadow-black/20 dark:shadow-black
       ${isSidebarOpen ? "translate-x-0" : "ltr:translate-x-full rtl:-translate-x-full"}
     `}
 		>
@@ -184,9 +184,9 @@ export function DetailPanel(): JSX.Element | null {
 					{/* Preview Area */}
 					<div className="relative aspect-square w-full border-b border-border bg-surface/50 flex items-center justify-center p-12 overflow-hidden group">
 						<div
-							className="absolute inset-0 opacity-[0.03] pointer-events-none"
+							className="absolute inset-0 pointer-events-none opacity-[0.06] dark:opacity-[0.03] dark:invert"
 							style={{
-								backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
+								backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1' fill='%23000'/%3E%3Ccircle cx='13' cy='13' r='1' fill='%23000'/%3E%3C/g%3E%3C/svg%3E")`,
 							}}
 						/>
 
@@ -226,13 +226,15 @@ export function DetailPanel(): JSX.Element | null {
 							<TabsList className="w-full rounded-none border-b border-border bg-transparent p-0 h-auto">
 								<TabsTrigger
 									value="download"
-									className="flex-1 rounded-none border-b-2 border-transparent pb-3 pt-0 px-0 text-sm font-medium text-muted-subtle shadow-none transition-colors data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:bg-transparent hover:text-muted-foreground gap-2"
+									onClick={() => play("type")}
+									className="cursor-pointer flex-1 rounded-none border-b-2 border-transparent pb-3 pt-0 px-0 text-sm font-medium text-muted-subtle shadow-none transition-colors data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:bg-transparent hover:text-muted-foreground gap-2"
 								>
 									<ImageIcon size={16} /> {t("sidebar.assets")}
 								</TabsTrigger>
 								<TabsTrigger
 									value="code"
-									className="flex-1 rounded-none border-b-2 border-transparent pb-3 pt-0 px-0 text-sm font-medium text-muted-subtle shadow-none transition-colors data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:bg-transparent hover:text-muted-foreground gap-2"
+									onClick={() => play("type")}
+									className="cursor-pointer flex-1 rounded-none border-b-2 border-transparent pb-3 pt-0 px-0 text-sm font-medium text-muted-subtle shadow-none transition-colors data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none data-[state=active]:bg-transparent hover:text-muted-foreground gap-2"
 								>
 									<FileCode size={16} /> {t("sidebar.code")}
 								</TabsTrigger>
@@ -269,9 +271,9 @@ export function DetailPanel(): JSX.Element | null {
 										{["React", "Vue", "Svelte", "HTML"].map((fmt) => (
 											<button
 												key={fmt}
-												onClick={() => { play("select"); setCodeFormat(fmt); }}
+												onClick={() => { play("tap"); setCodeFormat(fmt); }}
 												className={`
-                          py-2 text-[10px] sm:text-xs font-medium rounded-lg border transition-all duration-200
+                          cursor-pointer py-2 text-[10px] sm:text-xs font-medium rounded-lg border transition-all duration-200
                           ${
 														codeFormat === fmt
 															? "bg-accent-bg text-accent border-accent-bg shadow-lg"
