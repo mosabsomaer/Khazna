@@ -2,22 +2,29 @@ import type { JSX } from "react";
 import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Contributors } from "./components/Contributors";
 import { DetailPanel } from "./components/DetailPanel";
 import { Navbar } from "./components/Navbar";
+import { useScrollSound } from "./hooks/useScrollSound";
 import { useUIContext } from "./hooks/useUIContext";
 import { AppDetailPage } from "./pages/AppDetailPage";
 import { AppsPage } from "./pages/AppsPage";
+import { ContributingPage } from "./pages/ContributingPage";
 import { HomePage } from "./pages/HomePage";
 import type { BaseEntity, LogoVariant, SelectedItem, Theme, UIContextType } from "./types";
 
 export const UIContext = createContext<UIContextType | null>(null);
 
+// Matches --background values from index.css for each theme (used by fallback animation)
+const THEME_BG: Record<Theme, string> = { dark: "#080808", light: "#ffffff" };
+
 function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 	const { closeSidebar } = useUIContext();
 	const _location = useLocation();
 	const { t } = useTranslation();
+
+	useScrollSound();
 
 	useEffect(() => {
 		closeSidebar();
@@ -154,23 +161,25 @@ function App(): JSX.Element {
 					});
 				});
 
-				transition.ready.then(() => {
-					document.documentElement.animate(
-						{
-							clipPath: [
-								`circle(0px at ${x}px ${y}px)`,
-								`circle(${maxRadius}px at ${x}px ${y}px)`,
-							],
-						},
-						{
-							duration: 600,
-							easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-							pseudoElement: "::view-transition-new(root)",
-						},
-					);
-				});
+				transition.ready
+					.then(() => {
+						document.documentElement.animate(
+							{
+								clipPath: [
+									`circle(0px at ${x}px ${y}px)`,
+									`circle(${maxRadius}px at ${x}px ${y}px)`,
+								],
+							},
+							{
+								duration: 600,
+								easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+								pseudoElement: "::view-transition-new(root)",
+							},
+						);
+					})
+					.catch(() => {});
 
-				transition.finished.then(() => {
+				transition.finished.finally(() => {
 					isAnimating.current = false;
 				});
 
@@ -184,7 +193,7 @@ function App(): JSX.Element {
 					position: fixed;
 					inset: 0;
 					z-index: 9999;
-					background: ${nextTheme === "dark" ? "#080808" : "#ffffff"};
+					background: ${THEME_BG[nextTheme]};
 					pointer-events: none;
 					clip-path: circle(0px at ${x}px ${y}px);
 				`;
@@ -211,7 +220,7 @@ function App(): JSX.Element {
 					});
 				}, 250);
 
-				animation.finished.then(() => {
+				animation.finished.finally(() => {
 					overlay.remove();
 					isAnimating.current = false;
 				});
@@ -256,16 +265,17 @@ function App(): JSX.Element {
 
 	return (
 		<UIContext.Provider value={contextValue}>
-			<MemoryRouter>
+			<BrowserRouter>
 				<ScrollToTop />
 				<Layout>
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route path="/apps" element={<AppsPage />} />
 						<Route path="/apps/:bankId" element={<AppDetailPage />} />
+						<Route path="/contributing" element={<ContributingPage />} />
 					</Routes>
 				</Layout>
-			</MemoryRouter>
+			</BrowserRouter>
 		</UIContext.Provider>
 	);
 }
