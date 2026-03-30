@@ -17,7 +17,7 @@ import { FigmaLink } from "../components/FigmaLink";
 import { BANKS, MOCK_SCREENSHOTS } from "../constants";
 import { useSound } from "../hooks/useSound";
 import type { Screenshot } from "../types";
-import { downloadBlob } from "../utils/download";
+import { downloadBlob } from "@/lib/download";
 
 export function AppDetailPage(): JSX.Element {
 	const { bankId } = useParams<{ bankId: string }>();

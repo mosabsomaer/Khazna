@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { BANKS, SOCIAL_LINKS } from "../constants";
-import { TextMarquee } from "./text-marquee";
+import { TextMarquee } from "./TextMarquee";
 import { TestimonialSection } from "./ui/testimonials";
 
 const ROLE_KEYS = [
