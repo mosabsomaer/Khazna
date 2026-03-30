@@ -61,7 +61,8 @@
 		"missingSomething": "Join the community",
 		"contributeDescription": "Join our growing community of contributors and help build the most comprehensive fintech UI resource in Libya.",
 		"becomeContributor": "Become a contributor",
-		"viewOnGithub": "View on GitHub"
+		"viewOnGithub": "View on GitHub",
+		"contributingGuide": "Contributing Guide"
 	},
 	"badge": {
 		"new": "New",

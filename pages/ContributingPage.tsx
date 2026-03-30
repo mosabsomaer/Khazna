@@ -1,0 +1,27 @@
+import type { JSX } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import contributingContent from "../CONTRIBUTING.md?raw";
+
+export function ContributingPage(): JSX.Element {
+	const { t } = useTranslation();
+
+	return (
+		<div className="py-8 md:py-12">
+			<Link
+				to="/"
+				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
+			>
+				<ArrowLeft size={16} />
+				{t("common.back")}
+			</Link>
+
+			<article className="prose prose-neutral dark:prose-invert max-w-none">
+				<Markdown remarkPlugins={[remarkGfm]}>{contributingContent}</Markdown>
+			</article>
+		</div>
+	);
+}

@@ -1,24 +1,25 @@
 {
-	"$schema": "https://ui.shadcn.com/schema.json",
-	"style": "default",
-	"rsc": false,
-	"tsx": true,
-	"tailwind": {
-		"config": "",
-		"css": "index.css",
-		"baseColor": "neutral",
-		"cssVariables": true,
-		"prefix": ""
-	},
-	"iconLibrary": "lucide",
-	"aliases": {
-		"components": "@/components",
-		"utils": "@/lib/utils",
-		"ui": "@/components/ui",
-		"lib": "@/lib",
-		"hooks": "@/hooks"
-	},
-	"registries": {
-		"@spell": "https://spell.sh/r/{name}.json"
-	}
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "index.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {
+    "@spell": "https://spell.sh/r/{name}.json",
+    "@soundcn": "https://soundcn.xyz/r/{name}.json"
+  }
 }

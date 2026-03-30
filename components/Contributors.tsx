@@ -1,7 +1,8 @@
-import { ArrowUpRight, Command, Keyboard } from "lucide-react";
+import { ArrowUpRight, BookOpen, Command, Keyboard } from "lucide-react";
 import type { JSX } from "react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { BANKS, SOCIAL_LINKS } from "../constants";
 import { TextMarquee } from "./text-marquee";
 import { TestimonialSection } from "./ui/testimonials";
@@ -121,6 +122,13 @@ export function Contributors(): JSX.Element {
 								{t("contributors.viewOnGithub")}
 								<ArrowUpRight size={16} />
 							</a>
+							<Link
+								to="/contributing"
+								className="inline-flex items-center gap-2 px-6 py-3 bg-surface hover:bg-surface-hover border border-border text-primary rounded-full text-sm font-bold transition-colors"
+							>
+								<BookOpen size={16} />
+								{t("contributors.contributingGuide")}
+							</Link>
 						</div>
 					</div>
 				</div>

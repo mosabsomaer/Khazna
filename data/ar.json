@@ -61,7 +61,8 @@
 		"missingSomething": "انضم إلى المجتمع",
 		"contributeDescription": "انضم إلى مجتمعنا المتنامي من المساهمين وساعد في بناء أشمل مورد لواجهات التكنولوجيا المالية في ليبيا.",
 		"becomeContributor": "كن مساهمًا",
-		"viewOnGithub": "عرض على GitHub"
+		"viewOnGithub": "عرض على GitHub",
+		"contributingGuide": "دليل المساهمة"
 	},
 	"badge": {
 		"new": "جديد",
