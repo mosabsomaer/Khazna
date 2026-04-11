@@ -7,12 +7,18 @@ function pianoKeyToFrequency(key: number): number {
 }
 
 /**
- * Maps a slider value (100–200) to a piano key (1–88).
- * Low slider → bass notes. High slider → treble notes.
+ * Octave window: C2 (key 36) → C5 (key 72), 3 comfortable octaves.
+ * Low slider → warm bass. High slider → bright treble. Nothing extreme.
+ */
+const PIANO_MIN_KEY = 36; // C2
+const PIANO_MAX_KEY = 72; // C5
+
+/**
+ * Maps a slider value to a piano key within the defined octave window.
  */
 function sliderToPianoKey(value: number, min = 100, max = 200): number {
 	const t = (value - min) / (max - min);
-	return Math.round(t * 87) + 1;
+	return Math.round(t * (PIANO_MAX_KEY - PIANO_MIN_KEY)) + PIANO_MIN_KEY;
 }
 
 /**
@@ -71,8 +77,8 @@ function synthesizePianoNote(
  * @param volume    - Playback volume 0–1 (default 0.35)
  */
 export function usePianoSlider(
-	sliderMin = 100,
-	sliderMax = 200,
+	sliderMin = 130,
+	sliderMax = 190,
 	volume = 0.35,
 ): (value: number) => void {
 	const { soundEnabled } = useUIContext();
@@ -114,10 +120,18 @@ export function usePianoSlider(
 				return;
 			}
 
-			// Build the list of values to play (from prev+step toward value, inclusive)
-			const step = value > prev ? 1 : -1;
+			// One note fires per NOTE_STEP positions — e.g. moving 4 steps plays 1 note.
+			const NOTE_STEP = 4;
+			const prevQ = Math.round(prev / NOTE_STEP) * NOTE_STEP;
+			const currQ = Math.round(value / NOTE_STEP) * NOTE_STEP;
+
+			// Still within the same note zone — nothing to play
+			if (prevQ === currQ) return;
+
+			// Build notes at NOTE_STEP intervals between the two quantized boundaries
+			const dir = currQ > prevQ ? NOTE_STEP : -NOTE_STEP;
 			const notes: number[] = [];
-			for (let v = prev + step; step > 0 ? v <= value : v >= value; v += step) {
+			for (let v = prevQ + dir; dir > 0 ? v <= currQ : v >= currQ; v += dir) {
 				notes.push(v);
 			}
 

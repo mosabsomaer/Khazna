@@ -1,35 +1,35 @@
-import { ArrowLeft, ArrowUpRight, BookOpen, Mail } from "lucide-react";
+import { ArrowUpRight, BookOpen, Mail } from "lucide-react";
 import type { JSX } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { TeamSection } from "../components/ui/team-section";
 import { BANKS, SOCIAL_LINKS } from "../constants";
-import { TestimonialSection } from "../components/ui/testimonials";
 
 export function AboutPage(): JSX.Element {
 	const { t } = useTranslation();
 
-	const testimonials = [
+	const teamMembers = [
 		{
 			id: 1,
-			name: t("testimonials.sara.name"),
-			role: t("testimonials.sara.role"),
-			quote: t("testimonials.sara.quote"),
+			name: t("team.sara.name"),
+			role: t("team.sara.role"),
+			quote: t("team.sara.quote"),
 			imageSrc: "/founders/Sara.webp",
 			url: "https://www.linkedin.com/in/sara-s-35545b305/",
 		},
 		{
 			id: 2,
-			name: t("testimonials.mosab.name"),
-			role: t("testimonials.mosab.role"),
-			quote: t("testimonials.mosab.quote"),
+			name: t("team.mosab.name"),
+			role: t("team.mosab.role"),
+			quote: t("team.mosab.quote"),
 			imageSrc: "/founders/Mosab.webp",
 			url: "https://www.linkedin.com/in/mosab-omaer-763b18232/",
 		},
 		{
 			id: 3,
-			name: t("testimonials.moaad.name"),
-			role: t("testimonials.moaad.role"),
-			quote: t("testimonials.moaad.quote"),
+			name: t("team.moaad.name"),
+			role: t("team.moaad.role"),
+			quote: t("team.moaad.quote"),
 			imageSrc: "/founders/Moo.webp",
 			url: "https://www.linkedin.com/in/moaadalnaeli/",
 		},
@@ -37,14 +37,6 @@ export function AboutPage(): JSX.Element {
 
 	return (
 		<div className="py-8 md:py-12">
-			<Link
-				to="/"
-				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-12"
-			>
-				<ArrowLeft size={16} />
-				{t("common.back")}
-			</Link>
-
 			{/* Hero — what is Khazna */}
 			<div className="mb-4">
 				<span className="inline-block text-xs font-semibold uppercase tracking-widest text-muted-subtle mb-4">
@@ -62,11 +54,13 @@ export function AboutPage(): JSX.Element {
 			</div>
 
 			{/* Meet the Team */}
-			<TestimonialSection
-				title={t("testimonials.title")}
-				subtitle={t("testimonials.subtitle")}
-				testimonials={testimonials}
-			/>
+			<div id="team">
+				<TeamSection
+					title={t("team.title")}
+					subtitle={t("team.subtitle")}
+					members={teamMembers}
+				/>
+			</div>
 
 			{/* Join the Community */}
 			<div className="relative bg-surface/40 border border-border/60 rounded-3xl p-10 md:p-14 overflow-hidden mb-16">

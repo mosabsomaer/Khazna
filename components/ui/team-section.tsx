@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
-// TypeScript interface for a single testimonial object
-interface Testimonial {
+// TypeScript interface for a single team member object
+interface TeamMember {
 	id: number;
 	quote: string;
 	name: string;
@@ -12,17 +12,17 @@ interface Testimonial {
 }
 
 // TypeScript interface for the component's props
-interface TestimonialSectionProps {
+interface TeamSectionProps {
 	title: string;
 	subtitle: string;
-	testimonials: Testimonial[];
+	members: TeamMember[];
 }
 
 /**
- * A responsive section component to display customer testimonials.
- * It features a title, subtitle, and a grid of animated testimonial cards.
+ * A responsive section component to display team members.
+ * It features a title, subtitle, and a grid of animated team member cards.
  */
-export const TestimonialSection = ({ title, subtitle, testimonials }: TestimonialSectionProps) => {
+export const TeamSection = ({ title, subtitle, members }: TeamSectionProps) => {
 	// Animation variants for the container to orchestrate staggered children animations
 	const containerVariants = {
 		hidden: {},
@@ -33,7 +33,7 @@ export const TestimonialSection = ({ title, subtitle, testimonials }: Testimonia
 		},
 	};
 
-	// Animation variants for each testimonial card
+	// Animation variants for each team member card
 	const itemVariants = {
 		hidden: { opacity: 0, y: 20 },
 		visible: {
@@ -53,7 +53,7 @@ export const TestimonialSection = ({ title, subtitle, testimonials }: Testimonia
 				<h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{title}</h2>
 				<p className="mx-auto mt-4 max-w-2xl text-lg text-muted">{subtitle}</p>
 
-				{/* Testimonials Grid */}
+				{/* Team Members Grid */}
 				<motion.div
 					className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
 					variants={containerVariants}
@@ -61,10 +61,10 @@ export const TestimonialSection = ({ title, subtitle, testimonials }: Testimonia
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.2 }}
 				>
-					{testimonials.map((testimonial) => (
+					{members.map((member) => (
 						<motion.a
-							key={testimonial.id}
-							href={testimonial.url}
+							key={member.id}
+							href={member.url}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="relative overflow-hidden rounded-2xl border border-border bg-surface shadow-sm cursor-pointer block"
@@ -72,8 +72,8 @@ export const TestimonialSection = ({ title, subtitle, testimonials }: Testimonia
 						>
 							<div className="relative">
 								<img
-									src={testimonial.imageSrc}
-									alt={testimonial.name}
+									src={member.imageSrc}
+									alt={member.name}
 									className="h-120 w-full object-cover"
 								/>
 								{/* Gradient overlay for text readability */}
@@ -84,12 +84,12 @@ export const TestimonialSection = ({ title, subtitle, testimonials }: Testimonia
 							<div className="absolute bottom-0 start-0 end-0 p-6 text-start text-white">
 								<Quote className="mb-4 h-8 w-8 text-white/40" aria-hidden="true" />
 								<blockquote className="text-base font-medium leading-relaxed">
-									{testimonial.quote}
+									{member.quote}
 								</blockquote>
 								<figcaption className="mt-4">
 									<p className="font-semibold">
-										&mdash; {testimonial.name},
-										<span className="ms-1 text-white/60">{testimonial.role}</span>
+										&mdash; {member.name},
+										<span className="ms-1 text-white/60">{member.role}</span>
 									</p>
 								</figcaption>
 							</div>

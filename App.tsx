@@ -42,7 +42,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 				<footer className="border-t border-border/30 py-6 px-4 flex flex-col items-center gap-3">
 					{/* Built by badge */}
 					<Link
-						to="/about"
+						to="/about#team"
 						className="inline-flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors group"
 					>
 						<span className="group-hover:underline underline-offset-2">{t('footer.builtBy')}</span>
@@ -84,11 +84,22 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 }
 
 function ScrollToTop(): null {
-	const { pathname } = useLocation();
+	const { pathname, hash } = useLocation();
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+		if (hash) {
+			// Wait for the page to render, then scroll to the element
+			const id = hash.slice(1);
+			requestAnimationFrame(() => {
+				const el = document.getElementById(id);
+				if (el) {
+					el.scrollIntoView({ behavior: "smooth" });
+				}
+			});
+		} else {
+			window.scrollTo(0, 0);
+		}
+	}, [pathname, hash]);
 
 	return null;
 }
