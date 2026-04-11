@@ -3,25 +3,17 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Badge } from "../components/Badge";
 import { BANKS, PAYMENT_METHODS } from "../constants";
+import { usePianoSlider } from "../hooks/usePianoSlider";
 import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
-import type { LogoVariant } from "../types";
-
-type Category = "banks" | "payment_methods";
+import type { Bank, LogoVariant, PaymentMethod } from "../types";
 
 export function HomePage(): JSX.Element {
 	const { setSelectedItem, selectedItem, logoVariant, setLogoVariant, getLogoUrl } = useUIContext();
 	const { t } = useTranslation();
 	const play = useSound();
-	const [activeCategory, setActiveCategory] = useState<Category>("banks");
+	const onPianoSliderChange = usePianoSlider();
 	const [logoSize, setLogoSize] = useState(100);
-
-	const items = activeCategory === "banks" ? BANKS : PAYMENT_METHODS;
-
-	const categories: { key: Category; labelKey: string; count: number }[] = [
-		{ key: "banks", labelKey: "home.banks", count: BANKS.length },
-		{ key: "payment_methods", labelKey: "home.paymentMethods", count: PAYMENT_METHODS.length },
-	];
 
 	const variants: { key: LogoVariant; labelKey: string }[] = [
 		{ key: "mono", labelKey: "home.mono" },
@@ -29,85 +21,14 @@ export function HomePage(): JSX.Element {
 		{ key: "logomark", labelKey: "home.logomark" },
 	];
 
-	return (
-		<div className="pb-8">
-			<div className="py-12 border-b border-border/50">
-				<h1 className="text-3xl font-bold text-primary mb-2">{t("home.title")}</h1>
-				<p className="text-muted-foreground max-w-2xl">{t("home.description")}</p>
-			</div>
+	const sections: { labelKey: string; count: number; items: (Bank | PaymentMethod)[] }[] = [
+		{ labelKey: "home.banks", count: BANKS.length, items: BANKS },
+		{ labelKey: "home.paymentMethods", count: PAYMENT_METHODS.length, items: PAYMENT_METHODS },
+	];
 
-			{/* Toolbar: Category Tabs | Size Slider | Style Toggle */}
-			<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 py-4 border-b border-border">
-				{/* Category Tabs */}
-				<div className="flex items-center gap-1">
-					{categories.map((cat) => (
-						<button
-							key={cat.key}
-							onClick={() => { play("select"); setActiveCategory(cat.key); }}
-							className={`
-                relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors cursor-pointer
-                ${
-									activeCategory === cat.key
-										? "text-primary"
-										: "text-muted-subtle hover:text-muted-foreground"
-								}
-              `}
-						>
-							{t(cat.labelKey)}
-							<span
-								className={`
-                text-xs px-2 py-0.5 rounded-md font-medium
-                ${activeCategory === cat.key ? "bg-surface-hover text-primary" : "text-dim"}
-              `}
-							>
-								{cat.count}
-							</span>
-							{activeCategory === cat.key && (
-								<div className="absolute bottom-0 start-0 end-0 h-[2px] bg-primary rounded-full" />
-							)}
-						</button>
-					))}
-				</div>
-
-				{/* Size Slider (center) */}
-				<div className="flex items-center gap-3">
-					<span className="text-sm font-bold text-muted-foreground">{t("home.size")}</span>
-					<input
-						type="range"
-						min="100"
-						max="200"
-						value={logoSize}
-						onChange={(e) => setLogoSize(Number(e.target.value))}
-						className="range-slider w-48"
-					/>
-					<span className="text-sm font-bold text-muted-foreground tabular-nums w-8 text-end">
-						{logoSize}
-					</span>
-				</div>
-
-				{/* Style Toggle */}
-				<div className="flex items-center bg-surface rounded-lg border border-border p-1 self-start lg:self-auto">
-					{variants.map((v) => (
-						<button
-							key={v.key}
-							onClick={() => { play("tap"); setLogoVariant(v.key); }}
-							className={`
-                px-4 py-1.5 text-sm font-medium rounded-md transition-all
-                ${
-									logoVariant === v.key
-										? "bg-surface-hover text-primary shadow-sm"
-										: "text-muted-foreground hover:text-primary"
-								}
-              `}
-						>
-							{t(v.labelKey)}
-						</button>
-					))}
-				</div>
-			</div>
-
-			{/* Logo Grid */}
-			<div className="border border-border rounded-xl overflow-hidden mt-6">
+	function renderGrid(items: (Bank | PaymentMethod)[]) {
+		return (
+			<div className="border border-border rounded-xl overflow-hidden">
 				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 					{items.map((item) => {
 						const isSelected = selectedItem?.id === item.id;
@@ -157,6 +78,69 @@ export function HomePage(): JSX.Element {
 					})}
 				</div>
 			</div>
+		);
+	}
+
+	return (
+		<div className="pb-8">
+			<div className="py-12 border-b border-border/50">
+				<h1 className="text-3xl font-bold text-primary mb-2">{t("home.title")}</h1>
+				<p className="text-muted-foreground max-w-2xl">{t("home.description")}</p>
+			</div>
+
+			{/* Toolbar: Size Slider | Style Toggle */}
+			<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-4 border-b border-border">
+				{/* Size Slider */}
+				<div className="flex items-center gap-3">
+					<span className="text-sm font-bold text-muted-foreground">{t("home.size")}</span>
+					<input
+						type="range"
+						min="100"
+						max="200"
+						value={logoSize}
+						onChange={(e) => { const v = Number(e.target.value); setLogoSize(v); onPianoSliderChange(v); }}
+						className="range-slider w-48"
+					/>
+					<span className="text-sm font-bold text-muted-foreground tabular-nums w-8 text-end">
+						{logoSize}
+					</span>
+				</div>
+
+				{/* Style Toggle */}
+				<div className="flex items-center bg-surface rounded-lg border border-border p-1 self-start sm:self-auto">
+					{variants.map((v) => (
+						<button
+							key={v.key}
+							onClick={() => { play("tap"); setLogoVariant(v.key); }}
+							className={`
+                px-4 py-1.5 text-sm font-medium rounded-md transition-all
+                ${
+									logoVariant === v.key
+										? "bg-surface-hover text-primary shadow-sm"
+										: "text-muted-foreground hover:text-primary"
+								}
+              `}
+						>
+							{t(v.labelKey)}
+						</button>
+					))}
+				</div>
+			</div>
+
+			{/* Sections */}
+			{sections.map((section) => (
+				<div key={section.labelKey} className="mt-8">
+					<div className="flex items-center gap-3 mb-4">
+						<h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+							{t(section.labelKey)}
+						</h2>
+						<span className="text-xs px-2 py-0.5 rounded-md font-medium bg-surface-hover text-muted-foreground">
+							{section.count}
+						</span>
+					</div>
+					{renderGrid(section.items)}
+				</div>
+			))}
 		</div>
 	);
 }

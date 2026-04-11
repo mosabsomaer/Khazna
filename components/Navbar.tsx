@@ -17,6 +17,7 @@ export function Navbar(): JSX.Element {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const isAppsPage = location.pathname.includes("/apps");
+	const isHomePage = location.pathname === "/";
 
 	function handleMobileNav(): void {
 		setIsMobileMenuOpen(false);
@@ -39,7 +40,7 @@ export function Navbar(): JSX.Element {
 						<Link
 							to="/"
 							onClick={() => play("tap")}
-							className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${!isAppsPage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:text-primary hover:bg-surface"}`}
+							className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isHomePage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:text-primary hover:bg-surface"}`}
 						>
 							<LayoutGrid size={16} />
 							{t("navbar.logos")}
@@ -51,6 +52,13 @@ export function Navbar(): JSX.Element {
 						>
 							<Smartphone size={16} />
 							{t("navbar.apps")}
+						</Link>
+						<Link
+							to="/about"
+							onClick={() => play("tap")}
+							className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${location.pathname === "/about" ? "bg-surface-hover text-primary" : "text-muted-foreground hover:text-primary hover:bg-surface"}`}
+						>
+							{t("navbar.about")}
 						</Link>
 					</nav>
 				</div>
@@ -121,7 +129,7 @@ export function Navbar(): JSX.Element {
 						<Link
 							to="/"
 							onClick={() => { play("tap"); handleMobileNav(); }}
-							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${!isAppsPage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
+							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${isHomePage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
 						>
 							<LayoutGrid size={20} />
 							{t("navbar.logos")}
@@ -133,6 +141,13 @@ export function Navbar(): JSX.Element {
 						>
 							<Smartphone size={20} />
 							{t("navbar.apps")}
+						</Link>
+						<Link
+							to="/about"
+							onClick={() => { play("tap"); handleMobileNav(); }}
+							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${location.pathname === "/about" ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
+						>
+							{t("navbar.about")}
 						</Link>
 					</nav>
 

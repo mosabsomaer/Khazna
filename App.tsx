@@ -2,12 +2,13 @@ import type { JSX } from "react";
 import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-dom";
 import { Contributors } from "./components/Contributors";
 import { DetailPanel } from "./components/DetailPanel";
 import { Navbar } from "./components/Navbar";
 import { useScrollSound } from "./hooks/useScrollSound";
 import { useUIContext } from "./hooks/useUIContext";
+import { AboutPage } from "./pages/AboutPage";
 import { AppDetailPage } from "./pages/AppDetailPage";
 import { AppsPage } from "./pages/AppsPage";
 import { ContributingPage } from "./pages/ContributingPage";
@@ -38,7 +39,33 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 					{children}
 				</main>
 				<Contributors />
-				<footer className="border-t border-border/30 py-4 text-center">
+				<footer className="border-t border-border/30 py-6 px-4 flex flex-col items-center gap-3">
+					{/* Built by badge */}
+					<Link
+						to="/about"
+						className="inline-flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors group"
+					>
+						<span className="group-hover:underline underline-offset-2">{t('footer.builtBy')}</span>
+						<div className="flex items-center">
+							<img
+								src="/founders/Sara.webp"
+								alt="Sara"
+								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border"
+							/>
+							<img
+								src="/founders/Mosab.webp"
+								alt="Mosab"
+								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
+							/>
+							<img
+								src="/founders/Moo.webp"
+								alt="Moaad"
+								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
+							/>
+						</div>
+					</Link>
+
+					{/* Hosted by */}
 					<a
 						href="https://binary.ly"
 						target="_blank"
@@ -273,6 +300,7 @@ function App(): JSX.Element {
 						<Route path="/apps" element={<AppsPage />} />
 						<Route path="/apps/:bankId" element={<AppDetailPage />} />
 						<Route path="/contributing" element={<ContributingPage />} />
+					<Route path="/about" element={<AboutPage />} />
 					</Routes>
 				</Layout>
 			</BrowserRouter>

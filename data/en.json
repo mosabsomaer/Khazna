@@ -10,10 +10,11 @@
 	},
 	"navbar": {
 		"logos": "Logos",
-		"apps": "Apps",
+		"apps": "App UI",
 		"searchLogos": "Search logos...",
 		"searchApps": "Search apps...",
-		"contribute": "Contribute"
+		"contribute": "Contribute",
+		"about": "Who are we"
 	},
 	"home": {
 		"title": "Logo Library",
@@ -143,7 +144,14 @@
 		"settings": "Settings",
 		"auth": "Authentication"
 	},
+	"about": {
+		"eyebrow": "Who are we",
+		"title": "Building Libya's design infrastructure, together.",
+		"description": "Khazna is an open-source resource library for Libyan fintech — logos, UI patterns, and app screenshots, all in one place. We built it because designers and developers in Libya kept starting from scratch when they needed bank assets or wanted to research how local apps look.",
+		"description2": "Everything here is free, community-maintained, and made to save you time. Whether you're a designer looking for references, a developer needing brand assets, or a researcher studying the local fintech landscape — this is for you."
+	},
 	"footer": {
-		"hostedBy": "Hosted by"
+		"hostedBy": "Hosted by",
+		"builtBy": "Built by"
 	}
 }
