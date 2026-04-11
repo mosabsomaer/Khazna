@@ -116,7 +116,8 @@ function App(): JSX.Element {
 	});
 
 	const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
-		return localStorage.getItem("khazna-sound") === "true";
+		const stored = localStorage.getItem("khazna-sound");
+		return stored === null ? true : stored === "true";
 	});
 
 	// Track whether the user has explicitly chosen a theme (vs auto-detected from system)
