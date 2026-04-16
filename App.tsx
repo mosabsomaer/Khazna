@@ -13,7 +13,8 @@ import { AppDetailPage } from "./pages/AppDetailPage";
 import { AppsPage } from "./pages/AppsPage";
 import { ContributingPage } from "./pages/ContributingPage";
 import { HomePage } from "./pages/HomePage";
-import type { BaseEntity, LogoVariant, SelectedItem, Theme, UIContextType } from "./types";
+import { LogoPlaygroundPage } from "./pages/LogoPlaygroundPage";
+import type { BaseEntity, ColorMode, LogoStyle, LogoVariant, SelectedItem, Theme, UIContextType } from "./types";
 
 export const UIContext = createContext<UIContextType | null>(null);
 
@@ -22,14 +23,14 @@ const THEME_BG: Record<Theme, string> = { dark: "#080808", light: "#ffffff" };
 
 function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 	const { closeSidebar } = useUIContext();
-	const _location = useLocation();
+	const { pathname } = useLocation();
 	const { t } = useTranslation();
 
 	useScrollSound();
 
 	useEffect(() => {
 		closeSidebar();
-	}, [closeSidebar]);
+	}, [pathname, closeSidebar]);
 
 	return (
 		<div className="min-h-screen bg-background text-primary">
@@ -39,7 +40,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 					{children}
 				</main>
 				<Contributors />
-				<footer className="border-t border-border/30 py-6 px-4 flex flex-col items-center gap-3">
+				<footer className="border-t border-border/30 py-5 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
 					{/* Built by badge */}
 					<Link
 						to="/about#team"
@@ -64,6 +65,8 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 							/>
 						</div>
 					</Link>
+
+					<span className="text-muted-subtle text-xl leading-none select-none" aria-hidden>•</span>
 
 					{/* Hosted by */}
 					<a
@@ -106,7 +109,13 @@ function ScrollToTop(): null {
 
 function App(): JSX.Element {
 	const [selectedItem, setSelectedItemState] = useState<SelectedItem>(null);
-	const [logoVariant, setLogoVariant] = useState<LogoVariant>("branded");
+	const [colorMode, setColorMode] = useState<ColorMode>("colored");
+	const [logoStyle, setLogoStyle] = useState<LogoStyle>("branded");
+	// Derived: "mono" for black/white modes, otherwise the logo style
+	const logoVariant = useMemo<LogoVariant>(
+		() => (colorMode !== "colored" ? "mono" : logoStyle),
+		[colorMode, logoStyle],
+	);
 	const [theme, setTheme] = useState<Theme>(() => {
 		const stored = localStorage.getItem("khazna-theme") as Theme | null;
 		if (stored) return stored;
@@ -136,10 +145,10 @@ function App(): JSX.Element {
 
 	const getLogoUrl = useCallback(
 		(item: BaseEntity): string => {
-			if (logoVariant === "logomark" && item.logomarkUrl) return item.logomarkUrl;
+			if (logoStyle === "logomark" && item.logomarkUrl) return item.logomarkUrl;
 			return item.logoUrl;
 		},
-		[logoVariant],
+		[logoStyle],
 	);
 
 	// Sync theme class to <html>. Only persist to localStorage if the user
@@ -281,7 +290,10 @@ function App(): JSX.Element {
 			isSidebarOpen,
 			closeSidebar,
 			logoVariant,
-			setLogoVariant,
+			colorMode,
+			setColorMode,
+			logoStyle,
+			setLogoStyle,
 			getLogoUrl,
 			theme,
 			toggleTheme,
@@ -294,6 +306,8 @@ function App(): JSX.Element {
 			setSelectedItem,
 			closeSidebar,
 			logoVariant,
+			colorMode,
+			logoStyle,
 			getLogoUrl,
 			theme,
 			toggleTheme,
@@ -313,6 +327,7 @@ function App(): JSX.Element {
 						<Route path="/apps/:bankId" element={<AppDetailPage />} />
 						<Route path="/contributing" element={<ContributingPage />} />
 					<Route path="/about" element={<AboutPage />} />
+					<Route path="/logo-playground" element={<LogoPlaygroundPage />} />
 					</Routes>
 				</Layout>
 			</BrowserRouter>

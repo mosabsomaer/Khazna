@@ -19,8 +19,8 @@ function detectLanguage(): string {
 		if (primary === "en") return "en";
 	}
 
-	// 3. Default to English for any unsupported language
-	return "en";
+	// 3. Default to Arabic for any unsupported language
+	return "ar";
 }
 
 const savedLang = detectLanguage();

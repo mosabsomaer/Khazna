@@ -11,8 +11,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Arabic: Ghroob as primary, Montserrat as Latin fallback */
+html[lang="ar"] {
+  font-family: 'Ghroob', 'Montserrat', sans-serif;
+}
+
 @theme inline {
-  --font-sans: 'Inter', 'Ghroob', sans-serif;
+  --font-sans: 'Montserrat', 'Ghroob', sans-serif;
 
   /* shadcn tokens */
   --color-background: var(--background);
@@ -334,37 +339,13 @@
 	margin-inline-end: 0.5rem;
 }
 
-/* ─── Shiki syntax highlighting dual-theme ─── */
-.shiki,
-.shiki span {
-	color: var(--shiki-light);
-	background-color: transparent;
+/* ─── Hide all scrollbars ─── */
+* {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 }
-
-.dark .shiki,
-.dark .shiki span {
-	color: var(--shiki-dark);
-	background-color: transparent;
-}
-
-.shiki {
-	background-color: transparent !important;
-}
-
-/* ─── Custom scrollbar (webkit) ─── */
-::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
-}
-::-webkit-scrollbar-track {
-	background: var(--color-scrollbar-track);
-}
-::-webkit-scrollbar-thumb {
-	background: var(--color-scrollbar-thumb);
-	border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-	background: var(--color-scrollbar-thumb-hover);
+*::-webkit-scrollbar {
+	display: none;
 }
 
 ::selection {
