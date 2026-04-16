@@ -6,7 +6,6 @@ import { useUIContext } from "./useUIContext";
  * Variant sounds (tap, swipe, type) randomly pick from their numbered files.
  */
 export type SoundName =
-	| "button"
 	| "select"
 	| "tap"
 	| "swipe"
@@ -72,7 +71,7 @@ export function useSound(volume = 0.5): (name: SoundName, opts?: { volume?: numb
 		const cache = cacheRef.current;
 
 		const allPaths: string[] = [
-			"button", "select", "toggle_on", "toggle_off", "toggle-theme",
+			"select", "toggle_on", "toggle_off", "toggle-theme",
 			"transition_up", "transition_down", "notification", "caution",
 			"celebration", "disabled", "delete", "download", "copy-svg",
 			"add-to-folder", "slider", "tunning", "tunning2", "open-icon",
