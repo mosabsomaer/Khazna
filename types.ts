@@ -30,6 +30,10 @@ export type SelectedItem = Bank | PaymentMethod | null;
 
 export type LogoVariant = "mono" | "branded" | "logomark";
 
+export type ColorMode = "colored" | "black" | "white";
+
+export type LogoStyle = "branded" | "logomark";
+
 export type Theme = "light" | "dark";
 
 export interface UIContextType {
@@ -37,8 +41,12 @@ export interface UIContextType {
 	setSelectedItem: (item: SelectedItem) => void;
 	isSidebarOpen: boolean;
 	closeSidebar: () => void;
+	/** Derived from colorMode + logoStyle for backward-compatible filter checks */
 	logoVariant: LogoVariant;
-	setLogoVariant: (variant: LogoVariant) => void;
+	colorMode: ColorMode;
+	setColorMode: (mode: ColorMode) => void;
+	logoStyle: LogoStyle;
+	setLogoStyle: (style: LogoStyle) => void;
 	getLogoUrl: (item: BaseEntity) => string;
 	theme: Theme;
 	toggleTheme: (originRect?: DOMRect) => void;
