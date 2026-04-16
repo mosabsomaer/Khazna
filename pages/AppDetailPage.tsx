@@ -68,7 +68,7 @@ export function AppDetailPage(): JSX.Element {
 		async (screen: Screenshot) => {
 			if (!bank) return;
 			try {
-				play("download");
+				play("celebration");
 				setIsDownloadingSingle(true);
 				const response = await fetch(screen.url);
 				const blob = await response.blob();
@@ -88,7 +88,7 @@ export function AppDetailPage(): JSX.Element {
 		if (!bank || screenshots.length === 0) return;
 
 		try {
-			play("download");
+			play("celebration");
 			setIsDownloadingAll(true);
 			const zip = new JSZip();
 			const folder = zip.folder(bank.name.replace(/\s+/g, "-"));
@@ -129,14 +129,14 @@ export function AppDetailPage(): JSX.Element {
 					<div className="flex items-center gap-4">
 						<Link
 							to="/apps"
-							onClick={() => play("transition_down")}
+							onClick={() => play("select")}
 							className="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:bg-surface-hover transition-colors text-muted-foreground hover:text-primary"
 						>
 							<ArrowLeft size={20} className="rtl:rotate-180" />
 						</Link>
 						<div className="flex items-center gap-3">
 							<img
-								src={bank.logoUrl}
+								src={bank.logomarkUrl || bank.logoUrl}
 								alt={t(`entityNames.${bank.id}`)}
 								className="w-10 h-10 rounded-lg bg-surface object-cover"
 							/>
@@ -182,7 +182,7 @@ export function AppDetailPage(): JSX.Element {
 					screenshots.map((screen) => (
 						<div key={screen.id} className="group flex flex-col gap-3">
 							<button
-								onClick={() => { play("transition_up"); setSelectedScreen(screen); }}
+								onClick={() => { play("select"); setSelectedScreen(screen); }}
 								className="relative aspect-9/19 w-full rounded-2xl overflow-hidden border border-border bg-surface cursor-pointer outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
 							>
 								<img
@@ -219,7 +219,7 @@ export function AppDetailPage(): JSX.Element {
 			{selectedScreen && (
 				<div
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
-					onClick={() => { play("transition_down"); setSelectedScreen(null); }}
+					onClick={() => { play("select"); setSelectedScreen(null); }}
 				>
 					<button
 						onClick={(e) => {
@@ -244,7 +244,7 @@ export function AppDetailPage(): JSX.Element {
 					<button
 						onClick={(e) => {
 							e.stopPropagation();
-							play("transition_down");
+							play("select");
 							setSelectedScreen(null);
 						}}
 						className="absolute top-4 end-4 p-2 text-zinc-400 hover:text-white bg-zinc-800/50 hover:bg-zinc-800 rounded-full transition-colors z-50"

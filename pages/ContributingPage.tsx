@@ -2,9 +2,7 @@ import type { JSX } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import contributingContent from "../CONTRIBUTING.md?raw";
+import { html as contributingHtml } from "../CONTRIBUTING.md";
 
 export function ContributingPage(): JSX.Element {
 	const { t } = useTranslation();
@@ -19,9 +17,12 @@ export function ContributingPage(): JSX.Element {
 				{t("common.back")}
 			</Link>
 
-			<article className="prose prose-neutral dark:prose-invert max-w-none">
-				<Markdown remarkPlugins={[remarkGfm]}>{contributingContent}</Markdown>
-			</article>
+			<article
+				className="prose prose-neutral dark:prose-invert max-w-none"
+				dir="ltr"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: compiled at build time from trusted local markdown
+				dangerouslySetInnerHTML={{ __html: contributingHtml }}
+			/>
 		</div>
 	);
 }

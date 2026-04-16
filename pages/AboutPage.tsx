@@ -38,7 +38,7 @@ export function AboutPage(): JSX.Element {
 	return (
 		<div className="py-8 md:py-12">
 			{/* Hero — what is Khazna */}
-			<div className="mb-4">
+			<div className="mb-4 text-center flex flex-col items-center">
 				<span className="inline-block text-xs font-semibold uppercase tracking-widest text-muted-subtle mb-4">
 					{t("about.eyebrow")}
 				</span>
@@ -64,13 +64,13 @@ export function AboutPage(): JSX.Element {
 
 			{/* Join the Community */}
 			<div className="relative bg-surface/40 border border-border/60 rounded-3xl p-10 md:p-14 overflow-hidden mb-16">
-				<div className="absolute -start-16 top-1/2 -translate-y-1/2 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none" />
-				<div className="absolute -end-16 bottom-0 w-36 h-36 bg-sky-400/20 rounded-full blur-3xl pointer-events-none" />
+				<div className="absolute -start-16 top-1/2 -translate-y-1/2 w-40 h-40 bg-white/20 rounded-full blur-3xl pointer-events-none" />
+				<div className="absolute -end-16 bottom-0 w-36 h-36 bg-black/20 rounded-full blur-3xl pointer-events-none" />
 
 				<div className="relative z-10 flex flex-col items-center text-center">
 					{/* App icons dock */}
 					<div className="flex items-center gap-1.5 p-2 rounded-2xl bg-elevated/80 border border-border/60 shadow-lg mb-8">
-						{BANKS.slice(0, 5).map((bank) => (
+						{BANKS.filter((bank) => bank.logomarkUrl).slice(0, 5).map((bank) => (
 							<div
 								key={bank.id}
 								className="w-10 h-10 rounded-xl overflow-hidden bg-surface border border-border-subtle"

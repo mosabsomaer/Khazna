@@ -31,23 +31,19 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 	}
 
 	return (
-		<Link to={`/apps/${app.id}`} onClick={() => play("transition_up")} className="group flex flex-col gap-3">
+		<Link to={`/apps/${app.id}`} onClick={() => play("select")} className="group flex flex-col gap-3">
 			{/* Card Preview Container */}
 			<div className="relative aspect-9/19 w-full bg-surface border border-border rounded-3xl overflow-hidden group-hover:border-border-subtle transition-all duration-300 shadow-sm hover:shadow-md">
 				{hasScreens ? (
 					<div className="w-full h-full relative bg-surface">
-						{screenshots.map((screen, index) => (
-							<div
-								key={screen.id}
-								className={`absolute inset-0 transition-opacity duration-300 ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"}`}
-							>
-								<img
-									src={screen.url}
-									alt={`${t(`entityNames.${app.id}`)} ${index + 1}`}
-									className="w-full h-full object-cover"
-								/>
-							</div>
-						))}
+						<div className="absolute inset-0 transition-opacity duration-300">
+							<img
+								src={screenshots[currentSlide].url}
+								alt={`${t(`entityNames.${app.id}`)} ${currentSlide + 1}`}
+								className="w-full h-full object-cover"
+								loading="lazy"
+							/>
+						</div>
 
 						{screenCount > 1 && (
 							<>
@@ -82,7 +78,7 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 				) : (
 					<div className="w-full h-full flex flex-col items-center justify-center bg-surface p-6 text-center">
 						<img
-							src={app.logoUrl}
+							src={app.logomarkUrl || app.logoUrl}
 							className="w-16 h-16 rounded-xl opacity-20 grayscale mb-4"
 							alt=""
 						/>
@@ -100,7 +96,7 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 			<div className="flex items-center gap-3 px-1">
 				<div className="rounded-xl bg-surface border border-border overflow-hidden flex-shrink-0 p-2">
 					<img
-						src={app.logoUrl}
+						src={app.logomarkUrl || app.logoUrl}
 						alt={t(`entityNames.${app.id}`)}
 						className="w-8 h-8 object-contain"
 					/>
