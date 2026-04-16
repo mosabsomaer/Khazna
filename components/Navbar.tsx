@@ -87,7 +87,7 @@ export function Navbar(): JSX.Element {
 					<SoundToggle />
 					<ThemeToggle />
 					<button
-						onClick={() => { play("button"); toggleLanguage(); }}
+						onClick={() => { play("slider"); toggleLanguage(); }}
 						className="px-3 py-1.5 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary hover:bg-surface-hover transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
@@ -107,13 +107,13 @@ export function Navbar(): JSX.Element {
 					<SoundToggle />
 					<ThemeToggle />
 					<button
-						onClick={() => { play("button"); toggleLanguage(); }}
+						onClick={() => { play("slider"); toggleLanguage(); }}
 						className="px-2.5 py-1 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
 					</button>
 					<button
-						onClick={() => { play(isMobileMenuOpen ? "transition_down" : "transition_up"); setIsMobileMenuOpen(!isMobileMenuOpen); }}
+						onClick={() => { play("slider"); setIsMobileMenuOpen(!isMobileMenuOpen); }}
 						className="p-2 text-muted-foreground hover:text-primary rounded-md"
 					>
 						{isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

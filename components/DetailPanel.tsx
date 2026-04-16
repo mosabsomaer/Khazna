@@ -1,11 +1,16 @@
 import {
 	Check,
+	Circle,
+	Contrast,
 	Copy,
 	Download,
 	FileCode,
 	Image as ImageIcon,
 	LayoutGrid,
 	Loader2,
+	Palette,
+	Stamp,
+	Type,
 	X,
 } from "lucide-react";
 import type { JSX } from "react";
@@ -38,7 +43,7 @@ function ColorPill({ color }: { color: string }): JSX.Element {
 	const play = useSound();
 
 	function handleCopy(): void {
-		play("copy-svg");
+		play("notification");
 		navigator.clipboard.writeText(color);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 600);
@@ -61,6 +66,7 @@ function ColorPill({ color }: { color: string }): JSX.Element {
 			title={t("common.clickToCopy")}
 		>
 			<span
+				dir="ltr"
 				className={`text-xs font-bold font-mono uppercase tracking-wider ${isLight ? "text-black/80" : "text-white"}`}
 			>
 				{copied ? t("common.copied") : color}
@@ -69,14 +75,29 @@ function ColorPill({ color }: { color: string }): JSX.Element {
 	);
 }
 
-function makeMonoSvg(svg: string): string {
+function makeWhiteSvg(svg: string): string {
 	return svg
 		.replace(/fill="(?!none)[^"]*"/g, 'fill="white"')
 		.replace(/stroke="(?!none)[^"]*"/g, 'stroke="white"');
 }
 
+function makeBlackSvg(svg: string): string {
+	return svg
+		.replace(/fill="(?!none)[^"]*"/g, 'fill="black"')
+		.replace(/stroke="(?!none)[^"]*"/g, 'stroke="black"');
+}
+
 export function DetailPanel(): JSX.Element | null {
-	const { selectedItem, isSidebarOpen, closeSidebar, logoVariant, getLogoUrl } = useUIContext();
+	const {
+		selectedItem,
+		isSidebarOpen,
+		closeSidebar,
+		colorMode,
+		setColorMode,
+		logoStyle,
+		setLogoStyle,
+		getLogoUrl,
+	} = useUIContext();
 	const { t } = useTranslation();
 	const play = useSound();
 	const [codeFormat, setCodeFormat] = useState("React");
@@ -111,8 +132,10 @@ export function DetailPanel(): JSX.Element | null {
 
 	const activeSvg = useMemo(() => {
 		if (!svgContent) return "";
-		return logoVariant === "mono" ? makeMonoSvg(svgContent) : svgContent;
-	}, [svgContent, logoVariant]);
+		if (colorMode === "white") return makeWhiteSvg(svgContent);
+		if (colorMode === "black") return makeBlackSvg(svgContent);
+		return svgContent;
+	}, [svgContent, colorMode]);
 
 	const generatedCode = useMemo(() => {
 		if (!activeSvg || !selectedItem) return "";
@@ -120,7 +143,7 @@ export function DetailPanel(): JSX.Element | null {
 	}, [activeSvg, codeFormat, selectedItem]);
 
 	function handleCopy(): void {
-		play("copy-svg");
+		play("notification");
 		navigator.clipboard.writeText(generatedCode);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 600);
@@ -129,9 +152,12 @@ export function DetailPanel(): JSX.Element | null {
 	async function handleDownload(format: string): Promise<void> {
 		if (!selectedItem || !activeSvg || isProcessing) return;
 
-		play("download");
+		play("celebration");
 		setIsProcessing(format);
-		const variantSuffix = logoVariant !== "branded" ? `-${logoVariant}` : "";
+
+		const colorSuffix = colorMode !== "colored" ? `-${colorMode}` : "";
+		const styleSuffix = logoStyle === "logomark" ? "-logomark" : "";
+		const variantSuffix = `${colorSuffix}${styleSuffix}`;
 		const filename = `${selectedItem.id}-${selectedItem.name.toLowerCase().replace(/\s+/g, "-")}${variantSuffix}`;
 
 		try {
@@ -172,7 +198,7 @@ export function DetailPanel(): JSX.Element | null {
 					<LayoutGrid size={14} /> {t("sidebar.details")}
 				</h2>
 				<button
-					onClick={() => { play("transition_down"); closeSidebar(); }}
+					onClick={() => { play("swipe"); closeSidebar(); }}
 					className="p-2 text-muted-subtle hover:text-primary hover:bg-surface-hover rounded-full transition-colors outline-none focus:bg-surface-hover"
 				>
 					<X size={20} />
@@ -180,9 +206,13 @@ export function DetailPanel(): JSX.Element | null {
 			</div>
 
 			{selectedItem ? (
-				<div className="flex-1 overflow-y-auto custom-scrollbar">
-					{/* Preview Area */}
-					<div className="relative aspect-square w-full border-b border-border bg-surface/50 flex items-center justify-center p-12 overflow-hidden group">
+				<div className="flex-1 overflow-y-auto">
+					{/* Preview Area — background adapts to keep logos always visible */}
+					<div className={`relative aspect-square w-full border-b border-border flex items-center justify-center p-12 overflow-hidden group ${
+						colorMode === "black" ? "bg-white" :
+						colorMode === "white" ? "bg-zinc-900" :
+						"bg-surface"
+					}`}>
 						<div
 							className="absolute inset-0 pointer-events-none opacity-[0.06] dark:opacity-[0.03] dark:invert"
 							style={{
@@ -194,7 +224,8 @@ export function DetailPanel(): JSX.Element | null {
 							src={resolvedUrl}
 							alt={t(`entityNames.${selectedItem.id}`)}
 							className={`relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 ${
-								logoVariant === "mono" ? "brightness-0 dark:invert" : ""
+								colorMode === "black" ? "brightness-0" :
+								colorMode === "white" ? "brightness-0 invert" : ""
 							}`}
 						/>
 					</div>
@@ -202,8 +233,8 @@ export function DetailPanel(): JSX.Element | null {
 					<div className="p-6 space-y-8">
 						{/* Info Header */}
 						<div>
-							<div className="flex flex-wrap items-center gap-3 mb-4">
-								<h1 className="text-2xl font-bold text-primary">
+							<div className="flex items-center gap-2 mb-4">
+								<h1 className="text-2xl font-bold text-primary me-1">
 									{t(`entityNames.${selectedItem.id}`)}
 								</h1>
 								{selectedItem.figmaUrl && (
@@ -213,6 +244,32 @@ export function DetailPanel(): JSX.Element | null {
 										className="bg-surface-hover/50"
 									/>
 								)}
+								<div className="flex items-center gap-1 ms-auto">
+									{/* Logo style: Stamp = logomark, Type = branded */}
+									<button
+										onClick={() => { play("tap"); setLogoStyle(logoStyle === "branded" ? "logomark" : "branded"); }}
+										title={logoStyle === "branded" ? t("home.logomark") : t("home.branded")}
+										className={`w-7 h-7 flex items-center justify-center rounded-md border transition-all ${
+											logoStyle === "logomark"
+												? "bg-surface-hover border-border-subtle text-primary"
+												: "bg-surface border-border text-muted-foreground hover:text-primary hover:bg-surface-hover"
+										}`}
+									>
+										{logoStyle === "logomark" ? <Stamp size={13} /> : <Type size={13} />}
+									</button>
+									{/* Color mode cycle: colored → black → white → colored */}
+									<button
+										onClick={() => { play("tap"); setColorMode(colorMode === "colored" ? "black" : colorMode === "black" ? "white" : "colored"); }}
+										title={colorMode === "colored" ? t("home.bw") : colorMode === "black" ? t("home.white") : t("home.colored")}
+										className={`w-7 h-7 flex items-center justify-center rounded-md border transition-all ${
+											colorMode !== "colored"
+												? "bg-surface-hover border-border-subtle text-primary"
+												: "bg-surface border-border text-muted-foreground hover:text-primary hover:bg-surface-hover"
+										}`}
+									>
+										{colorMode === "black" ? <Contrast size={13} /> : colorMode === "white" ? <Circle size={13} /> : <Palette size={13} />}
+									</button>
+								</div>
 							</div>
 							<div className="flex flex-wrap gap-2">
 								{selectedItem.colors.map((color, idx) => (
@@ -275,10 +332,10 @@ export function DetailPanel(): JSX.Element | null {
 												className={`
                           cursor-pointer py-2 text-[10px] sm:text-xs font-medium rounded-lg border transition-all duration-200
                           ${
-														codeFormat === fmt
-															? "bg-accent-bg text-accent border-accent-bg shadow-lg"
-															: "bg-transparent text-dim border-border hover:border-border-subtle hover:bg-surface"
-													}
+													codeFormat === fmt
+														? "bg-accent-bg text-accent border-accent-bg shadow-lg"
+														: "bg-transparent text-dim border-border hover:border-border-subtle hover:bg-surface"
+												}
                         `}
 											>
 												{fmt}
@@ -293,7 +350,7 @@ export function DetailPanel(): JSX.Element | null {
 										<CodeBlock
 											code={generatedCode}
 											language={FORMAT_TO_LANG[codeFormat]}
-											className="p-4 font-mono text-xs overflow-x-auto h-64 custom-scrollbar leading-relaxed"
+											className="p-4 font-mono text-xs overflow-x-auto h-64 leading-relaxed grayscale"
 										/>
 
 										<div
@@ -301,13 +358,13 @@ export function DetailPanel(): JSX.Element | null {
                         absolute inset-0 bg-elevated/80 backdrop-blur-[2px]
                         flex items-center justify-center gap-2
                         transition-opacity duration-200
-                        ${copied ? "opacity-100 bg-emerald-500/20" : "opacity-0 group-hover:opacity-100"}
+                        ${copied ? "opacity-100 bg-primary/10" : "opacity-0 group-hover:opacity-100"}
                     `}
 										>
 											{copied ? (
 												<>
-													<Check size={20} className="text-emerald-500" />
-													<span className="text-emerald-500 font-semibold">
+													<Check size={20} className="text-primary" />
+													<span className="text-primary font-semibold">
 														{t("common.copied")}
 													</span>
 												</>
