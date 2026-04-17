@@ -13,7 +13,6 @@ import { AppDetailPage } from "./pages/AppDetailPage";
 import { AppsPage } from "./pages/AppsPage";
 import { ContributingPage } from "./pages/ContributingPage";
 import { HomePage } from "./pages/HomePage";
-import { LogoPlaygroundPage } from "./pages/LogoPlaygroundPage";
 import type { BaseEntity, ColorMode, LogoStyle, LogoVariant, SelectedItem, Theme, UIContextType } from "./types";
 
 export const UIContext = createContext<UIContextType | null>(null);
@@ -327,7 +326,6 @@ function App(): JSX.Element {
 						<Route path="/apps/:bankId" element={<AppDetailPage />} />
 						<Route path="/contributing" element={<ContributingPage />} />
 					<Route path="/about" element={<AboutPage />} />
-					<Route path="/logo-playground" element={<LogoPlaygroundPage />} />
 					</Routes>
 				</Layout>
 			</BrowserRouter>

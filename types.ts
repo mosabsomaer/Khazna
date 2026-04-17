@@ -22,6 +22,7 @@ export interface PaymentMethod extends BaseEntity {
 export interface Screenshot {
 	id: string;
 	url: string;
+	downloadUrl: string;
 	label: string;
 	category: "onboarding" | "dashboard" | "transaction" | "settings" | "auth";
 }

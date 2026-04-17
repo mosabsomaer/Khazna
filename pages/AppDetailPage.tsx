@@ -26,6 +26,7 @@ export function AppDetailPage(): JSX.Element {
 	const [selectedScreen, setSelectedScreen] = useState<Screenshot | null>(null);
 	const [isDownloadingAll, setIsDownloadingAll] = useState(false);
 	const [isDownloadingSingle, setIsDownloadingSingle] = useState(false);
+	const [isImageLoading, setIsImageLoading] = useState(false);
 
 	const bank = BANKS.find((b) => b.id === bankId);
 	const screenshots = bankId ? MOCK_SCREENSHOTS[bankId] || [] : [];
@@ -42,6 +43,7 @@ export function AppDetailPage(): JSX.Element {
 					? (currentIndex + 1) % screenshots.length
 					: (currentIndex - 1 + screenshots.length) % screenshots.length;
 
+			setIsImageLoading(true);
 			setSelectedScreen(screenshots[newIndex]);
 		},
 		[selectedScreen, screenshots, play],
@@ -70,7 +72,7 @@ export function AppDetailPage(): JSX.Element {
 			try {
 				play("celebration");
 				setIsDownloadingSingle(true);
-				const response = await fetch(screen.url);
+				const response = await fetch(screen.downloadUrl);
 				const blob = await response.blob();
 				const filename = `${bank.name.toLowerCase().replace(/\s+/g, "-")}-${screen.label.toLowerCase().replace(/\s+/g, "-")}.png`;
 				downloadBlob(blob, filename);
@@ -95,7 +97,7 @@ export function AppDetailPage(): JSX.Element {
 
 			const promises = screenshots.map(async (screen) => {
 				try {
-					const response = await fetch(screen.url);
+					const response = await fetch(screen.downloadUrl);
 					const blob = await response.blob();
 					const filename = `${screen.label.replace(/\s+/g, "-").toLowerCase()}.png`;
 					folder?.file(filename, blob);
@@ -182,7 +184,7 @@ export function AppDetailPage(): JSX.Element {
 					screenshots.map((screen) => (
 						<div key={screen.id} className="group flex flex-col gap-3">
 							<button
-								onClick={() => { play("select"); setSelectedScreen(screen); }}
+								onClick={() => { play("select"); setIsImageLoading(true); setSelectedScreen(screen); }}
 								className="relative aspect-9/19 w-full rounded-2xl overflow-hidden border border-border bg-surface cursor-pointer outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
 							>
 								<img
@@ -257,10 +259,17 @@ export function AppDetailPage(): JSX.Element {
 							className="relative flex flex-col items-center gap-4 max-h-full"
 							onClick={(e) => e.stopPropagation()}
 						>
+							{isImageLoading && (
+								<div className="absolute inset-0 flex items-center justify-center">
+									<Loader2 size={40} className="animate-spin text-zinc-400" />
+								</div>
+							)}
 							<img
+								key={selectedScreen.id}
 								src={selectedScreen.url}
 								alt={t(`screenshotLabels.${selectedScreen.label}`)}
-								className="max-h-[85vh] w-auto object-contain rounded-lg shadow-2xl ring-1 ring-white/10"
+								onLoad={() => setIsImageLoading(false)}
+								className={`max-h-[85vh] w-auto object-contain rounded-lg shadow-2xl ring-1 ring-white/10 transition-opacity duration-200 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
 							/>
 
 							<div className="flex items-center gap-4 bg-zinc-900/80 px-6 py-3 rounded-full backdrop-blur-md border border-white/10">
