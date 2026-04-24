@@ -12,11 +12,10 @@ interface TeamMember {
 
 interface TeamSectionProps {
 	title: string;
-	subtitle: string;
 	members: TeamMember[];
 }
 
-export const TeamSection = ({ title, subtitle, members }: TeamSectionProps) => {
+export const TeamSection = ({ title, members }: TeamSectionProps) => {
 	const gridRef = useRef<HTMLDivElement>(null);
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -42,7 +41,6 @@ export const TeamSection = ({ title, subtitle, members }: TeamSectionProps) => {
 		<section className="w-full py-16 sm:py-24">
 			<div className="container mx-auto max-w-6xl px-4 text-center">
 				<h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{title}</h2>
-				<p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">{subtitle}</p>
 
 				<div
 					ref={gridRef}

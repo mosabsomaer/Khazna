@@ -57,7 +57,6 @@ export function AboutPage(): JSX.Element {
 			<div id="team">
 				<TeamSection
 					title={t("team.title")}
-					subtitle={t("team.subtitle")}
 					members={teamMembers}
 				/>
 			</div>
