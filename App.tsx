@@ -144,8 +144,32 @@ function App(): JSX.Element {
 
 	const getLogoUrl = useCallback(
 		(item: BaseEntity): string => {
-			if (logoStyle === "logomark" && item.logomarkUrl) return item.logomarkUrl;
+			const isLogomark = logoStyle === "logomark" && item.logomarkUrl;
+			if (isLogomark) return item.logomarkUrl as string;
 			return item.logoUrl;
+		},
+		[logoStyle],
+	);
+
+	// Preview-only: resolves the mono asset when colorMode is active.
+	// The grid intentionally ignores colorMode and always uses getLogoUrl.
+	const getPreviewLogoUrl = useCallback(
+		(item: BaseEntity): string => {
+			const isLogomark = logoStyle === "logomark" && item.logomarkUrl;
+			if (colorMode === "black" || colorMode === "white") {
+				if (isLogomark && item.logomarkUrlBlack) return item.logomarkUrlBlack;
+				if (!isLogomark && item.logoUrlBlack) return item.logoUrlBlack;
+			}
+			if (isLogomark) return item.logomarkUrl as string;
+			return item.logoUrl;
+		},
+		[logoStyle, colorMode],
+	);
+
+	const hasMonoAsset = useCallback(
+		(item: BaseEntity): boolean => {
+			const isLogomark = logoStyle === "logomark" && item.logomarkUrl;
+			return isLogomark ? !!item.logomarkUrlBlack : !!item.logoUrlBlack;
 		},
 		[logoStyle],
 	);
@@ -294,6 +318,8 @@ function App(): JSX.Element {
 			logoStyle,
 			setLogoStyle,
 			getLogoUrl,
+			getPreviewLogoUrl,
+			hasMonoAsset,
 			theme,
 			toggleTheme,
 			soundEnabled,
@@ -308,6 +334,8 @@ function App(): JSX.Element {
 			colorMode,
 			logoStyle,
 			getLogoUrl,
+			getPreviewLogoUrl,
+			hasMonoAsset,
 			theme,
 			toggleTheme,
 			soundEnabled,

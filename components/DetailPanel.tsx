@@ -96,16 +96,21 @@ export function DetailPanel(): JSX.Element | null {
 		setColorMode,
 		logoStyle,
 		setLogoStyle,
-		getLogoUrl,
+		getPreviewLogoUrl,
+		hasMonoAsset,
 	} = useUIContext();
 	const { t } = useTranslation();
 	const play = useSound();
 	const [codeFormat, setCodeFormat] = useState("React");
 	const [copied, setCopied] = useState(false);
+	const [cdnCopied, setCdnCopied] = useState<"branded" | "logomark" | null>(null);
 	const [svgContent, setSvgContent] = useState<string>("");
 	const [isProcessing, setIsProcessing] = useState<string | null>(null);
 
-	const resolvedUrl = selectedItem ? getLogoUrl(selectedItem) : "";
+	const resolvedUrl = selectedItem ? getPreviewLogoUrl(selectedItem) : "";
+	const usingMonoAsset = !!selectedItem && hasMonoAsset(selectedItem) && colorMode !== "colored";
+	const cdnBrandedUrl = selectedItem ? `https://khazna.ly${selectedItem.logoUrl}` : "";
+	const cdnLogomarkUrl = selectedItem?.logomarkUrl ? `https://khazna.ly${selectedItem.logomarkUrl}` : "";
 
 	useEffect(() => {
 		async function fetchSvg(): Promise<void> {
@@ -130,17 +135,39 @@ export function DetailPanel(): JSX.Element | null {
 		setIsProcessing(null);
 	}, [resolvedUrl]);
 
+	// When switching to an item that doesn't support mono, drop back to colored
+	// so the preview doesn't render a forced black/white version.
+	useEffect(() => {
+		if (selectedItem?.disableMono && colorMode !== "colored") {
+			setColorMode("colored");
+		}
+	}, [selectedItem, colorMode, setColorMode]);
+
 	const activeSvg = useMemo(() => {
 		if (!svgContent) return "";
+		// With a hand-crafted black asset, the fetched SVG is already pure black.
+		// Invert to white when needed; otherwise use as-is.
+		if (usingMonoAsset) {
+			return colorMode === "white" ? makeWhiteSvg(svgContent) : svgContent;
+		}
+		// Fallback: regex-transform a colored SVG. Works for solid-color logos;
+		// may look hollow on logos with internal white fills.
 		if (colorMode === "white") return makeWhiteSvg(svgContent);
 		if (colorMode === "black") return makeBlackSvg(svgContent);
 		return svgContent;
-	}, [svgContent, colorMode]);
+	}, [svgContent, colorMode, usingMonoAsset]);
 
 	const generatedCode = useMemo(() => {
 		if (!activeSvg || !selectedItem) return "";
 		return generateCode(codeFormat, activeSvg, selectedItem.name);
 	}, [activeSvg, codeFormat, selectedItem]);
+
+	function handleCdnCopy(variant: "branded" | "logomark"): void {
+		play("notification");
+		navigator.clipboard.writeText(variant === "logomark" ? cdnLogomarkUrl : cdnBrandedUrl);
+		setCdnCopied(variant);
+		setTimeout(() => setCdnCopied(null), 1500);
+	}
 
 	function handleCopy(): void {
 		play("notification");
@@ -224,8 +251,11 @@ export function DetailPanel(): JSX.Element | null {
 							src={resolvedUrl}
 							alt={t(`entityNames.${selectedItem.id}`)}
 							className={`relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 ${
-								colorMode === "black" ? "brightness-0" :
-								colorMode === "white" ? "brightness-0 invert" : ""
+								usingMonoAsset
+									? colorMode === "white" ? "invert" : ""
+									: colorMode === "black" ? "brightness-0"
+									: colorMode === "white" ? "brightness-0 invert"
+									: ""
 							}`}
 						/>
 					</div>
@@ -258,6 +288,7 @@ export function DetailPanel(): JSX.Element | null {
 										{logoStyle === "logomark" ? <Stamp size={13} /> : <Type size={13} />}
 									</button>
 									{/* Color mode cycle: colored → black → white → colored */}
+									{!selectedItem.disableMono && (
 									<button
 										onClick={() => { play("tap"); setColorMode(colorMode === "colored" ? "black" : colorMode === "black" ? "white" : "colored"); }}
 										title={colorMode === "colored" ? t("home.bw") : colorMode === "black" ? t("home.white") : t("home.colored")}
@@ -269,6 +300,7 @@ export function DetailPanel(): JSX.Element | null {
 									>
 										{colorMode === "black" ? <Contrast size={13} /> : colorMode === "white" ? <Circle size={13} /> : <Palette size={13} />}
 									</button>
+									)}
 								</div>
 							</div>
 							<div className="flex flex-wrap gap-2">
@@ -377,6 +409,38 @@ export function DetailPanel(): JSX.Element | null {
 												</>
 											)}
 										</div>
+									</div>
+
+									{/* CDN URL block */}
+									<div className="rounded-xl border border-border overflow-hidden">
+										<div className="px-3 py-2 border-b border-border bg-surface/50">
+											<span className="text-[10px] font-semibold text-dim uppercase tracking-widest">
+												{t("sidebar.cdnUrl")}
+											</span>
+										</div>
+										{(() => {
+											const variant = logoStyle === "logomark" ? "logomark" : "branded";
+											const url = variant === "logomark" ? cdnLogomarkUrl : cdnBrandedUrl;
+											const label = variant === "logomark" ? t("home.logomark") : t("home.branded");
+
+											return url ? (
+												<button
+													onClick={() => handleCdnCopy(variant)}
+													title={t("common.clickToCopy")}
+													className="w-full flex items-center gap-3 px-3 py-2.5 bg-surface/30 hover:bg-surface active:scale-[0.99] transition-all duration-200 outline-none focus:bg-surface group border-t border-border"
+												>
+													<span className="text-[10px] font-medium text-dim shrink-0 w-14 text-start">
+														{label}
+													</span>
+													<span dir="ltr" className="flex-1 text-left text-xs font-mono text-muted-foreground truncate group-hover:text-primary transition-colors">
+														{url}
+													</span>
+													<span className="shrink-0 text-dim group-hover:text-primary transition-colors">
+														{cdnCopied === variant ? <Check size={14} className="text-primary" /> : <Copy size={14} />}
+													</span>
+												</button>
+											) : null;
+										})()}
 									</div>
 								</div>
 							</TabsContent>

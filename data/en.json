@@ -46,7 +46,8 @@
 		"zipping": "Zipping...",
 		"downloadFailed": "Could not convert image. Try downloading as SVG.",
 		"downloadImageFailed": "Failed to download image.",
-		"zipFailed": "Failed to create zip file."
+		"zipFailed": "Failed to create zip file.",
+		"cdnUrl": "CDN URL"
 	},
 	"contributors": {
 		"contributors": "Contributors",
@@ -123,7 +124,7 @@
 		"mosab": {
 			"name": "Mosab Omaer",
 			"role": "Developer",
-			"quote": "We built Khazna to bridge the gap between design and development in Libya's growing fintech ecosystem."
+			"quote": "I encourage everyone to take small initiative projects to enrich our community. The strength of our digital landscape depends on the tools and resources we choose to create today."
 		},
 		"moaad": {
 			"name": "Moaad Alnaeli",

@@ -1,4 +1,4 @@
-import { Circle, Contrast, Palette, Stamp, Type } from "lucide-react";
+import { Stamp, Type } from "lucide-react";
 import type { JSX } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,22 +6,12 @@ import { Badge } from "../components/Badge";
 import { BANKS, PAYMENT_METHODS } from "../constants";
 import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
-import type { Bank, ColorMode, PaymentMethod } from "../types";
-
-function nextColorMode(c: ColorMode): ColorMode {
-	return c === "colored" ? "black" : c === "black" ? "white" : "colored";
-}
-
-function colorIcon(c: ColorMode) {
-	if (c === "black") return <Contrast size={15} />;
-	if (c === "white") return <Circle size={15} />;
-	return <Palette size={15} />;
-}
+import type { Bank, PaymentMethod } from "../types";
 
 type Filter = "all" | "banks" | "payment_methods";
 
 export function HomePage(): JSX.Element {
-	const { setSelectedItem, selectedItem, colorMode, setColorMode, logoStyle, setLogoStyle, getLogoUrl } = useUIContext();
+	const { setSelectedItem, selectedItem, logoStyle, setLogoStyle, getLogoUrl } = useUIContext();
 	const { t } = useTranslation();
 	const play = useSound();
 	const [logoSize, setLogoSize] = useState(150);
@@ -46,15 +36,9 @@ export function HomePage(): JSX.Element {
 				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 					{items.map((item) => {
 						const isSelected = selectedItem?.id === item.id;
-						// Guarantee contrast regardless of theme or color mode
-						const cellBg =
-							colorMode === "black"
-								? "bg-white hover:bg-neutral-50"
-								: colorMode === "white"
-									? "bg-zinc-900 hover:bg-zinc-800"
-									: isSelected
-										? "bg-surface-hover"
-										: "bg-surface hover:bg-surface-hover";
+						const cellBg = isSelected
+							? "bg-surface-hover"
+							: "bg-surface hover:bg-surface-hover";
 						return (
 							<button
 								key={item.id}
@@ -78,10 +62,7 @@ export function HomePage(): JSX.Element {
 								<img
 									src={getLogoUrl(item)}
 									alt={t(`entityNames.${item.id}`)}
-									className={`object-contain transition-all duration-200 ${
-										colorMode === "black" ? "brightness-0" :
-										colorMode === "white" ? "brightness-0 invert" : ""
-									}`}
+									className="object-contain transition-all duration-200"
 									style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
 								/>
 
@@ -136,19 +117,6 @@ export function HomePage(): JSX.Element {
 						}`}
 					>
 						{logoStyle === "logomark" ? <Stamp size={15} /> : <Type size={15} />}
-					</button>
-
-					{/* Color mode cycle: colored → black → white → colored */}
-					<button
-						onClick={() => { play("tap"); setColorMode(nextColorMode(colorMode)); }}
-						title={colorMode === "colored" ? t("home.bw") : colorMode === "black" ? t("home.white") : t("home.colored")}
-						className={`w-8 h-8 flex items-center justify-center rounded-lg border transition-all ${
-							colorMode !== "colored"
-								? "bg-surface-hover border-border-subtle text-primary"
-								: "bg-surface border-border text-muted-foreground hover:text-primary hover:bg-surface-hover"
-						}`}
-					>
-						{colorIcon(colorMode)}
 					</button>
 
 					{/* Divider */}

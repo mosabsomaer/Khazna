@@ -2,11 +2,15 @@ export interface BaseEntity {
 	id: string;
 	name: string;
 	logoUrl: string;
+	logoUrlBlack?: string;
 	logomarkUrl?: string;
+	logomarkUrlBlack?: string;
 	colors: string[];
 	isNew?: boolean;
 	isUpdated?: boolean;
 	figmaUrl?: string;
+	/** When true, black/white color modes are not offered for this entity. */
+	disableMono?: boolean;
 }
 
 export interface Bank extends BaseEntity {
@@ -49,6 +53,8 @@ export interface UIContextType {
 	logoStyle: LogoStyle;
 	setLogoStyle: (style: LogoStyle) => void;
 	getLogoUrl: (item: BaseEntity) => string;
+	getPreviewLogoUrl: (item: BaseEntity) => string;
+	hasMonoAsset: (item: BaseEntity) => boolean;
 	theme: Theme;
 	toggleTheme: (originRect?: DOMRect) => void;
 	soundEnabled: boolean;
