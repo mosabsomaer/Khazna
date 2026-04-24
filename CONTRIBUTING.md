@@ -13,7 +13,7 @@ cd Khazna
 bun install
 
 # Start the dev server
-bun dev
+bun run dev
 ```
 
 ## Project Structure
@@ -24,41 +24,43 @@ Khazna/
 ├── index.tsx            # Entry point
 ├── index.html           # HTML shell, CSS variables, FOUC prevention
 ├── index.css            # Global styles, theme toggle animation
-├── constants.ts         # Banks, payment methods, and contributor data
+├── constants.ts         # BANKS, PAYMENT_METHODS, MOCK_SCREENSHOTS, SOCIAL_LINKS
 ├── types.ts             # TypeScript interfaces (Bank, PaymentMethod, etc.)
 ├── i18n.ts              # i18next configuration
 ├── components/
 │   ├── ui/              # shadcn/ui base components
 │   └── *.tsx            # Custom components (Navbar, LogoCard, etc.)
 ├── pages/
-│   ├── HomePage.tsx     # Logo gallery
-│   ├── AppsPage.tsx     # App UI gallery
-│   └── AppDetailPage.tsx
+│   ├── HomePage.tsx         # Logo gallery
+│   ├── AppsPage.tsx         # App UI gallery
+│   ├── AppDetailPage.tsx    # App detail / screenshots
+│   ├── AboutPage.tsx        # About page
+│   └── ContributingPage.tsx # Contributing page (rendered from this file)
 ├── hooks/               # Custom React hooks
-├── utils/               # Utility functions (download, generators)
+├── lib/                 # Shared helpers (e.g. cn())
 ├── data/
 │   ├── en.json          # English translations
 │   └── ar.json          # Arabic translations
 └── public/
-    └── logos/
-        ├── banks/           # Full bank logos (SVG)
-        ├── bank-icons/      # Bank logomarks (SVG)
-        └── payment-methods/ # Payment method logos (SVG)
+    └── cdn/v1/logos/
+        ├── banks/       # Full bank logos (SVG)
+        ├── bank-icons/  # Bank logomarks (SVG)
+        └── payments/    # Payment method logos (SVG)
 ```
 
 ## Code Style
 
-We use [Biome](https://biomejs.dev/) for linting and formatting.
+We use [Biome](https://biomejs.dev/) for linting and formatting. Biome is installed as a dev dependency — run it via `bunx`:
 
 ```bash
 # Check for lint and format issues
-bun check
+bunx biome check .
 
-# Auto-fix issues
-bun format
+# Auto-fix formatting and safe lint issues
+bunx biome check --write .
 ```
 
-Always run `bun format` before committing. The project uses tabs for indentation and a 100-character line width.
+Always run the formatter before committing. The project uses tabs for indentation and a 100-character line width (see `biome.json`).
 
 ## i18n
 
@@ -93,8 +95,8 @@ Do **not** hardcode raw color values. Always use the semantic tokens so both the
 1. Fork the repository
 2. Create a feature branch: `git checkout -b your-feature-name`
 3. Make your changes
-4. Run `bun format` to fix formatting
-5. Run `bun check` to verify no lint errors
+4. Run `bunx biome check --write .` to fix formatting
+5. Run `bunx biome check .` to verify no lint errors
 6. Commit with a clear message describing the change
 7. Push and open a Pull Request
 
@@ -124,17 +126,21 @@ Each entity needs SVG logo files following these specs:
 
 ### 2. Add SVG Files
 
-Place your files in the correct `public/logos/` subdirectory:
+Place your files in the correct `public/cdn/v1/logos/` subdirectory:
 
 ```
-public/logos/
-├── banks/               # Full bank logos
+public/cdn/v1/logos/
+├── banks/           # Full bank logos
 │   └── my-bank.svg
-├── bank-icons/          # Bank logomarks (icon only)
+├── bank-icons/      # Bank logomarks (icon only)
 │   └── my-bank.svg
-└── payment-methods/     # Payment method logos
+└── payments/        # Payment method logos
     └── my-payment.svg
 ```
+
+If the brand has an alternate dark-background variant, add a sibling file
+with the `-black` suffix (e.g. `my-bank-black.svg`) and wire it up via
+`logoUrlBlack` / `logomarkUrlBlack` in the next step.
 
 The filename must match the `id` you'll use in the next step.
 
@@ -148,12 +154,21 @@ Open `constants.ts` and add your entry to the appropriate array.
 {
   id: "my-bank",               // kebab-case, matches SVG filename
   name: "My Bank",             // Display name
-  logoUrl: "/logos/banks/my-bank.svg",
-  logomarkUrl: "/logos/bank-icons/my-bank.svg",
+  logoUrl: "/cdn/v1/logos/banks/my-bank.svg",
+  logomarkUrl: "/cdn/v1/logos/bank-icons/my-bank.svg",
   colors: ["#034694", "#27AAE2"],  // 1-3 brand colors (hex)
   hasScreenshots: false,
   type: "bank",
 },
+```
+
+Optional `Bank` fields (see `types.ts`):
+
+- `logoUrlBlack` / `logomarkUrlBlack` — alternate asset for dark backgrounds
+- `website` — external brand site
+- `figmaUrl` — link to the Figma source
+- `isNew` / `isUpdated` — badges in the gallery
+- `disableMono` — hide black/white color modes for this entry
 ```
 
 **For a payment method**, add to the `PAYMENT_METHODS` array:
@@ -162,7 +177,7 @@ Open `constants.ts` and add your entry to the appropriate array.
 {
   id: "my-payment",            // kebab-case, matches SVG filename
   name: "My Payment",          // Display name
-  logoUrl: "/logos/payment-methods/my-payment.svg",
+  logoUrl: "/cdn/v1/logos/payments/my-payment.svg",
   colors: ["#034694"],         // 1-3 brand colors (hex)
   type: "payment_method",
 },
@@ -178,7 +193,7 @@ Add the display name to **both** translation files if the name differs between l
 ### 5. Verify
 
 ```bash
-bun dev
+bun run dev
 ```
 
 Check that your logo appears correctly in:
@@ -194,4 +209,4 @@ Check that your logo appears correctly in:
 - [ ] Banks have both a full logo and a logomark
 - [ ] `colors` array contains 1-3 hex values from the brand
 - [ ] Logo renders correctly in light and dark mode
-- [ ] `bun check` passes
+- [ ] `bunx biome check .` passes
