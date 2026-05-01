@@ -29,7 +29,7 @@ export const UIContext = createContext<UIContextType | null>(null);
 const THEME_BG: Record<Theme, string> = { dark: "#080808", light: "#ffffff" };
 
 function Layout({ children }: { children: React.ReactNode }): JSX.Element {
-	const { closeSidebar } = useUIContext();
+	const { closeSidebar, isSidebarOpen } = useUIContext();
 	const { pathname } = useLocation();
 	const { t } = useTranslation();
 
@@ -43,7 +43,9 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<div className="min-h-screen bg-background text-primary">
 			<Navbar />
-			<div className="relative transition-all duration-300 flex-1 flex flex-col">
+			<div
+				className={`relative transition-[padding] duration-300 flex-1 flex flex-col ${isSidebarOpen ? "xl:pe-[400px]" : ""}`}
+			>
 				<main className="max-w-400 mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">{children}</main>
 				<Contributors />
 				<footer className="border-t border-border/30 py-5 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">

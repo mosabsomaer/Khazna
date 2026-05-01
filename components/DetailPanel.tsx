@@ -1,3 +1,5 @@
+import { convertSvgToImage, downloadBlob } from "@/lib/download";
+import { generateCode } from "@/lib/generators";
 import {
 	Check,
 	Circle,
@@ -16,8 +18,6 @@ import {
 import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { convertSvgToImage, downloadBlob } from "@/lib/download";
-import { generateCode } from "@/lib/generators";
 import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
 import { FigmaLink } from "./FigmaLink";
@@ -215,7 +215,7 @@ export function DetailPanel(): JSX.Element | null {
 		<aside
 			className={`
       fixed inset-y-0 end-0 z-50
-      w-full md:w-[400px]
+      w-full xl:w-[400px]
       bg-background border-s border-border
       transform transition-transform duration-300 ease-in-out
       flex flex-col shadow-2xl shadow-black/20 dark:shadow-black

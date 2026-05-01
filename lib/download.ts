@@ -9,6 +9,18 @@ export function downloadBlob(blob: Blob, filename: string): void {
 	URL.revokeObjectURL(url);
 }
 
+// Patch the SVG with explicit dimensions so Chrome/Safari render it at the
+// correct size instead of defaulting to 300×150 and stretching on drawImage.
+function prepareSvgForCanvas(svgString: string, width: number, height: number): string {
+	return svgString.replace(/<svg([^>]*)>/, (_match, attrs: string) => {
+		const cleaned = attrs
+			.replace(/\s+width="[^"]*"/g, "")
+			.replace(/\s+height="[^"]*"/g, "")
+			.replace(/\s+preserveAspectRatio="[^"]*"/g, "");
+		return `<svg${cleaned} width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet">`;
+	});
+}
+
 export function convertSvgToImage(
 	svgString: string,
 	width: number,
@@ -23,7 +35,8 @@ export function convertSvgToImage(
 		canvas.width = width;
 		canvas.height = height;
 
-		const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+		const patchedSvg = prepareSvgForCanvas(svgString, width, height);
+		const svgBlob = new Blob([patchedSvg], { type: "image/svg+xml;charset=utf-8" });
 		const url = URL.createObjectURL(svgBlob);
 
 		img.onload = () => {
