@@ -40,7 +40,7 @@ function synthesizeWoodKnock(
 	startTime: number,
 ): void {
 	const attackTime = 0.005; // 5 ms — avoids onset click
-	const decayTime  = 0.10;  // 100 ms — short, clean
+	const decayTime = 0.1; // 100 ms — short, clean
 
 	const noise = ctx.createBufferSource();
 	noise.buffer = getNoiseBuffer(ctx);
@@ -113,7 +113,12 @@ export function usePianoSlider(
 			prevValueRef.current = value;
 
 			if (prev === null || prev === value) {
-				synthesizeWoodKnock(ctx, sliderToFilterFreq(value, sliderMin, sliderMax), volume, ctx.currentTime);
+				synthesizeWoodKnock(
+					ctx,
+					sliderToFilterFreq(value, sliderMin, sliderMax),
+					volume,
+					ctx.currentTime,
+				);
 				return;
 			}
 
@@ -138,8 +143,9 @@ export function usePianoSlider(
 			const thinned: number[] =
 				notes.length <= MAX_NOTES
 					? notes
-					: notes.filter((_, i) => i % Math.ceil(notes.length / MAX_NOTES) === 0)
-						.concat(notes[notes.length - 1]);
+					: notes
+							.filter((_, i) => i % Math.ceil(notes.length / MAX_NOTES) === 0)
+							.concat(notes[notes.length - 1]);
 
 			pendingRef.current.forEach(clearTimeout);
 			pendingRef.current = [];
@@ -149,7 +155,12 @@ export function usePianoSlider(
 					if (!audioCtxRef.current) return;
 					const c = audioCtxRef.current;
 					if (c.state === "suspended") c.resume().catch(() => {});
-					synthesizeWoodKnock(c, sliderToFilterFreq(v, sliderMin, sliderMax), volume, c.currentTime);
+					synthesizeWoodKnock(
+						c,
+						sliderToFilterFreq(v, sliderMin, sliderMax),
+						volume,
+						c.currentTime,
+					);
 				}, i * NOTE_INTERVAL_MS);
 				pendingRef.current.push(t);
 			});

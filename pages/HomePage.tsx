@@ -36,13 +36,14 @@ export function HomePage(): JSX.Element {
 				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 					{items.map((item) => {
 						const isSelected = selectedItem?.id === item.id;
-						const cellBg = isSelected
-							? "bg-surface-hover"
-							: "bg-surface hover:bg-surface-hover";
+						const cellBg = isSelected ? "bg-surface-hover" : "bg-surface hover:bg-surface-hover";
 						return (
 							<button
 								key={item.id}
-								onClick={() => { play("swipe"); setSelectedItem(item); }}
+								onClick={() => {
+									play("swipe");
+									setSelectedItem(item);
+								}}
 								className={`
                   relative flex flex-col items-center justify-center gap-3
                   border-e border-b border-border
@@ -86,7 +87,6 @@ export function HomePage(): JSX.Element {
 
 			{/* Toolbar — responsive: slider left, controls right (wraps on small screens) */}
 			<div className="flex flex-wrap items-center gap-x-3 gap-y-3 py-4 border-b border-border">
-
 				{/* Size Slider */}
 				<div className="flex items-center gap-2.5 shrink-0">
 					<span className="text-sm font-bold text-muted-foreground">{t("home.size")}</span>
@@ -105,10 +105,12 @@ export function HomePage(): JSX.Element {
 
 				{/* Controls — pushed right on wide, wraps below on narrow */}
 				<div className="flex items-center gap-2 ms-auto shrink-0">
-
 					{/* Logo style toggle: Stamp = logomark, Type = branded */}
 					<button
-						onClick={() => { play("tap"); setLogoStyle(logoStyle === "branded" ? "logomark" : "branded"); }}
+						onClick={() => {
+							play("tap");
+							setLogoStyle(logoStyle === "branded" ? "logomark" : "branded");
+						}}
 						title={logoStyle === "branded" ? t("home.logomark") : t("home.branded")}
 						className={`w-8 h-8 flex items-center justify-center rounded-lg border transition-all ${
 							logoStyle === "logomark"
@@ -127,7 +129,10 @@ export function HomePage(): JSX.Element {
 						{filters.map((f) => (
 							<button
 								key={f.key}
-								onClick={() => { play("tap"); setFilter(f.key); }}
+								onClick={() => {
+									play("tap");
+									setFilter(f.key);
+								}}
 								className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
 									filter === f.key
 										? "bg-surface-hover text-primary shadow-sm"
@@ -135,9 +140,11 @@ export function HomePage(): JSX.Element {
 								}`}
 							>
 								{t(f.labelKey)}
-								<span className={`text-[10px] tabular-nums ${
-									filter === f.key ? "text-muted-foreground" : "text-muted-subtle"
-								}`}>
+								<span
+									className={`text-[10px] tabular-nums ${
+										filter === f.key ? "text-muted-foreground" : "text-muted-subtle"
+									}`}
+								>
 									{f.count}
 								</span>
 							</button>
@@ -146,9 +153,7 @@ export function HomePage(): JSX.Element {
 				</div>
 			</div>
 
-			<div className="mt-6">
-				{renderGrid(allItems)}
-			</div>
+			<div className="mt-6">{renderGrid(allItems)}</div>
 		</div>
 	);
 }

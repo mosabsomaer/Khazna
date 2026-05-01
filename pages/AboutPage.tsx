@@ -55,10 +55,7 @@ export function AboutPage(): JSX.Element {
 
 			{/* Meet the Team */}
 			<div id="team">
-				<TeamSection
-					title={t("team.title")}
-					members={teamMembers}
-				/>
+				<TeamSection title={t("team.title")} members={teamMembers} />
 			</div>
 
 			{/* Join the Community */}
@@ -69,18 +66,20 @@ export function AboutPage(): JSX.Element {
 				<div className="relative z-10 flex flex-col items-center text-center">
 					{/* App icons dock */}
 					<div className="flex items-center gap-1.5 p-2 rounded-2xl bg-elevated/80 border border-border/60 shadow-lg mb-8">
-						{BANKS.filter((bank) => bank.logomarkUrl).slice(0, 5).map((bank) => (
-							<div
-								key={bank.id}
-								className="w-10 h-10 rounded-xl overflow-hidden bg-surface border border-border-subtle"
-							>
-								<img
-									src={bank.logomarkUrl}
-									alt={bank.name}
-									className="w-full h-full object-cover"
-								/>
-							</div>
-						))}
+						{BANKS.filter((bank) => bank.logomarkUrl)
+							.slice(0, 5)
+							.map((bank) => (
+								<div
+									key={bank.id}
+									className="w-10 h-10 rounded-xl overflow-hidden bg-surface border border-border-subtle"
+								>
+									<img
+										src={bank.logomarkUrl}
+										alt={bank.name}
+										className="w-full h-full object-cover"
+									/>
+								</div>
+							))}
 					</div>
 
 					<h3 className="text-3xl md:text-4xl font-bold text-primary mb-4">

@@ -13,11 +13,11 @@ import type { JSX } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { downloadBlob } from "@/lib/download";
 import { FigmaLink } from "../components/FigmaLink";
 import { BANKS, MOCK_SCREENSHOTS } from "../constants";
 import { useSound } from "../hooks/useSound";
 import type { Screenshot } from "../types";
-import { downloadBlob } from "@/lib/download";
 
 export function AppDetailPage(): JSX.Element {
 	const { bankId } = useParams<{ bankId: string }>();
@@ -184,7 +184,11 @@ export function AppDetailPage(): JSX.Element {
 					screenshots.map((screen) => (
 						<div key={screen.id} className="group flex flex-col gap-3">
 							<button
-								onClick={() => { play("select"); setIsImageLoading(true); setSelectedScreen(screen); }}
+								onClick={() => {
+									play("select");
+									setIsImageLoading(true);
+									setSelectedScreen(screen);
+								}}
 								className="relative aspect-9/19 w-full rounded-2xl overflow-hidden border border-border bg-surface cursor-pointer outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
 							>
 								<img
@@ -221,7 +225,10 @@ export function AppDetailPage(): JSX.Element {
 			{selectedScreen && (
 				<div
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
-					onClick={() => { play("select"); setSelectedScreen(null); }}
+					onClick={() => {
+						play("select");
+						setSelectedScreen(null);
+					}}
 				>
 					<button
 						onClick={(e) => {

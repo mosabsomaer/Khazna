@@ -1,7 +1,7 @@
+import { ArrowLeft } from "lucide-react";
 import type { JSX } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { html as contributingHtml } from "../CONTRIBUTING.md";
 
 export function ContributingPage(): JSX.Element {

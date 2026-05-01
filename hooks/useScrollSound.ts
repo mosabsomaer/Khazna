@@ -1,6 +1,6 @@
+import { useEffect, useRef } from "react";
 import { scroll003Sound } from "@/lib/scroll-003";
 import { decodeAudioData, getAudioContext } from "@/lib/sound-engine";
-import { useEffect, useRef } from "react";
 import { useUIContext } from "./useUIContext";
 
 const SCROLL_THRESHOLD = 50; // pixels of scroll to trigger one tick
@@ -51,8 +51,7 @@ export function useScrollSound(volume = 0.1) {
 		};
 
 		const handleScroll = () => {
-			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-				return;
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
 			const currentY = window.scrollY;
 			const delta = Math.abs(currentY - lastScrollYRef.current);

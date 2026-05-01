@@ -13,7 +13,15 @@ import { AppDetailPage } from "./pages/AppDetailPage";
 import { AppsPage } from "./pages/AppsPage";
 import { ContributingPage } from "./pages/ContributingPage";
 import { HomePage } from "./pages/HomePage";
-import type { BaseEntity, ColorMode, LogoStyle, LogoVariant, SelectedItem, Theme, UIContextType } from "./types";
+import type {
+	BaseEntity,
+	ColorMode,
+	LogoStyle,
+	LogoVariant,
+	SelectedItem,
+	Theme,
+	UIContextType,
+} from "./types";
 
 export const UIContext = createContext<UIContextType | null>(null);
 
@@ -35,9 +43,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 		<div className="min-h-screen bg-background text-primary">
 			<Navbar />
 			<div className="relative transition-all duration-300 flex-1 flex flex-col">
-				<main className="max-w-400 mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">
-					{children}
-				</main>
+				<main className="max-w-400 mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">{children}</main>
 				<Contributors />
 				<footer className="border-t border-border/30 py-5 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
 					{/* Built by badge */}
@@ -45,7 +51,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 						to="/about#team"
 						className="inline-flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors group"
 					>
-						<span className="group-hover:underline underline-offset-2">{t('footer.builtBy')}</span>
+						<span className="group-hover:underline underline-offset-2">{t("footer.builtBy")}</span>
 						<div className="flex items-center">
 							<img
 								src="/founders/Sara.webp"
@@ -65,7 +71,9 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 						</div>
 					</Link>
 
-					<span className="text-muted-subtle text-xl leading-none select-none" aria-hidden>•</span>
+					<span className="text-muted-subtle text-xl leading-none select-none" aria-hidden>
+						•
+					</span>
 
 					{/* Hosted by */}
 					<a
@@ -74,7 +82,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 						rel="noopener noreferrer"
 						className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
 					>
-						{t('footer.hostedBy')}
+						{t("footer.hostedBy")}
 						<img src="/binary-logo.svg" alt="Binary" className="h-4 w-4 dark:invert" />
 						<span className="font-medium">Binary</span>
 					</a>
@@ -118,9 +126,7 @@ function App(): JSX.Element {
 	const [theme, setTheme] = useState<Theme>(() => {
 		const stored = localStorage.getItem("khazna-theme") as Theme | null;
 		if (stored) return stored;
-		return window.matchMedia?.("(prefers-color-scheme: dark)").matches
-			? "dark"
-			: "light";
+		return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 	});
 
 	const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
@@ -208,12 +214,8 @@ function App(): JSX.Element {
 			isAnimating.current = true;
 
 			// Calculate circle origin from button center, fallback to top-right
-			const x = originRect
-				? originRect.left + originRect.width / 2
-				: window.innerWidth - 48;
-			const y = originRect
-				? originRect.top + originRect.height / 2
-				: 32;
+			const x = originRect ? originRect.left + originRect.width / 2 : window.innerWidth - 48;
+			const y = originRect ? originRect.top + originRect.height / 2 : 32;
 
 			// Maximum radius needed to cover the entire viewport from the origin
 			const maxRadius = Math.hypot(
@@ -272,10 +274,7 @@ function App(): JSX.Element {
 
 				const animation = overlay.animate(
 					{
-						clipPath: [
-							`circle(0px at ${x}px ${y}px)`,
-							`circle(${maxRadius}px at ${x}px ${y}px)`,
-						],
+						clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxRadius}px at ${x}px ${y}px)`],
 					},
 					{
 						duration: 600,
@@ -353,7 +352,7 @@ function App(): JSX.Element {
 						<Route path="/apps" element={<AppsPage />} />
 						<Route path="/apps/:bankId" element={<AppDetailPage />} />
 						<Route path="/contributing" element={<ContributingPage />} />
-					<Route path="/about" element={<AboutPage />} />
+						<Route path="/about" element={<AboutPage />} />
 					</Routes>
 				</Layout>
 			</BrowserRouter>

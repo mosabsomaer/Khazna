@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { Quote } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 interface TeamMember {
 	id: number;
@@ -42,10 +42,7 @@ export const TeamSection = ({ title, members }: TeamSectionProps) => {
 			<div className="container mx-auto max-w-6xl px-4 text-center">
 				<h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{title}</h2>
 
-				<div
-					ref={gridRef}
-					className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-				>
+				<div ref={gridRef} className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 					{members.map((member, index) => (
 						<a
 							key={member.id}
@@ -73,8 +70,7 @@ export const TeamSection = ({ title, members }: TeamSectionProps) => {
 								</blockquote>
 								<figcaption className="mt-4">
 									<p className="font-semibold">
-										&mdash; {member.name},
-										<span className="ms-1 text-white/60">{member.role}</span>
+										&mdash; {member.name},<span className="ms-1 text-white/60">{member.role}</span>
 									</p>
 								</figcaption>
 							</div>

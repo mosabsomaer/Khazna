@@ -71,11 +71,26 @@ export function useSound(volume = 0.5): (name: SoundName, opts?: { volume?: numb
 		const cache = cacheRef.current;
 
 		const allPaths: string[] = [
-			"select", "toggle_on", "toggle_off", "toggle-theme",
-			"transition_up", "transition_down", "notification", "caution",
-			"celebration", "disabled", "delete", "download", "copy-svg",
-			"add-to-folder", "slider", "tunning", "tunning2", "open-icon",
-			"progress_loop", "ringtone_loop",
+			"select",
+			"toggle_on",
+			"toggle_off",
+			"toggle-theme",
+			"transition_up",
+			"transition_down",
+			"notification",
+			"caution",
+			"celebration",
+			"disabled",
+			"delete",
+			"download",
+			"copy-svg",
+			"add-to-folder",
+			"slider",
+			"tunning",
+			"tunning2",
+			"open-icon",
+			"progress_loop",
+			"ringtone_loop",
 		].map(getSoundPath);
 
 		// Add variant paths

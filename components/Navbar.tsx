@@ -87,7 +87,10 @@ export function Navbar(): JSX.Element {
 					<SoundToggle />
 					<ThemeToggle />
 					<button
-						onClick={() => { play("slider"); toggleLanguage(); }}
+						onClick={() => {
+							play("slider");
+							toggleLanguage();
+						}}
 						className="px-3 py-1.5 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary hover:bg-surface-hover transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
@@ -107,13 +110,19 @@ export function Navbar(): JSX.Element {
 					<SoundToggle />
 					<ThemeToggle />
 					<button
-						onClick={() => { play("slider"); toggleLanguage(); }}
+						onClick={() => {
+							play("slider");
+							toggleLanguage();
+						}}
 						className="px-2.5 py-1 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
 					</button>
 					<button
-						onClick={() => { play("slider"); setIsMobileMenuOpen(!isMobileMenuOpen); }}
+						onClick={() => {
+							play("slider");
+							setIsMobileMenuOpen(!isMobileMenuOpen);
+						}}
 						className="p-2 text-muted-foreground hover:text-primary rounded-md"
 					>
 						{isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -128,7 +137,10 @@ export function Navbar(): JSX.Element {
 					<nav className="flex flex-col gap-2">
 						<Link
 							to="/"
-							onClick={() => { play("tap"); handleMobileNav(); }}
+							onClick={() => {
+								play("tap");
+								handleMobileNav();
+							}}
 							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${isHomePage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
 						>
 							<LayoutGrid size={20} />
@@ -136,7 +148,10 @@ export function Navbar(): JSX.Element {
 						</Link>
 						<Link
 							to="/apps"
-							onClick={() => { play("tap"); handleMobileNav(); }}
+							onClick={() => {
+								play("tap");
+								handleMobileNav();
+							}}
 							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${isAppsPage ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
 						>
 							<Smartphone size={20} />
@@ -144,7 +159,10 @@ export function Navbar(): JSX.Element {
 						</Link>
 						<Link
 							to="/about"
-							onClick={() => { play("tap"); handleMobileNav(); }}
+							onClick={() => {
+								play("tap");
+								handleMobileNav();
+							}}
 							className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${location.pathname === "/about" ? "bg-surface-hover text-primary" : "text-muted-foreground hover:bg-surface hover:text-primary"}`}
 						>
 							{t("navbar.about")}

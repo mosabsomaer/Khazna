@@ -12,7 +12,9 @@ export function ThemeToggle(): JSX.Element {
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
 	const isDark = theme === "dark";
-	const label = isDark ? t("theme.switchToLight", "Switch to light mode") : t("theme.switchToDark", "Switch to dark mode");
+	const label = isDark
+		? t("theme.switchToLight", "Switch to light mode")
+		: t("theme.switchToDark", "Switch to dark mode");
 
 	const handleClick = () => {
 		play("toggle-theme");

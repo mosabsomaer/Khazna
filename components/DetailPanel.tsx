@@ -16,10 +16,10 @@ import {
 import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSound } from "../hooks/useSound";
-import { useUIContext } from "../hooks/useUIContext";
 import { convertSvgToImage, downloadBlob } from "@/lib/download";
 import { generateCode } from "@/lib/generators";
+import { useSound } from "../hooks/useSound";
+import { useUIContext } from "../hooks/useUIContext";
 import { FigmaLink } from "./FigmaLink";
 import { CodeBlock } from "./ui/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
@@ -110,7 +110,9 @@ export function DetailPanel(): JSX.Element | null {
 	const resolvedUrl = selectedItem ? getPreviewLogoUrl(selectedItem) : "";
 	const usingMonoAsset = !!selectedItem && hasMonoAsset(selectedItem) && colorMode !== "colored";
 	const cdnBrandedUrl = selectedItem ? `https://khazna.ly${selectedItem.logoUrl}` : "";
-	const cdnLogomarkUrl = selectedItem?.logomarkUrl ? `https://khazna.ly${selectedItem.logomarkUrl}` : "";
+	const cdnLogomarkUrl = selectedItem?.logomarkUrl
+		? `https://khazna.ly${selectedItem.logomarkUrl}`
+		: "";
 
 	useEffect(() => {
 		async function fetchSvg(): Promise<void> {
@@ -225,7 +227,10 @@ export function DetailPanel(): JSX.Element | null {
 					<LayoutGrid size={14} /> {t("sidebar.details")}
 				</h2>
 				<button
-					onClick={() => { play("swipe"); closeSidebar(); }}
+					onClick={() => {
+						play("swipe");
+						closeSidebar();
+					}}
 					className="p-2 text-muted-subtle hover:text-primary hover:bg-surface-hover rounded-full transition-colors outline-none focus:bg-surface-hover"
 				>
 					<X size={20} />
@@ -235,11 +240,15 @@ export function DetailPanel(): JSX.Element | null {
 			{selectedItem ? (
 				<div className="flex-1 overflow-y-auto">
 					{/* Preview Area — background adapts to keep logos always visible */}
-					<div className={`relative aspect-square w-full border-b border-border flex items-center justify-center p-12 overflow-hidden group ${
-						colorMode === "black" ? "bg-white" :
-						colorMode === "white" ? "bg-zinc-900" :
-						"bg-surface"
-					}`}>
+					<div
+						className={`relative aspect-square w-full border-b border-border flex items-center justify-center p-12 overflow-hidden group ${
+							colorMode === "black"
+								? "bg-white"
+								: colorMode === "white"
+									? "bg-zinc-900"
+									: "bg-surface"
+						}`}
+					>
 						<div
 							className="absolute inset-0 pointer-events-none opacity-[0.06] dark:opacity-[0.03] dark:invert"
 							style={{
@@ -252,10 +261,14 @@ export function DetailPanel(): JSX.Element | null {
 							alt={t(`entityNames.${selectedItem.id}`)}
 							className={`relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 ${
 								usingMonoAsset
-									? colorMode === "white" ? "invert" : ""
-									: colorMode === "black" ? "brightness-0"
-									: colorMode === "white" ? "brightness-0 invert"
-									: ""
+									? colorMode === "white"
+										? "invert"
+										: ""
+									: colorMode === "black"
+										? "brightness-0"
+										: colorMode === "white"
+											? "brightness-0 invert"
+											: ""
 							}`}
 						/>
 					</div>
@@ -277,7 +290,10 @@ export function DetailPanel(): JSX.Element | null {
 								<div className="flex items-center gap-1 ms-auto">
 									{/* Logo style: Stamp = logomark, Type = branded */}
 									<button
-										onClick={() => { play("tap"); setLogoStyle(logoStyle === "branded" ? "logomark" : "branded"); }}
+										onClick={() => {
+											play("tap");
+											setLogoStyle(logoStyle === "branded" ? "logomark" : "branded");
+										}}
 										title={logoStyle === "branded" ? t("home.logomark") : t("home.branded")}
 										className={`w-7 h-7 flex items-center justify-center rounded-md border transition-all ${
 											logoStyle === "logomark"
@@ -289,17 +305,38 @@ export function DetailPanel(): JSX.Element | null {
 									</button>
 									{/* Color mode cycle: colored → black → white → colored */}
 									{!selectedItem.disableMono && (
-									<button
-										onClick={() => { play("tap"); setColorMode(colorMode === "colored" ? "black" : colorMode === "black" ? "white" : "colored"); }}
-										title={colorMode === "colored" ? t("home.bw") : colorMode === "black" ? t("home.white") : t("home.colored")}
-										className={`w-7 h-7 flex items-center justify-center rounded-md border transition-all ${
-											colorMode !== "colored"
-												? "bg-surface-hover border-border-subtle text-primary"
-												: "bg-surface border-border text-muted-foreground hover:text-primary hover:bg-surface-hover"
-										}`}
-									>
-										{colorMode === "black" ? <Contrast size={13} /> : colorMode === "white" ? <Circle size={13} /> : <Palette size={13} />}
-									</button>
+										<button
+											onClick={() => {
+												play("tap");
+												setColorMode(
+													colorMode === "colored"
+														? "black"
+														: colorMode === "black"
+															? "white"
+															: "colored",
+												);
+											}}
+											title={
+												colorMode === "colored"
+													? t("home.bw")
+													: colorMode === "black"
+														? t("home.white")
+														: t("home.colored")
+											}
+											className={`w-7 h-7 flex items-center justify-center rounded-md border transition-all ${
+												colorMode !== "colored"
+													? "bg-surface-hover border-border-subtle text-primary"
+													: "bg-surface border-border text-muted-foreground hover:text-primary hover:bg-surface-hover"
+											}`}
+										>
+											{colorMode === "black" ? (
+												<Contrast size={13} />
+											) : colorMode === "white" ? (
+												<Circle size={13} />
+											) : (
+												<Palette size={13} />
+											)}
+										</button>
 									)}
 								</div>
 							</div>
@@ -360,14 +397,17 @@ export function DetailPanel(): JSX.Element | null {
 										{["React", "Vue", "Svelte", "HTML"].map((fmt) => (
 											<button
 												key={fmt}
-												onClick={() => { play("tap"); setCodeFormat(fmt); }}
+												onClick={() => {
+													play("tap");
+													setCodeFormat(fmt);
+												}}
 												className={`
                           cursor-pointer py-2 text-[10px] sm:text-xs font-medium rounded-lg border transition-all duration-200
                           ${
-													codeFormat === fmt
-														? "bg-accent-bg text-accent border-accent-bg shadow-lg"
-														: "bg-transparent text-dim border-border hover:border-border-subtle hover:bg-surface"
-												}
+														codeFormat === fmt
+															? "bg-accent-bg text-accent border-accent-bg shadow-lg"
+															: "bg-transparent text-dim border-border hover:border-border-subtle hover:bg-surface"
+													}
                         `}
 											>
 												{fmt}
@@ -396,9 +436,7 @@ export function DetailPanel(): JSX.Element | null {
 											{copied ? (
 												<>
 													<Check size={20} className="text-primary" />
-													<span className="text-primary font-semibold">
-														{t("common.copied")}
-													</span>
+													<span className="text-primary font-semibold">{t("common.copied")}</span>
 												</>
 											) : (
 												<>
@@ -432,11 +470,18 @@ export function DetailPanel(): JSX.Element | null {
 													<span className="text-[10px] font-medium text-dim shrink-0 w-14 text-start">
 														{label}
 													</span>
-													<span dir="ltr" className="flex-1 text-left text-xs font-mono text-muted-foreground truncate group-hover:text-primary transition-colors">
+													<span
+														dir="ltr"
+														className="flex-1 text-left text-xs font-mono text-muted-foreground truncate group-hover:text-primary transition-colors"
+													>
 														{url}
 													</span>
 													<span className="shrink-0 text-dim group-hover:text-primary transition-colors">
-														{cdnCopied === variant ? <Check size={14} className="text-primary" /> : <Copy size={14} />}
+														{cdnCopied === variant ? (
+															<Check size={14} className="text-primary" />
+														) : (
+															<Copy size={14} />
+														)}
 													</span>
 												</button>
 											) : null;

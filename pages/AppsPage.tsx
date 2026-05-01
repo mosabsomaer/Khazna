@@ -31,7 +31,11 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 	}
 
 	return (
-		<Link to={`/apps/${app.id}`} onClick={() => play("select")} className="group flex flex-col gap-3">
+		<Link
+			to={`/apps/${app.id}`}
+			onClick={() => play("select")}
+			className="group flex flex-col gap-3"
+		>
 			{/* Card Preview Container */}
 			<div className="relative aspect-9/19 w-full bg-surface border border-border rounded-3xl overflow-hidden group-hover:border-border-subtle transition-all duration-300 shadow-sm hover:shadow-md">
 				{hasScreens ? (
