@@ -158,6 +158,7 @@ export function AppDetailPage(): JSX.Element {
 										<>
 											<span>&bull;</span>
 											<button
+												type="button"
 												onClick={handleDownloadAll}
 												disabled={isDownloadingAll}
 												className="flex items-center gap-1 text-muted-foreground hover:text-primary hover:underline disabled:opacity-50 disabled:no-underline disabled:cursor-not-allowed transition-colors"
@@ -184,6 +185,7 @@ export function AppDetailPage(): JSX.Element {
 					screenshots.map((screen) => (
 						<div key={screen.id} className="group flex flex-col gap-3">
 							<button
+								type="button"
 								onClick={() => {
 									play("select");
 									setIsImageLoading(true);
@@ -223,6 +225,8 @@ export function AppDetailPage(): JSX.Element {
 
 			{/* Lightbox - stays dark in both modes */}
 			{selectedScreen && (
+				// biome-ignore lint/a11y/noStaticElementInteractions: modal backdrop, can't be <button> (contains interactive children)
+				// biome-ignore lint/a11y/useKeyWithClickEvents: same reason
 				<div
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200"
 					onClick={() => {
@@ -231,6 +235,7 @@ export function AppDetailPage(): JSX.Element {
 					}}
 				>
 					<button
+						type="button"
 						onClick={(e) => {
 							e.stopPropagation();
 							navigateLightbox("prev");
@@ -241,6 +246,7 @@ export function AppDetailPage(): JSX.Element {
 					</button>
 
 					<button
+						type="button"
 						onClick={(e) => {
 							e.stopPropagation();
 							navigateLightbox("next");
@@ -251,6 +257,7 @@ export function AppDetailPage(): JSX.Element {
 					</button>
 
 					<button
+						type="button"
 						onClick={(e) => {
 							e.stopPropagation();
 							play("select");
@@ -263,6 +270,7 @@ export function AppDetailPage(): JSX.Element {
 
 					<div className="relative w-full h-full flex items-center justify-center p-4">
 						<div
+							role="presentation"
 							className="relative flex flex-col items-center gap-4 max-h-full"
 							onClick={(e) => e.stopPropagation()}
 						>
@@ -289,6 +297,7 @@ export function AppDetailPage(): JSX.Element {
 								<div className="h-4 w-px bg-zinc-700" />
 
 								<button
+									type="button"
 									onClick={() => handleDownloadSingle(selectedScreen)}
 									disabled={isDownloadingSingle}
 									className="flex items-center gap-2 px-3 py-1.5 bg-white text-black text-xs font-bold rounded-full hover:bg-zinc-200 transition-colors disabled:opacity-50"

@@ -39,6 +39,7 @@ export function HomePage(): JSX.Element {
 						const cellBg = isSelected ? "bg-surface-hover" : "bg-surface hover:bg-surface-hover";
 						return (
 							<button
+								type="button"
 								key={item.id}
 								onClick={() => {
 									play("swipe");
@@ -107,6 +108,7 @@ export function HomePage(): JSX.Element {
 				<div className="flex items-center gap-2 ms-auto shrink-0">
 					{/* Logo style toggle: Stamp = logomark, Type = branded */}
 					<button
+						type="button"
 						onClick={() => {
 							play("tap");
 							setLogoStyle(logoStyle === "branded" ? "logomark" : "branded");
@@ -128,6 +130,7 @@ export function HomePage(): JSX.Element {
 					<div className="flex items-center bg-surface rounded-lg border border-border p-1">
 						{filters.map((f) => (
 							<button
+								type="button"
 								key={f.key}
 								onClick={() => {
 									play("tap");

@@ -24,6 +24,7 @@ export function ThemeToggle(): JSX.Element {
 
 	return (
 		<button
+			type="button"
 			ref={buttonRef}
 			onClick={handleClick}
 			aria-label={label}

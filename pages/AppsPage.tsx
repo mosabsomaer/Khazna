@@ -52,12 +52,14 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 						{screenCount > 1 && (
 							<>
 								<button
+									type="button"
 									onClick={prevSlide}
 									className="absolute start-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-sm"
 								>
 									<ChevronLeft size={16} className="rtl:rotate-180" />
 								</button>
 								<button
+									type="button"
 									onClick={nextSlide}
 									className="absolute end-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-sm"
 								>
@@ -66,9 +68,9 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 
 								{/* Dots Indicator */}
 								<div className="absolute bottom-3 start-0 end-0 z-20 flex justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-									{screenshots.slice(0, 5).map((_, idx) => (
+									{screenshots.slice(0, 5).map((screen, idx) => (
 										<div
-											key={idx}
+											key={screen.id}
 											className={`w-1.5 h-1.5 rounded-full shadow-sm ${idx === currentSlide ? "bg-white" : "bg-white/40"}`}
 										/>
 									))}

@@ -87,6 +87,7 @@ export function Navbar(): JSX.Element {
 					<SoundToggle />
 					<ThemeToggle />
 					<button
+						type="button"
 						onClick={() => {
 							play("slider");
 							toggleLanguage();
@@ -110,6 +111,7 @@ export function Navbar(): JSX.Element {
 					<SoundToggle />
 					<ThemeToggle />
 					<button
+						type="button"
 						onClick={() => {
 							play("slider");
 							toggleLanguage();
@@ -119,6 +121,7 @@ export function Navbar(): JSX.Element {
 						{currentLanguage === "ar" ? "EN" : "AR"}
 					</button>
 					<button
+						type="button"
 						onClick={() => {
 							play("slider");
 							setIsMobileMenuOpen(!isMobileMenuOpen);

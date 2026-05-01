@@ -19,7 +19,7 @@
       (() => {
         var theme = localStorage.getItem('khazna-theme');
         if (!theme) {
-          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          theme = window.matchMedia?.('(prefers-color-scheme: dark)').matches
             ? 'dark'
             : 'light';
         }

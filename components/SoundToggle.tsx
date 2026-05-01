@@ -23,6 +23,7 @@ export function SoundToggle(): JSX.Element {
 
 	return (
 		<button
+			type="button"
 			onClick={handleClick}
 			className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
 			title={soundEnabled ? "Mute sounds" : "Enable sounds"}

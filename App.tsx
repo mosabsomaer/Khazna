@@ -35,6 +35,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 
 	useScrollSound();
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname triggers closeSidebar on route change
 	useEffect(() => {
 		closeSidebar();
 	}, [pathname, closeSidebar]);
@@ -96,9 +97,9 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 function ScrollToTop(): null {
 	const { pathname, hash } = useLocation();
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname triggers scroll-to-top on route change
 	useEffect(() => {
 		if (hash) {
-			// Wait for the page to render, then scroll to the element
 			const id = hash.slice(1);
 			requestAnimationFrame(() => {
 				const el = document.getElementById(id);

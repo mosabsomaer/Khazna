@@ -60,6 +60,7 @@ function ColorPill({ color }: { color: string }): JSX.Element {
 
 	return (
 		<button
+			type="button"
 			onClick={handleCopy}
 			className="flex items-center justify-center px-4 py-2 rounded-full border border-black/10 dark:border-white/10 shadow-sm transition-all hover:scale-105 active:scale-95"
 			style={{ backgroundColor: color }}
@@ -227,6 +228,7 @@ export function DetailPanel(): JSX.Element | null {
 					<LayoutGrid size={14} /> {t("sidebar.details")}
 				</h2>
 				<button
+					type="button"
 					onClick={() => {
 						play("swipe");
 						closeSidebar();
@@ -290,6 +292,7 @@ export function DetailPanel(): JSX.Element | null {
 								<div className="flex items-center gap-1 ms-auto">
 									{/* Logo style: Stamp = logomark, Type = branded */}
 									<button
+										type="button"
 										onClick={() => {
 											play("tap");
 											setLogoStyle(logoStyle === "branded" ? "logomark" : "branded");
@@ -306,6 +309,7 @@ export function DetailPanel(): JSX.Element | null {
 									{/* Color mode cycle: colored → black → white → colored */}
 									{!selectedItem.disableMono && (
 										<button
+											type="button"
 											onClick={() => {
 												play("tap");
 												setColorMode(
@@ -341,8 +345,8 @@ export function DetailPanel(): JSX.Element | null {
 								</div>
 							</div>
 							<div className="flex flex-wrap gap-2">
-								{selectedItem.colors.map((color, idx) => (
-									<ColorPill key={idx} color={color} />
+								{selectedItem.colors.map((color) => (
+									<ColorPill key={color} color={color} />
 								))}
 							</div>
 						</div>
@@ -370,6 +374,7 @@ export function DetailPanel(): JSX.Element | null {
 								<div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
 									{["SVG", "PNG", "WebP"].map((fmt) => (
 										<button
+											type="button"
 											key={fmt}
 											onClick={() => handleDownload(fmt)}
 											disabled={!!isProcessing}
@@ -396,6 +401,7 @@ export function DetailPanel(): JSX.Element | null {
 									<div className="grid grid-cols-4 gap-2">
 										{["React", "Vue", "Svelte", "HTML"].map((fmt) => (
 											<button
+												type="button"
 												key={fmt}
 												onClick={() => {
 													play("tap");
@@ -415,8 +421,9 @@ export function DetailPanel(): JSX.Element | null {
 										))}
 									</div>
 
-									<div
-										className="relative group cursor-pointer overflow-hidden rounded-lg border border-border bg-elevated"
+									<button
+										type="button"
+										className="relative group cursor-pointer overflow-hidden rounded-lg border border-border bg-elevated w-full text-start"
 										onClick={handleCopy}
 									>
 										<CodeBlock
@@ -447,7 +454,7 @@ export function DetailPanel(): JSX.Element | null {
 												</>
 											)}
 										</div>
-									</div>
+									</button>
 
 									{/* CDN URL block */}
 									<div className="rounded-xl border border-border overflow-hidden">
@@ -463,6 +470,7 @@ export function DetailPanel(): JSX.Element | null {
 
 											return url ? (
 												<button
+													type="button"
 													onClick={() => handleCdnCopy(variant)}
 													title={t("common.clickToCopy")}
 													className="w-full flex items-center gap-3 px-3 py-2.5 bg-surface/30 hover:bg-surface active:scale-[0.99] transition-all duration-200 outline-none focus:bg-surface group border-t border-border"
