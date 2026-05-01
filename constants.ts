@@ -191,6 +191,15 @@ export const BANKS: Bank[] = [
 		disableMono: true,
 	},
 	{
+		id: "alwaha-bank",
+		name: "Alwaha Bank",
+		logoUrl: "/cdn/v1/logos/banks/alwaha-bank.svg",
+		logomarkUrl: "/cdn/v1/logos/bank-icons/alwaha-bank.svg",
+		colors: ["#F9AE41", "#5C5C5E"],
+		hasScreenshots: false,
+		type: "bank",
+	},
+	{
 		id: "wahda-bank",
 		name: "Wahda Bank",
 		logoUrl: "/cdn/v1/logos/banks/wahda-bank.svg",
