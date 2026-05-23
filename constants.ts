@@ -2,7 +2,7 @@ import type { Bank, PaymentMethod, Screenshot } from "./types";
 
 export const SOCIAL_LINKS = {
 	github: "https://github.com/mosabsomaer/Khazna",
-	figma: "https://www.figma.com/design/eREKtHmHAHgfZIWI3kSjxP/Khazna",
+	figma: "https://www.figma.com/community/file/1639907833706485884/khazna",
 	email: "mailto:mosabsomaer@gmail.com",
 };
 
