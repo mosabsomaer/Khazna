@@ -6,7 +6,8 @@
 		"clickToCopy": "Click to copy",
 		"screens": "Screens",
 		"noScreenshots": "No screenshots available",
-		"community": "Community"
+		"community": "Community",
+		"emailCopied": "Email copied to clipboard"
 	},
 	"navbar": {
 		"logos": "Logos",

@@ -6,6 +6,7 @@ import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-do
 import { Contributors } from "./components/Contributors";
 import { DetailPanel } from "./components/DetailPanel";
 import { Navbar } from "./components/Navbar";
+import { Toaster } from "./components/Toaster";
 import { useScrollSound } from "./hooks/useScrollSound";
 import { useUIContext } from "./hooks/useUIContext";
 import { AboutPage } from "./pages/AboutPage";
@@ -92,6 +93,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 				</footer>
 			</div>
 			<DetailPanel />
+			<Toaster />
 		</div>
 	);
 }

@@ -4,9 +4,11 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { TeamSection } from "../components/ui/team-section";
 import { BANKS, SOCIAL_LINKS } from "../constants";
+import { useContribute } from "../hooks/useContribute";
 
 export function AboutPage(): JSX.Element {
 	const { t } = useTranslation();
+	const contribute = useContribute();
 
 	const teamMembers = [
 		{
@@ -90,13 +92,14 @@ export function AboutPage(): JSX.Element {
 					</p>
 
 					<div className="flex flex-wrap items-center justify-center gap-3">
-						<a
-							href={SOCIAL_LINKS.email}
+						<button
+							type="button"
+							onClick={contribute}
 							className="inline-flex items-center gap-2 px-6 py-3 bg-accent-bg hover:opacity-90 text-accent-text rounded-full text-sm font-bold transition-colors"
 						>
 							<Mail size={16} />
 							{t("contributors.becomeContributor")}
-						</a>
+						</button>
 						<a
 							href={SOCIAL_LINKS.github}
 							target="_blank"

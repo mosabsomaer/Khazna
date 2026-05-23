@@ -3,7 +3,7 @@ import type { Bank, PaymentMethod, Screenshot } from "./types";
 export const SOCIAL_LINKS = {
 	github: "https://github.com/mosabsomaer/Khazna",
 	figma: "https://www.figma.com/community/file/1639907833706485884/khazna",
-	email: "mailto:mosabsomaer@gmail.com",
+	email: "mosab.omaer@binary.ly",
 };
 
 export const BANKS: Bank[] = [
@@ -215,6 +215,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		id: "sadad",
 		name: "Sadad",
 		logoUrl: "/cdn/v1/logos/payments/sadad.svg",
+		logomarkUrl: "/cdn/v1/logos/payments/sadad-icon.svg",
 		colors: ["#67696B"],
 		type: "payment_method",
 		disableMono: true,
@@ -245,6 +246,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		id: "ly-pay",
 		name: "LY Pay",
 		logoUrl: "/cdn/v1/logos/payments/ly-pay.svg",
+		logomarkUrl: "/cdn/v1/logos/payments/ly-pay-icon.svg",
 		colors: ["#17A3DD", "#4EB3A7"],
 		type: "payment_method",
 	},
@@ -273,6 +275,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		id: "sahara-pay",
 		name: "Sahara Pay",
 		logoUrl: "/cdn/v1/logos/payments/sahara-pay.svg",
+		logomarkUrl: "/cdn/v1/logos/payments/sahara-pay-icon.svg",
 		colors: ["#162C49", "#AA7E1A"],
 		type: "payment_method",
 	},

@@ -6,7 +6,8 @@
 		"clickToCopy": "انقر للنسخ",
 		"screens": "واجهة",
 		"noScreenshots": "لا توجد لقطات شاشة",
-		"community": "المجتمع"
+		"community": "المجتمع",
+		"emailCopied": "تم نسخ البريد الإلكتروني"
 	},
 	"navbar": {
 		"logos": "الشعارات",

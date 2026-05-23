@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { SOCIAL_LINKS } from "../constants";
+import { useContribute } from "../hooks/useContribute";
 import { useLanguage } from "../hooks/useLanguage";
 import { useSound } from "../hooks/useSound";
 import { SoundToggle } from "./SoundToggle";
@@ -14,6 +15,7 @@ export function Navbar(): JSX.Element {
 	const { currentLanguage, toggleLanguage } = useLanguage();
 	const play = useSound();
 	const location = useLocation();
+	const contribute = useContribute();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const isAppsPage = location.pathname.includes("/apps");
@@ -97,13 +99,14 @@ export function Navbar(): JSX.Element {
 						{currentLanguage === "ar" ? "EN" : "AR"}
 					</button>
 					<div className="w-px h-4 bg-border mx-1" />
-					<a
-						href={SOCIAL_LINKS.email}
+					<button
+						type="button"
+						onClick={contribute}
 						className="flex items-center gap-2 px-4 py-2 bg-accent-bg hover:opacity-90 text-accent-text text-sm font-semibold rounded-full transition-colors"
 					>
 						<Mail size={16} />
 						<span className="hidden lg:inline">{t("navbar.contribute")}</span>
-					</a>
+					</button>
 				</div>
 
 				{/* Mobile Menu Toggle */}
@@ -198,13 +201,17 @@ export function Navbar(): JSX.Element {
 							</div>
 						</div>
 
-						<a
-							href={SOCIAL_LINKS.email}
+						<button
+							type="button"
+							onClick={() => {
+								handleMobileNav();
+								contribute();
+							}}
 							className="flex items-center justify-center gap-2 w-full px-4 py-4 bg-accent-bg active:opacity-90 text-accent-text text-base font-bold rounded-xl transition-colors mt-2"
 						>
 							<Mail size={18} />
 							{t("navbar.contribute")}
-						</a>
+						</button>
 					</div>
 				</div>
 			)}
