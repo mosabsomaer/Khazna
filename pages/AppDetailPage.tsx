@@ -1,4 +1,3 @@
-import JSZip from "jszip";
 import {
 	ArrowLeft,
 	ChevronLeft,
@@ -13,6 +12,7 @@ import type { JSX } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { trackEvent } from "@/lib/analytics";
 import { downloadBlob } from "@/lib/download";
 import { FigmaLink } from "../components/FigmaLink";
 import { BANKS, MOCK_SCREENSHOTS } from "../constants";
@@ -76,6 +76,11 @@ export function AppDetailPage(): JSX.Element {
 				const blob = await response.blob();
 				const filename = `${bank.name.toLowerCase().replace(/\s+/g, "-")}-${screen.label.toLowerCase().replace(/\s+/g, "-")}.png`;
 				downloadBlob(blob, filename);
+				trackEvent("screen_download", {
+					bank_id: bank.id,
+					bank_name: bank.name,
+					screen_label: screen.label,
+				});
 			} catch (error) {
 				console.error("Download failed:", error);
 				alert(t("sidebar.downloadImageFailed"));
@@ -92,6 +97,7 @@ export function AppDetailPage(): JSX.Element {
 		try {
 			play("celebration");
 			setIsDownloadingAll(true);
+			const { default: JSZip } = await import("jszip");
 			const zip = new JSZip();
 			const folder = zip.folder(bank.name.replace(/\s+/g, "-"));
 
@@ -111,6 +117,11 @@ export function AppDetailPage(): JSX.Element {
 			const content = await zip.generateAsync({ type: "blob" });
 			const zipName = `${bank.name.toLowerCase().replace(/\s+/g, "-")}-ui-kit.zip`;
 			downloadBlob(content, zipName);
+			trackEvent("ui_kit_download_all", {
+				bank_id: bank.id,
+				bank_name: bank.name,
+				screen_count: screenshots.length,
+			});
 		} catch (error) {
 			console.error("Batch download failed:", error);
 			alert(t("sidebar.zipFailed"));

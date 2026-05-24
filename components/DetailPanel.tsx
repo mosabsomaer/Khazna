@@ -1,3 +1,4 @@
+import { trackEvent } from "@/lib/analytics";
 import { convertSvgToImage, downloadBlob } from "@/lib/download";
 import { generateCode } from "@/lib/generators";
 import {
@@ -188,7 +189,9 @@ export function DetailPanel(): JSX.Element | null {
 		const colorSuffix = colorMode !== "colored" ? `-${colorMode}` : "";
 		const styleSuffix = logoStyle === "logomark" ? "-logomark" : "";
 		const variantSuffix = `${colorSuffix}${styleSuffix}`;
-		const filename = `${selectedItem.id}-${selectedItem.name.toLowerCase().replace(/\s+/g, "-")}${variantSuffix}`;
+		const slug = selectedItem.name.toLowerCase().replace(/\s+/g, "-");
+		const base = selectedItem.id === slug ? slug : `${selectedItem.id}-${slug}`;
+		const filename = `${base}${variantSuffix}`;
 
 		try {
 			if (format === "SVG") {
@@ -201,6 +204,13 @@ export function DetailPanel(): JSX.Element | null {
 				const blob = await res.blob();
 				downloadBlob(blob, `${filename}.${format.toLowerCase()}`);
 			}
+			trackEvent("logo_download", {
+				logo_id: selectedItem.id,
+				logo_name: selectedItem.name,
+				format,
+				color_mode: colorMode,
+				style: logoStyle,
+			});
 		} catch (e) {
 			console.error("Download failed", e);
 			alert(t("sidebar.downloadFailed"));

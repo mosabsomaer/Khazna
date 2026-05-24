@@ -1,5 +1,6 @@
 import { Quote } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 interface TeamMember {
 	id: number;
@@ -49,6 +50,13 @@ export const TeamSection = ({ title, members }: TeamSectionProps) => {
 							href={member.url}
 							target="_blank"
 							rel="noopener noreferrer"
+							onClick={() =>
+								trackEvent("team_linkedin_click", {
+									member_id: member.id,
+									member_name: member.name,
+									url: member.url,
+								})
+							}
 							className={`relative block cursor-pointer overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-all duration-500 ease-out motion-reduce:transition-none ${
 								isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
 							}`}
