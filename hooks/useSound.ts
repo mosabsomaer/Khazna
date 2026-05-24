@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback } from "react";
 import { useUIContext } from "./useUIContext";
 
 /**
@@ -52,65 +52,35 @@ function getVariantPath(base: string, index: number): string {
 	return `/sounds/${base}_${padded}.wav`;
 }
 
+// Module-level cache shared across all hook instances so each sound file is
+// only fetched once for the entire app lifetime.
+const audioCache = new Map<string, HTMLAudioElement>();
+
+function getOrCreateAudio(path: string, volume: number): HTMLAudioElement {
+	let audio = audioCache.get(path);
+	if (!audio) {
+		audio = new Audio(path);
+		audio.preload = "none";
+		audio.volume = volume;
+		audioCache.set(path, audio);
+	}
+	return audio;
+}
+
 /**
  * Returns a `play` function that triggers UI sound effects.
  *
  * - Respects the global `soundEnabled` setting from UIContext
  * - Respects `prefers-reduced-motion` (skips sounds)
- * - Pre-caches Audio objects for instant playback
- * - Randomly picks variants for tap/swipe/type sounds
+ * - Lazily fetches each sound on first play and caches the Audio object
+ *   at module scope so subsequent plays (and other components) reuse it.
  *
  * @param volume - Default volume for all sounds (0–1). Default: 0.5
  */
 export function useSound(volume = 0.5): (name: SoundName, opts?: { volume?: number }) => void {
 	const { soundEnabled } = useUIContext();
-	const cacheRef = useRef<Map<string, HTMLAudioElement>>(new Map());
 
-	// Pre-cache all sound files on mount
-	useEffect(() => {
-		const cache = cacheRef.current;
-
-		const allPaths: string[] = [
-			"select",
-			"toggle_on",
-			"toggle_off",
-			"toggle-theme",
-			"transition_up",
-			"transition_down",
-			"notification",
-			"caution",
-			"celebration",
-			"disabled",
-			"delete",
-			"download",
-			"copy-svg",
-			"add-to-folder",
-			"slider",
-			"tunning",
-			"tunning2",
-			"open-icon",
-			"progress_loop",
-			"ringtone_loop",
-		].map(getSoundPath);
-
-		// Add variant paths
-		for (const [base, count] of Object.entries(VARIANT_SOUNDS)) {
-			for (let i = 1; i <= count; i++) {
-				allPaths.push(getVariantPath(base, i));
-			}
-		}
-
-		for (const path of allPaths) {
-			if (!cache.has(path)) {
-				const audio = new Audio(path);
-				audio.preload = "auto";
-				audio.volume = volume;
-				cache.set(path, audio);
-			}
-		}
-	}, [volume]);
-
-	const play = useCallback(
+	return useCallback(
 		(name: SoundName, opts?: { volume?: number }) => {
 			if (!soundEnabled) return;
 
@@ -128,23 +98,11 @@ export function useSound(volume = 0.5): (name: SoundName, opts?: { volume?: numb
 				path = getSoundPath(name);
 			}
 
-			const cache = cacheRef.current;
-			const cached = cache.get(path);
-
-			if (cached) {
-				cached.volume = opts?.volume ?? volume;
-				cached.currentTime = 0;
-				cached.play().catch(() => {});
-			} else {
-				// Fallback: create on the fly if cache miss
-				const audio = new Audio(path);
-				audio.volume = opts?.volume ?? volume;
-				audio.play().catch(() => {});
-				cache.set(path, audio);
-			}
+			const audio = getOrCreateAudio(path, volume);
+			audio.volume = opts?.volume ?? volume;
+			audio.currentTime = 0;
+			audio.play().catch(() => {});
 		},
 		[soundEnabled, volume],
 	);
-
-	return play;
 }

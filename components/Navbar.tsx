@@ -34,7 +34,9 @@ export function Navbar(): JSX.Element {
 						<img
 							src={currentLanguage === "ar" ? "/ar-logo.svg" : "/en-logo.svg"}
 							alt="Khazna"
-							className="h-6 invert dark:invert-0"
+							width={currentLanguage === "ar" ? 67 : 111}
+							height={24}
+							className="h-6 w-auto invert dark:invert-0"
 						/>
 					</Link>
 

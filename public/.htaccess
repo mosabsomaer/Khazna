@@ -1,0 +1,44 @@
+# SPA fallback — send unknown routes to index.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml font/woff font/woff2
+</IfModule>
+
+# Long cache for fingerprinted Vite assets
+<IfModule mod_headers.c>
+  <FilesMatch "\.(?:js|css|woff2?|ttf|otf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Static media — 30 days
+  <FilesMatch "\.(?:png|jpg|jpeg|gif|webp|avif|svg|ico|wav|mp3|m4a|ogg|mp4|webm)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  # HTML must always revalidate so deploys go live
+  <FilesMatch "\.(?:html)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                    "access plus 1 year"
+  ExpiresByType application/javascript      "access plus 1 year"
+  ExpiresByType font/woff2                  "access plus 1 year"
+  ExpiresByType image/webp                  "access plus 30 days"
+  ExpiresByType image/png                   "access plus 30 days"
+  ExpiresByType image/svg+xml               "access plus 30 days"
+  ExpiresByType audio/wav                   "access plus 30 days"
+  ExpiresByType audio/mpeg                  "access plus 30 days"
+  ExpiresByType text/html                   "access plus 0 seconds"
+</IfModule>

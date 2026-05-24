@@ -12,6 +12,17 @@ export default defineConfig(({ mode }) => {
 			host: "0.0.0.0",
 		},
 		plugins: [tailwindcss(), react(), markdown({ mode: [Mode.HTML] })],
+		build: {
+			rollupOptions: {
+				output: {
+					manualChunks: {
+						"react-vendor": ["react", "react-dom", "react-router-dom", "react-router"],
+						i18n: ["i18next", "react-i18next"],
+						ui: ["@radix-ui/react-tabs", "@radix-ui/react-tooltip", "lucide-react"],
+					},
+				},
+			},
+		},
 		define: {
 			"process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
 			"process.env.GEMINI_API_KEY": JSON.stringify(env.GEMINI_API_KEY),

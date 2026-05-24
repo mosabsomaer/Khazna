@@ -58,19 +58,19 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 						<span className="group-hover:underline underline-offset-2">{t("footer.builtBy")}</span>
 						<div className="flex items-center">
 							<img
-								src="/founders/Sara.webp"
+								src="/founders/sm/Sara.webp"
 								alt="Sara"
-								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border"
+								width={28} height={28} loading="lazy" decoding="async" className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border"
 							/>
 							<img
-								src="/founders/Mosab.webp"
+								src="/founders/sm/Mosab.webp"
 								alt="Mosab"
-								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
+								width={28} height={28} loading="lazy" decoding="async" className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
 							/>
 							<img
-								src="/founders/Moo.webp"
+								src="/founders/sm/Moo.webp"
 								alt="Moaad"
-								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
+								width={28} height={28} loading="lazy" decoding="async" className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
 							/>
 						</div>
 					</Link>
