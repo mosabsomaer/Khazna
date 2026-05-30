@@ -1,4 +1,4 @@
-import { Figma, Github, LayoutGrid, Mail, Menu, Smartphone, X } from "lucide-react";
+import { Figma, Github, LayoutGrid, Mail, Menu, Search, Smartphone, X } from "lucide-react";
 import type { JSX } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,7 @@ import { SOCIAL_LINKS } from "../constants";
 import { useContribute } from "../hooks/useContribute";
 import { useLanguage } from "../hooks/useLanguage";
 import { useSound } from "../hooks/useSound";
+import { useUIContext } from "../hooks/useUIContext";
 import { SoundToggle } from "./SoundToggle";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -16,6 +17,7 @@ export function Navbar(): JSX.Element {
 	const play = useSound();
 	const location = useLocation();
 	const contribute = useContribute();
+	const { openSearch } = useUIContext();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const isAppsPage = location.pathname.includes("/apps");
@@ -69,6 +71,29 @@ export function Navbar(): JSX.Element {
 
 				{/* Right: Actions (Desktop) */}
 				<div className="hidden md:flex items-center gap-2">
+					<button
+						type="button"
+						onClick={() => {
+							play("tap");
+							openSearch();
+						}}
+						aria-label={t("search.open")}
+						className="inline-flex min-w-64 items-center justify-between gap-4 rounded-full border border-border bg-surface px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-surface-hover hover:text-primary"
+					>
+						<span className="inline-flex items-center gap-2">
+							<Search size={16} />
+							<span>{t("search.placeholder")}</span>
+						</span>
+						<span className="flex shrink-0 items-center gap-1 text-[11px] font-bold text-muted-foreground">
+							<kbd className="rounded border border-border-subtle bg-background px-2 py-0.5 font-semibold shadow-sm">
+								CMD
+							</kbd>
+							<span aria-hidden>+</span>
+							<kbd className="rounded border border-border-subtle bg-background px-2 py-0.5 font-semibold shadow-sm">
+								K
+							</kbd>
+						</span>
+					</button>
 					<a
 						href={SOCIAL_LINKS.github}
 						target="_blank"
@@ -119,6 +144,17 @@ export function Navbar(): JSX.Element {
 				<div className="md:hidden flex items-center gap-2">
 					<SoundToggle />
 					<ThemeToggle />
+					<button
+						type="button"
+						onClick={() => {
+							play("tap");
+							openSearch();
+						}}
+						aria-label={t("search.open")}
+						className="p-2 text-muted-foreground hover:text-primary rounded-md"
+					>
+						<Search size={21} />
+					</button>
 					<button
 						type="button"
 						onClick={() => {

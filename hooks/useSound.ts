@@ -10,6 +10,7 @@ export type SoundName =
 	| "tap"
 	| "swipe"
 	| "type"
+	| "typing"
 	| "toggle_on"
 	| "toggle_off"
 	| "toggle-theme"
@@ -89,13 +90,17 @@ export function useSound(volume = 0.5): (name: SoundName, opts?: { volume?: numb
 
 			let path: string;
 
-			// Pick a random variant for tap/swipe/type
-			const variantCount = VARIANT_SOUNDS[name];
-			if (variantCount) {
-				const index = Math.floor(Math.random() * variantCount) + 1;
-				path = getVariantPath(name, index);
+			if (name === "typing") {
+				path = getVariantPath("tap", Math.random() > 0.5 ? 3 : 4);
 			} else {
-				path = getSoundPath(name);
+				// Pick a random variant for tap/swipe/type
+				const variantCount = VARIANT_SOUNDS[name];
+				if (variantCount) {
+					const index = Math.floor(Math.random() * variantCount) + 1;
+					path = getVariantPath(name, index);
+				} else {
+					path = getSoundPath(name);
+				}
 			}
 
 			const audio = getOrCreateAudio(path, volume);

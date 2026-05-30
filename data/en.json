@@ -22,6 +22,16 @@
 		"github": "Open GitHub repository",
 		"figma": "Open Figma Community library"
 	},
+	"search": {
+		"open": "Open search",
+		"close": "Close search",
+		"title": "Search Khazna",
+		"placeholder": "Search logos and apps...",
+		"shortcutHint": "Press Ctrl+K or Cmd+K to open search",
+		"noResults": "No results found",
+		"logoResult": "Logo asset",
+		"appResult": "App UI"
+	},
 	"home": {
 		"title": "Logo Library",
 		"description": "A collection of logos for Libyan banks and payment methods. Available in mono, branded, and logomark variants.",
