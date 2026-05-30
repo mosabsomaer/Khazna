@@ -15,7 +15,12 @@
 		"searchLogos": "ابحث عن شعار...",
 		"searchApps": "ابحث عن تطبيق...",
 		"contribute": "ساهم معنا",
-		"about": "من نحن"
+		"about": "من نحن",
+		"openMenu": "فتح قائمة التنقل",
+		"closeMenu": "إغلاق قائمة التنقل",
+		"switchLanguage": "تغيير اللغة",
+		"github": "فتح مستودع GitHub",
+		"figma": "فتح مكتبة Figma Community"
 	},
 	"home": {
 		"title": "مكتبة الشعارات",

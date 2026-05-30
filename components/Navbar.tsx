@@ -73,6 +73,7 @@ export function Navbar(): JSX.Element {
 						href={SOCIAL_LINKS.github}
 						target="_blank"
 						rel="noreferrer"
+						aria-label={t("navbar.github")}
 						className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
 						title="GitHub"
 					>
@@ -82,6 +83,7 @@ export function Navbar(): JSX.Element {
 						href={SOCIAL_LINKS.figma}
 						target="_blank"
 						rel="noreferrer"
+						aria-label={t("navbar.figma")}
 						className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
 						title="Figma Community"
 					>
@@ -96,6 +98,7 @@ export function Navbar(): JSX.Element {
 							play("slider");
 							toggleLanguage();
 						}}
+						aria-label={t("navbar.switchLanguage")}
 						className="px-3 py-1.5 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary hover:bg-surface-hover transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
@@ -104,6 +107,7 @@ export function Navbar(): JSX.Element {
 					<button
 						type="button"
 						onClick={contribute}
+						aria-label={t("navbar.contribute")}
 						className="flex items-center gap-2 px-4 py-2 bg-accent-bg hover:opacity-90 text-accent-text text-sm font-semibold rounded-full transition-colors"
 					>
 						<Mail size={16} />
@@ -121,6 +125,7 @@ export function Navbar(): JSX.Element {
 							play("slider");
 							toggleLanguage();
 						}}
+						aria-label={t("navbar.switchLanguage")}
 						className="px-2.5 py-1 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
@@ -131,6 +136,9 @@ export function Navbar(): JSX.Element {
 							play("slider");
 							setIsMobileMenuOpen(!isMobileMenuOpen);
 						}}
+						aria-expanded={isMobileMenuOpen}
+						aria-controls="mobile-navigation"
+						aria-label={isMobileMenuOpen ? t("navbar.closeMenu") : t("navbar.openMenu")}
 						className="p-2 text-muted-foreground hover:text-primary rounded-md"
 					>
 						{isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -142,7 +150,7 @@ export function Navbar(): JSX.Element {
 			{isMobileMenuOpen && (
 				<div className="md:hidden border-t border-border bg-background absolute start-0 end-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto px-4 py-6 flex flex-col gap-6 animate-in slide-in-from-top-4 fade-in duration-200 shadow-2xl">
 					{/* Mobile Nav Links */}
-					<nav className="flex flex-col gap-2">
+					<nav id="mobile-navigation" className="flex flex-col gap-2">
 						<Link
 							to="/"
 							onClick={() => {
@@ -188,6 +196,7 @@ export function Navbar(): JSX.Element {
 									href={SOCIAL_LINKS.github}
 									target="_blank"
 									rel="noreferrer"
+									aria-label={t("navbar.github")}
 									className="p-3 bg-surface text-muted-foreground hover:text-primary rounded-lg border border-border"
 								>
 									<Github size={20} />
@@ -196,6 +205,7 @@ export function Navbar(): JSX.Element {
 									href={SOCIAL_LINKS.figma}
 									target="_blank"
 									rel="noreferrer"
+									aria-label={t("navbar.figma")}
 									className="p-3 bg-surface text-muted-foreground hover:text-primary rounded-lg border border-border"
 								>
 									<Figma size={20} />
