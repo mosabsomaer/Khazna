@@ -6,6 +6,7 @@ import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-do
 import { Contributors } from "./components/Contributors";
 import { DetailPanel } from "./components/DetailPanel";
 import { Navbar } from "./components/Navbar";
+import { SearchDialog } from "./components/SearchDialog";
 import { Toaster } from "./components/Toaster";
 import { useScrollSound } from "./hooks/useScrollSound";
 import { useUIContext } from "./hooks/useUIContext";
@@ -60,17 +61,29 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 							<img
 								src="/founders/sm/Sara.webp"
 								alt="Sara"
-								width={28} height={28} loading="lazy" decoding="async" className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border"
+								width={28}
+								height={28}
+								loading="lazy"
+								decoding="async"
+								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border"
 							/>
 							<img
 								src="/founders/sm/Mosab.webp"
 								alt="Mosab"
-								width={28} height={28} loading="lazy" decoding="async" className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
+								width={28}
+								height={28}
+								loading="lazy"
+								decoding="async"
+								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
 							/>
 							<img
 								src="/founders/sm/Moo.webp"
 								alt="Moaad"
-								width={28} height={28} loading="lazy" decoding="async" className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
+								width={28}
+								height={28}
+								loading="lazy"
+								decoding="async"
+								className="w-7 h-7 rounded-full object-cover border-2 border-background ring-1 ring-border -ms-2"
 							/>
 						</div>
 					</Link>
@@ -93,6 +106,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 				</footer>
 			</div>
 			<DetailPanel />
+			<SearchDialog />
 			<Toaster />
 		</div>
 	);
@@ -121,6 +135,7 @@ function ScrollToTop(): null {
 
 function App(): JSX.Element {
 	const [selectedItem, setSelectedItemState] = useState<SelectedItem>(null);
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
 	const [colorMode, setColorMode] = useState<ColorMode>("colored");
 	const [logoStyle, setLogoStyle] = useState<LogoStyle>("branded");
 	// Derived: "mono" for black/white modes, otherwise the logo style
@@ -151,6 +166,14 @@ function App(): JSX.Element {
 
 	const closeSidebar = useCallback(() => {
 		setSelectedItemState(null);
+	}, []);
+
+	const openSearch = useCallback(() => {
+		setIsSearchOpen(true);
+	}, []);
+
+	const closeSearch = useCallback(() => {
+		setIsSearchOpen(false);
 	}, []);
 
 	const getLogoUrl = useCallback(
@@ -316,6 +339,9 @@ function App(): JSX.Element {
 			setSelectedItem,
 			isSidebarOpen,
 			closeSidebar,
+			isSearchOpen,
+			openSearch,
+			closeSearch,
 			logoVariant,
 			colorMode,
 			setColorMode,
@@ -334,6 +360,9 @@ function App(): JSX.Element {
 			isSidebarOpen,
 			setSelectedItem,
 			closeSidebar,
+			isSearchOpen,
+			openSearch,
+			closeSearch,
 			logoVariant,
 			colorMode,
 			logoStyle,
