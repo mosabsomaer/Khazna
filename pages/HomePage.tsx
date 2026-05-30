@@ -90,8 +90,11 @@ export function HomePage(): JSX.Element {
 			<div className="flex flex-wrap items-center gap-x-3 gap-y-3 py-4 border-b border-border">
 				{/* Size Slider */}
 				<div className="flex items-center gap-2.5 shrink-0">
-					<span className="text-sm font-bold text-muted-foreground">{t("home.size")}</span>
+					<label htmlFor="logo-size-slider" className="text-sm font-bold text-muted-foreground">
+						{t("home.size")}
+					</label>
 					<input
+						id="logo-size-slider"
 						type="range"
 						min="150"
 						max="200"
