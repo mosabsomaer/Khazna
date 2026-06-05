@@ -91,7 +91,7 @@ export function useSound(volume = 0.5): (name: SoundName, opts?: { volume?: numb
 			let path: string;
 
 			if (name === "typing") {
-				path = getVariantPath("tap", Math.random() > 0.5 ? 3 : 4);
+				path = getVariantPath("type", Math.floor(Math.random() * VARIANT_SOUNDS.type) + 1);
 			} else {
 				// Pick a random variant for tap/swipe/type
 				const variantCount = VARIANT_SOUNDS[name];
