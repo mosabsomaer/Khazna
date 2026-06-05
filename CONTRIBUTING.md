@@ -116,6 +116,16 @@ Each entity needs SVG logo files following these specs:
 | Naming | `kebab-case.svg` (e.g., `my-bank.svg`) |
 | Colors | Use the original brand colors (no monochrome conversion needed) |
 | Clean SVG | No embedded fonts, no JavaScript, no external references |
+| Size | Normalize the root `<svg>` to `height="50"`, with `width` scaled proportionally |
+
+**Unified sizing.** Every logo must render at a consistent height so the gallery
+stays visually balanced. Keep the original `viewBox` (it defines the artwork's
+coordinates — never change it), but set the root `<svg>`'s `height="50"` and scale
+`width` proportionally: `width = round(50 × viewBoxWidth ÷ viewBoxHeight)`.
+
+For example, an asset authored with `viewBox="0 0 368 83"` becomes
+`<svg width="222" height="50" viewBox="0 0 368 83" ...>` (50 × 368 ÷ 83 ≈ 222).
+This applies to both full logos and logomarks.
 
 **Banks** need two SVG files:
 - **Full logo** — the complete logo with wordmark
@@ -205,6 +215,7 @@ Check that your logo appears correctly in:
 ### Checklist
 
 - [ ] SVG files are clean (no fonts, no JS, no external refs)
+- [ ] Root `<svg>` is normalized to `height="50"` with proportional `width` (viewBox unchanged)
 - [ ] Filenames are `kebab-case` and match the `id` in `constants.ts`
 - [ ] Banks have both a full logo and a logomark
 - [ ] `colors` array contains 1-3 hex values from the brand
