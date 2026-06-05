@@ -17,7 +17,7 @@ export function AboutPage(): JSX.Element {
 			role: t("team.sara.role"),
 			quote: t("team.sara.quote"),
 			imageSrc: "/founders/Sara.webp",
-			url: "https://www.linkedin.com/in/sara-s-35545b305/",
+			url: "https://www.linkedin.com/in/sara-shemisa-35545b305/",
 		},
 		{
 			id: 2,
