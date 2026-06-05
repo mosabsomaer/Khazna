@@ -46,6 +46,9 @@ export interface UIContextType {
 	setSelectedItem: (item: SelectedItem) => void;
 	isSidebarOpen: boolean;
 	closeSidebar: () => void;
+	isSearchOpen: boolean;
+	openSearch: () => void;
+	closeSearch: () => void;
 	/** Derived from colorMode + logoStyle for backward-compatible filter checks */
 	logoVariant: LogoVariant;
 	colorMode: ColorMode;

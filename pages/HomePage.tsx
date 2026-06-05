@@ -90,8 +90,11 @@ export function HomePage(): JSX.Element {
 			<div className="flex flex-wrap items-center gap-x-3 gap-y-3 py-4 border-b border-border">
 				{/* Size Slider */}
 				<div className="flex items-center gap-2.5 shrink-0">
-					<span className="text-sm font-bold text-muted-foreground">{t("home.size")}</span>
+					<label htmlFor="logo-size-slider" className="text-sm font-bold text-muted-foreground">
+						{t("home.size")}
+					</label>
 					<input
+						id="logo-size-slider"
 						type="range"
 						min="150"
 						max="200"
@@ -127,7 +130,7 @@ export function HomePage(): JSX.Element {
 					<div className="h-5 w-px bg-border" />
 
 					{/* Filter tabs */}
-					<div className="flex items-center bg-surface rounded-lg border border-border p-1">
+					<div className="flex items-center bg-surface text-primary rounded-lg border border-border p-1">
 						{filters.map((f) => (
 							<button
 								type="button"
@@ -139,17 +142,11 @@ export function HomePage(): JSX.Element {
 								className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
 									filter === f.key
 										? "bg-surface-hover text-primary shadow-sm"
-										: "text-muted-foreground hover:text-primary"
+										: "text-primary hover:bg-surface-hover"
 								}`}
 							>
 								{t(f.labelKey)}
-								<span
-									className={`text-[10px] tabular-nums ${
-										filter === f.key ? "text-muted-foreground" : "text-muted-subtle"
-									}`}
-								>
-									{f.count}
-								</span>
+								<span className="text-[10px] tabular-nums text-primary">{f.count}</span>
 							</button>
 						))}
 					</div>

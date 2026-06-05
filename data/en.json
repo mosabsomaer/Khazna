@@ -15,7 +15,22 @@
 		"searchLogos": "Search logos...",
 		"searchApps": "Search apps...",
 		"contribute": "Contribute",
-		"about": "Who are we"
+		"about": "Who are we",
+		"openMenu": "Open navigation menu",
+		"closeMenu": "Close navigation menu",
+		"switchLanguage": "Switch language",
+		"github": "Open GitHub repository",
+		"figma": "Open Figma Community library"
+	},
+	"search": {
+		"open": "Open search",
+		"close": "Close search",
+		"title": "Search Khazna",
+		"placeholder": "Search logos and apps...",
+		"shortcutHint": "Press Ctrl+K or Cmd+K to open search",
+		"noResults": "No results found",
+		"logoResult": "Logo asset",
+		"appResult": "App UI"
 	},
 	"home": {
 		"title": "Logo Library",

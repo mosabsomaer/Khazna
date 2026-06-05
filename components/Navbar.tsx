@@ -1,4 +1,4 @@
-import { Figma, Github, LayoutGrid, Mail, Menu, Smartphone, X } from "lucide-react";
+import { Figma, Github, LayoutGrid, Mail, Menu, Search, Smartphone, X } from "lucide-react";
 import type { JSX } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,7 @@ import { SOCIAL_LINKS } from "../constants";
 import { useContribute } from "../hooks/useContribute";
 import { useLanguage } from "../hooks/useLanguage";
 import { useSound } from "../hooks/useSound";
+import { useUIContext } from "../hooks/useUIContext";
 import { SoundToggle } from "./SoundToggle";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -16,6 +17,7 @@ export function Navbar(): JSX.Element {
 	const play = useSound();
 	const location = useLocation();
 	const contribute = useContribute();
+	const { openSearch } = useUIContext();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const isAppsPage = location.pathname.includes("/apps");
@@ -69,10 +71,34 @@ export function Navbar(): JSX.Element {
 
 				{/* Right: Actions (Desktop) */}
 				<div className="hidden md:flex items-center gap-2">
+					<button
+						type="button"
+						onClick={() => {
+							play("tap");
+							openSearch();
+						}}
+						aria-label={t("search.open")}
+						className="inline-flex min-w-64 items-center justify-between gap-4 rounded-full border border-border bg-surface px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-surface-hover hover:text-primary"
+					>
+						<span className="inline-flex items-center gap-2">
+							<Search size={16} />
+							<span>{t("search.placeholder")}</span>
+						</span>
+						<span className="flex shrink-0 items-center gap-1 text-[11px] font-bold text-muted-foreground">
+							<kbd className="rounded border border-border-subtle bg-background px-2 py-0.5 font-semibold shadow-sm">
+								CMD
+							</kbd>
+							<span aria-hidden>+</span>
+							<kbd className="rounded border border-border-subtle bg-background px-2 py-0.5 font-semibold shadow-sm">
+								K
+							</kbd>
+						</span>
+					</button>
 					<a
 						href={SOCIAL_LINKS.github}
 						target="_blank"
 						rel="noreferrer"
+						aria-label={t("navbar.github")}
 						className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
 						title="GitHub"
 					>
@@ -82,6 +108,7 @@ export function Navbar(): JSX.Element {
 						href={SOCIAL_LINKS.figma}
 						target="_blank"
 						rel="noreferrer"
+						aria-label={t("navbar.figma")}
 						className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
 						title="Figma Community"
 					>
@@ -96,6 +123,7 @@ export function Navbar(): JSX.Element {
 							play("slider");
 							toggleLanguage();
 						}}
+						aria-label={t("navbar.switchLanguage")}
 						className="px-3 py-1.5 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary hover:bg-surface-hover transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
@@ -104,6 +132,7 @@ export function Navbar(): JSX.Element {
 					<button
 						type="button"
 						onClick={contribute}
+						aria-label={t("navbar.contribute")}
 						className="flex items-center gap-2 px-4 py-2 bg-accent-bg hover:opacity-90 text-accent-text text-sm font-semibold rounded-full transition-colors"
 					>
 						<Mail size={16} />
@@ -118,9 +147,21 @@ export function Navbar(): JSX.Element {
 					<button
 						type="button"
 						onClick={() => {
+							play("tap");
+							openSearch();
+						}}
+						aria-label={t("search.open")}
+						className="p-2 text-muted-foreground hover:text-primary rounded-md"
+					>
+						<Search size={21} />
+					</button>
+					<button
+						type="button"
+						onClick={() => {
 							play("slider");
 							toggleLanguage();
 						}}
+						aria-label={t("navbar.switchLanguage")}
 						className="px-2.5 py-1 text-xs font-bold rounded-full border border-border text-muted-foreground hover:text-primary transition-colors"
 					>
 						{currentLanguage === "ar" ? "EN" : "AR"}
@@ -131,6 +172,9 @@ export function Navbar(): JSX.Element {
 							play("slider");
 							setIsMobileMenuOpen(!isMobileMenuOpen);
 						}}
+						aria-expanded={isMobileMenuOpen}
+						aria-controls="mobile-navigation"
+						aria-label={isMobileMenuOpen ? t("navbar.closeMenu") : t("navbar.openMenu")}
 						className="p-2 text-muted-foreground hover:text-primary rounded-md"
 					>
 						{isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -142,7 +186,7 @@ export function Navbar(): JSX.Element {
 			{isMobileMenuOpen && (
 				<div className="md:hidden border-t border-border bg-background absolute start-0 end-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto px-4 py-6 flex flex-col gap-6 animate-in slide-in-from-top-4 fade-in duration-200 shadow-2xl">
 					{/* Mobile Nav Links */}
-					<nav className="flex flex-col gap-2">
+					<nav id="mobile-navigation" className="flex flex-col gap-2">
 						<Link
 							to="/"
 							onClick={() => {
@@ -188,6 +232,7 @@ export function Navbar(): JSX.Element {
 									href={SOCIAL_LINKS.github}
 									target="_blank"
 									rel="noreferrer"
+									aria-label={t("navbar.github")}
 									className="p-3 bg-surface text-muted-foreground hover:text-primary rounded-lg border border-border"
 								>
 									<Github size={20} />
@@ -196,6 +241,7 @@ export function Navbar(): JSX.Element {
 									href={SOCIAL_LINKS.figma}
 									target="_blank"
 									rel="noreferrer"
+									aria-label={t("navbar.figma")}
 									className="p-3 bg-surface text-muted-foreground hover:text-primary rounded-lg border border-border"
 								>
 									<Figma size={20} />

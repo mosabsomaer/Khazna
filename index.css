@@ -92,7 +92,7 @@ html[lang="ar"] {
 	--secondary: #f4f4f5;
 	--secondary-foreground: #18181b;
 	--muted: #a1a1aa;
-	--muted-foreground: #71717a;
+	--muted-foreground: #52525b;
 	--accent: #f4f4f5;
 	--accent-foreground: #18181b;
 	--destructive: #ef4444;
@@ -111,7 +111,7 @@ html[lang="ar"] {
 	--surface-hover: #e4e4e7;
 	--elevated: #fafafa;
 	--border-subtle: #d4d4d8;
-	--muted-subtle: #a1a1aa;
+	--muted-subtle: #52525b;
 	--dim: #52525b;
 	--accent-bg: #18181b;
 	--accent-text: #ffffff;

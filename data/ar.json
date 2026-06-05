@@ -15,7 +15,22 @@
 		"searchLogos": "ابحث عن شعار...",
 		"searchApps": "ابحث عن تطبيق...",
 		"contribute": "ساهم معنا",
-		"about": "من نحن"
+		"about": "من نحن",
+		"openMenu": "فتح قائمة التنقل",
+		"closeMenu": "إغلاق قائمة التنقل",
+		"switchLanguage": "تغيير اللغة",
+		"github": "فتح مستودع GitHub",
+		"figma": "فتح مكتبة Figma Community"
+	},
+	"search": {
+		"open": "فتح البحث",
+		"close": "إغلاق البحث",
+		"title": "البحث في خزنة",
+		"placeholder": "ابحث عن الشعارات والتطبيقات...",
+		"shortcutHint": "اضغط Ctrl+K أو Cmd+K لفتح البحث",
+		"noResults": "لا توجد نتائج",
+		"logoResult": "ملف شعار",
+		"appResult": "واجهة تطبيق"
 	},
 	"home": {
 		"title": "مكتبة الشعارات",
