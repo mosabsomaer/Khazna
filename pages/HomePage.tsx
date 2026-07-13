@@ -116,7 +116,7 @@ export function HomePage(): JSX.Element {
 				</div>
 
 				{/* Controls — pushed right on wide, wraps below on narrow */}
-				<div className="flex items-center gap-2 ms-auto shrink-0">
+				<div className="flex items-center gap-2 ms-auto min-w-0 max-w-full">
 					{/* Logo style toggle: Stamp = logomark, Type = branded */}
 					<button
 						type="button"
@@ -125,7 +125,7 @@ export function HomePage(): JSX.Element {
 							setLogoStyle(logoStyle === "branded" ? "logomark" : "branded");
 						}}
 						title={logoStyle === "branded" ? t("home.logomark") : t("home.branded")}
-						className={`w-8 h-8 flex items-center justify-center rounded-lg border transition-all ${
+						className={`w-8 h-8 shrink-0 flex items-center justify-center rounded-lg border transition-all ${
 							logoStyle === "logomark"
 								? "bg-surface-hover border-border-subtle text-primary"
 								: "bg-surface border-border text-muted-foreground hover:text-primary hover:bg-surface-hover"
@@ -135,10 +135,10 @@ export function HomePage(): JSX.Element {
 					</button>
 
 					{/* Divider */}
-					<div className="h-5 w-px bg-border" />
+					<div className="h-5 w-px shrink-0 bg-border" />
 
 					{/* Filter tabs */}
-					<div className="flex items-center bg-surface text-primary rounded-lg border border-border p-1">
+					<div className="flex items-center bg-surface text-primary rounded-lg border border-border p-1 min-w-0 overflow-x-auto">
 						{filters.map((f) => (
 							<button
 								type="button"
@@ -147,7 +147,7 @@ export function HomePage(): JSX.Element {
 									play("tap");
 									setFilter(f.key);
 								}}
-								className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
+								className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
 									filter === f.key
 										? "bg-surface-hover text-primary shadow-sm"
 										: "text-primary hover:bg-surface-hover"
