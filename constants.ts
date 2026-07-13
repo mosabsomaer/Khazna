@@ -288,6 +288,14 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		type: "payment_method",
 	},
 	{
+		id: "yussor-pay-online",
+		name: "Yussor Pay Online",
+		logoUrl: "/cdn/v1/logos/payments/yussor-pay-online.svg",
+		colors: ["#013E50", "#057A40"],
+		type: "payment_method",
+		isNew: true,
+	},
+	{
 		id: "gpay",
 		name: "GPay",
 		logoUrl: "/cdn/v1/logos/payments/gpay.svg",
