@@ -1,4 +1,4 @@
-import type { Bank, PaymentMethod, Screenshot } from "./types";
+import type { Bank, PaymentGateway, PaymentMethod, Screenshot } from "./types";
 
 export const SOCIAL_LINKS = {
 	github: "https://github.com/mosabsomaer/Khazna",
@@ -198,6 +198,7 @@ export const BANKS: Bank[] = [
 		colors: ["#F9AE41", "#5C5C5E"],
 		hasScreenshots: false,
 		type: "bank",
+		isUpdated: true,
 	},
 	{
 		id: "wahda-bank",
@@ -300,6 +301,57 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		logomarkUrl: "/cdn/v1/logos/payments/numo-pay-icon.svg",
 		colors: ["#404041", "#FFE000"],
 		type: "payment_method",
+	},
+];
+
+export const PAYMENT_GATEWAYS: PaymentGateway[] = [
+	{
+		id: "plutu",
+		name: "Plutu",
+		logoUrl: "/cdn/v1/logos/payment-gateways/plutu.svg",
+		colors: ["#247872"],
+		type: "payment_gateway",
+		isNew: true,
+	},
+	{
+		id: "moamalat",
+		name: "Moamalat",
+		logoUrl: "/cdn/v1/logos/payment-gateways/moamalat.svg",
+		colors: ["#403F41", "#DFB806"],
+		type: "payment_gateway",
+		isNew: true,
+	},
+	{
+		id: "t-lync",
+		name: "T-Lync",
+		logoUrl: "/cdn/v1/logos/payment-gateways/t-lync.svg",
+		colors: ["#3E2FBB", "#00B8CE"],
+		type: "payment_gateway",
+		isNew: true,
+	},
+	{
+		id: "ezone-pay",
+		name: "Ezone Pay",
+		logoUrl: "/cdn/v1/logos/payment-gateways/ezone-pay.svg",
+		colors: ["#37B888", "#512B83"],
+		type: "payment_gateway",
+		isNew: true,
+	},
+	{
+		id: "dpay",
+		name: "DPay",
+		logoUrl: "/cdn/v1/logos/payment-gateways/dpay.svg",
+		colors: ["#00AEEF", "#1C75BC"],
+		type: "payment_gateway",
+		isNew: true,
+	},
+	{
+		id: "mypay",
+		name: "my pay",
+		logoUrl: "/cdn/v1/logos/payment-gateways/mypay.svg",
+		colors: ["#000000"],
+		type: "payment_gateway",
+		isNew: true,
 	},
 ];
 

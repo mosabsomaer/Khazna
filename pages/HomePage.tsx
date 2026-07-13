@@ -3,12 +3,13 @@ import type { JSX } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Badge } from "../components/Badge";
-import { BANKS, PAYMENT_METHODS } from "../constants";
+import { BANKS, PAYMENT_GATEWAYS, PAYMENT_METHODS } from "../constants";
 import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
-import type { Bank, PaymentMethod } from "../types";
+import type { Bank, PaymentGateway, PaymentMethod } from "../types";
 
-type Filter = "all" | "banks" | "payment_methods";
+type Filter = "all" | "banks" | "payment_methods" | "payment_gateways";
+type Entity = Bank | PaymentMethod | PaymentGateway;
 
 export function HomePage(): JSX.Element {
 	const { setSelectedItem, selectedItem, logoStyle, setLogoStyle, getLogoUrl } = useUIContext();
@@ -18,19 +19,26 @@ export function HomePage(): JSX.Element {
 	const [filter, setFilter] = useState<Filter>("all");
 
 	const filters: { key: Filter; labelKey: string; count: number }[] = [
-		{ key: "all", labelKey: "home.all", count: BANKS.length + PAYMENT_METHODS.length },
+		{
+			key: "all",
+			labelKey: "home.all",
+			count: BANKS.length + PAYMENT_METHODS.length + PAYMENT_GATEWAYS.length,
+		},
 		{ key: "banks", labelKey: "home.banks", count: BANKS.length },
 		{ key: "payment_methods", labelKey: "home.paymentMethods", count: PAYMENT_METHODS.length },
+		{ key: "payment_gateways", labelKey: "home.paymentGateways", count: PAYMENT_GATEWAYS.length },
 	];
 
-	const allItems: (Bank | PaymentMethod)[] =
+	const allItems: Entity[] =
 		filter === "banks"
 			? BANKS
 			: filter === "payment_methods"
 				? PAYMENT_METHODS
-				: [...BANKS, ...PAYMENT_METHODS];
+				: filter === "payment_gateways"
+					? PAYMENT_GATEWAYS
+					: [...BANKS, ...PAYMENT_METHODS, ...PAYMENT_GATEWAYS];
 
-	function renderGrid(items: (Bank | PaymentMethod)[]) {
+	function renderGrid(items: Entity[]) {
 		return (
 			<div className="border border-border rounded-xl overflow-hidden">
 				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">

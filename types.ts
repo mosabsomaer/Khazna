@@ -23,6 +23,10 @@ export interface PaymentMethod extends BaseEntity {
 	type: "payment_method";
 }
 
+export interface PaymentGateway extends BaseEntity {
+	type: "payment_gateway";
+}
+
 export interface Screenshot {
 	id: string;
 	url: string;
@@ -31,7 +35,7 @@ export interface Screenshot {
 	category: "onboarding" | "dashboard" | "transaction" | "settings" | "auth";
 }
 
-export type SelectedItem = Bank | PaymentMethod | null;
+export type SelectedItem = Bank | PaymentMethod | PaymentGateway | null;
 
 export type LogoVariant = "mono" | "branded" | "logomark";
 

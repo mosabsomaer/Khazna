@@ -24,8 +24,8 @@ Khazna/
 ├── index.tsx            # Entry point
 ├── index.html           # HTML shell, CSS variables, FOUC prevention
 ├── index.css            # Global styles, theme toggle animation
-├── constants.ts         # BANKS, PAYMENT_METHODS, MOCK_SCREENSHOTS, SOCIAL_LINKS
-├── types.ts             # TypeScript interfaces (Bank, PaymentMethod, etc.)
+├── constants.ts         # BANKS, PAYMENT_METHODS, PAYMENT_GATEWAYS, MOCK_SCREENSHOTS, SOCIAL_LINKS
+├── types.ts             # TypeScript interfaces (Bank, PaymentMethod, PaymentGateway, etc.)
 ├── i18n.ts              # i18next configuration
 ├── components/
 │   ├── ui/              # shadcn/ui base components
@@ -43,9 +43,10 @@ Khazna/
 │   └── ar.json          # Arabic translations
 └── public/
     └── cdn/v1/logos/
-        ├── banks/       # Full bank logos (SVG)
-        ├── bank-icons/  # Bank logomarks (SVG)
-        └── payments/    # Payment method logos (SVG)
+        ├── banks/             # Full bank logos (SVG)
+        ├── bank-icons/        # Bank logomarks (SVG)
+        ├── payments/          # Payment method logos (SVG)
+        └── payment-gateways/  # Payment gateway logos (SVG)
 ```
 
 ## Code Style
@@ -104,7 +105,7 @@ Do **not** hardcode raw color values. Always use the semantic tokens so both the
 
 ## Adding New Logos
 
-This section covers how to add a new bank or payment method logo to Khazna.
+This section covers how to add a new bank, payment method, or payment gateway logo to Khazna.
 
 ### 1. Prepare Your SVG Files
 
@@ -134,18 +135,23 @@ This applies to both full logos and logomarks.
 **Payment methods** need one SVG file:
 - **Full logo** — the complete logo
 
+**Payment gateways** need one SVG file:
+- **Full logo** — the complete logo (gateways have no logomark)
+
 ### 2. Add SVG Files
 
 Place your files in the correct `public/cdn/v1/logos/` subdirectory:
 
 ```
 public/cdn/v1/logos/
-├── banks/           # Full bank logos
+├── banks/             # Full bank logos
 │   └── my-bank.svg
-├── bank-icons/      # Bank logomarks (icon only)
+├── bank-icons/        # Bank logomarks (icon only)
 │   └── my-bank.svg
-└── payments/        # Payment method logos
-    └── my-payment.svg
+├── payments/          # Payment method logos
+│   └── my-payment.svg
+└── payment-gateways/  # Payment gateway logos
+    └── my-gateway.svg
 ```
 
 If the brand has an alternate dark-background variant, add a sibling file
@@ -190,6 +196,18 @@ Optional `Bank` fields (see `types.ts`):
   logoUrl: "/cdn/v1/logos/payments/my-payment.svg",
   colors: ["#034694"],         // 1-3 brand colors (hex)
   type: "payment_method",
+},
+```
+
+**For a payment gateway**, add to the `PAYMENT_GATEWAYS` array:
+
+```ts
+{
+  id: "my-gateway",            // kebab-case, matches SVG filename
+  name: "My Gateway",          // Display name
+  logoUrl: "/cdn/v1/logos/payment-gateways/my-gateway.svg",
+  colors: ["#034694"],         // 1-3 brand colors (hex)
+  type: "payment_gateway",
 },
 ```
 

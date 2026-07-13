@@ -76,7 +76,7 @@ Khazna/
 │   │   └── payment-methods/ # Payment provider logos (SVG)
 │   ├── fonts/               # Ghroob Arabic font
 │   └── sounds/              # UI sound effects
-├── constants.ts         # Bank + payment method data, contributors
+├── constants.ts         # Bank, payment method + payment gateway data, contributors
 ├── types.ts             # TypeScript interfaces
 └── i18n.ts              # i18next configuration
 ```
@@ -85,8 +85,8 @@ Khazna/
 
 ## Adding a Logo
 
-1. Add the SVG file(s) to `public/logos/banks/` or `public/logos/payment-methods/`
-2. Register the entry in `constants.ts` (`BANKS` or `PAYMENT_METHODS` array)
+1. Add the SVG file(s) to `public/cdn/v1/logos/banks/`, `payments/`, or `payment-gateways/`
+2. Register the entry in `constants.ts` (`BANKS`, `PAYMENT_METHODS`, or `PAYMENT_GATEWAYS` array)
 3. Add translation keys for the entity name in both `data/en.json` and `data/ar.json`
 4. Run `bun dev` to verify it renders correctly in both light and dark modes
 

@@ -26,7 +26,7 @@ Almost every component reads from `UIContext` (defined in `App.tsx`, consumed vi
 
 | Key | Type | Purpose |
 |---|---|---|
-| `selectedItem` | `Bank \| PaymentMethod \| null` | Opens the detail sidebar when set |
+| `selectedItem` | `Bank \| PaymentMethod \| PaymentGateway \| null` | Opens the detail sidebar when set |
 | `isSidebarOpen` | `boolean` | Derived from `!!selectedItem` |
 | `logoVariant` | `"branded" \| "mono" \| "logomark"` | Controls which SVG variant renders |
 | `theme` | `"light" \| "dark"` | Current color scheme |
@@ -58,7 +58,7 @@ Always use `useUIContext()` to access these — never reach into `UIContext` dir
 | File | What it does |
 |---|---|
 | `App.tsx` | Root component, `UIContext` provider, theme toggle logic, router |
-| `constants.ts` | `BANKS`, `PAYMENT_METHODS`, `MOCK_SCREENSHOTS`, `CONTRIBUTORS`, `SOCIAL_LINKS` |
+| `constants.ts` | `BANKS`, `PAYMENT_METHODS`, `PAYMENT_GATEWAYS`, `MOCK_SCREENSHOTS`, `CONTRIBUTORS`, `SOCIAL_LINKS` |
 | `types.ts` | All TypeScript interfaces and union types |
 | `i18n.ts` | i18next setup, language detection (localStorage → browser → fallback `en`) |
 | `index.css` | CSS variables for theming, global styles, theme transition animation |

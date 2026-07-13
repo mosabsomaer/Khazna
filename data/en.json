@@ -34,7 +34,7 @@
 	},
 	"home": {
 		"title": "Logo Library",
-		"description": "A collection of logos for Libyan banks and payment methods. Available in mono, branded, and logomark variants.",
+		"description": "A collection of logos for Libyan banks, payment methods, and payment gateways. Available in mono, branded, and logomark variants.",
 		"all": "All",
 		"banks": "Banks",
 		"paymentMethods": "Payment Methods",
@@ -44,7 +44,8 @@
 		"bw": "B&W",
 		"colored": "Colored",
 		"white": "White",
-		"size": "size"
+		"size": "size",
+		"paymentGateways": "Payment Gateways"
 	},
 	"apps": {
 		"title": "App UI Gallery",
@@ -128,7 +129,13 @@
 		"gpay": "GPay",
 		"numo-pay": "Numo Pay",
 		"wahda-bank": "Wahda Bank",
-		"alwaha-bank": "Alwaha Bank"
+		"alwaha-bank": "Alwaha Bank",
+		"plutu": "Plutu",
+		"moamalat": "Moamalat",
+		"t-lync": "T-Lync",
+		"ezone-pay": "eZone Pay",
+		"dpay": "DPay",
+		"mypay": "mypay"
 	},
 	"team": {
 		"title": "Meet the Team",

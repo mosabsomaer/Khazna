@@ -3,16 +3,16 @@ import type { ChangeEvent, JSX } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { BANKS, PAYMENT_METHODS } from "../constants";
+import { BANKS, PAYMENT_GATEWAYS, PAYMENT_METHODS } from "../constants";
 import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
-import type { Bank, PaymentMethod } from "../types";
+import type { Bank, PaymentGateway, PaymentMethod } from "../types";
 
 type SearchResult =
 	| {
 			id: string;
 			kind: "logo";
-			item: Bank | PaymentMethod;
+			item: Bank | PaymentMethod | PaymentGateway;
 	  }
 	| {
 			id: string;
@@ -23,6 +23,7 @@ type SearchResult =
 const SEARCHABLE_ITEMS: SearchResult[] = [
 	...BANKS.map((item) => ({ id: `logo-${item.id}`, kind: "logo" as const, item })),
 	...PAYMENT_METHODS.map((item) => ({ id: `logo-${item.id}`, kind: "logo" as const, item })),
+	...PAYMENT_GATEWAYS.map((item) => ({ id: `logo-${item.id}`, kind: "logo" as const, item })),
 	...BANKS.filter((item) => item.hasScreenshots).map((item) => ({
 		id: `app-${item.id}`,
 		kind: "app" as const,
