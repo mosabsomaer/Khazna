@@ -208,6 +208,16 @@ export const BANKS: Bank[] = [
 		hasScreenshots: true,
 		type: "bank",
 	},
+	{
+		id: "islamic-finance-bank",
+		name: "Islamic Finance Bank",
+		logoUrl: "/cdn/v1/logos/banks/islamic-finance-bank.svg",
+		logomarkUrl: "/cdn/v1/logos/bank-icons/islamic-finance-bank.svg",
+		colors: ["#274054", "#E7BF1F"],
+		hasScreenshots: false,
+		type: "bank",
+		isNew: true,
+	},
 ];
 
 export const PAYMENT_METHODS: PaymentMethod[] = [
