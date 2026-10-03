@@ -234,7 +234,8 @@
 		"Transfer Processing": "جارٍ تنفيذ التحويل",
 		"Transfer Success": "اكتمال التحويل",
 		"Transfer Receipt": "إيصال التحويل",
-		"Statement Request": "طلب كشف"
+		"Statement Request": "طلب كشف",
+		"Terms of Use": "شروط الاستخدام"
 	},
 	"screenshotCategories": {
 		"onboarding": "البدء",
