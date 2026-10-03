@@ -218,6 +218,16 @@ export const BANKS: Bank[] = [
 		type: "bank",
 		isNew: true,
 	},
+	{
+		id: "daman-islamic-bank",
+		name: "Daman Islamic Bank",
+		logoUrl: "/cdn/v1/logos/banks/daman-islamic-bank.svg",
+		logomarkUrl: "/cdn/v1/logos/bank-icons/daman-islamic-bank.svg",
+		colors: ["#006754", "#BE9B2F"],
+		hasScreenshots: false,
+		type: "bank",
+		isNew: true,
+	},
 ];
 
 export const PAYMENT_METHODS: PaymentMethod[] = [
