@@ -85,7 +85,10 @@
 		"contributeDescription": "Join our growing community of contributors and help build the most comprehensive fintech UI resource in Libya.",
 		"becomeContributor": "Become a contributor",
 		"viewOnGithub": "View on GitHub",
-		"contributingGuide": "Contributing Guide"
+		"contributingGuide": "Contributing Guide",
+		"communityTitle": "Free and open source",
+		"communitySubtitle": "Built by the community",
+		"communityCta": "Khazna welcomes contributions from everyone"
 	},
 	"badge": {
 		"new": "New",

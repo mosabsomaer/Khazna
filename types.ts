@@ -13,6 +13,15 @@ export interface BaseEntity {
 	disableMono?: boolean;
 }
 
+export interface Contributor {
+	name: string;
+	/** Square photo or logo; contributors without one show their initials. */
+	imageUrl?: string;
+	/** Logos are padded on a white tile instead of filling it like a photo. */
+	isLogo?: boolean;
+	url?: string;
+}
+
 export interface Bank extends BaseEntity {
 	hasScreenshots: boolean;
 	website?: string;

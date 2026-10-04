@@ -85,7 +85,10 @@
 		"contributeDescription": "انضم إلى مجتمعنا المتنامي من المساهمين وساعد في بناء أشمل مورد لواجهات التكنولوجيا المالية في ليبيا.",
 		"becomeContributor": "كن مساهمًا",
 		"viewOnGithub": "عرض على GitHub",
-		"contributingGuide": "دليل المساهمة"
+		"contributingGuide": "دليل المساهمة",
+		"communityTitle": "مجاني ومفتوح المصدر",
+		"communitySubtitle": "بني بأيدي المجتمع",
+		"communityCta": "خزنة ترحب بمساهمات الجميع"
 	},
 	"badge": {
 		"new": "جديد",
