@@ -1,10 +1,56 @@
-import type { Bank, PaymentGateway, PaymentMethod, Screenshot } from "./types";
+import type { Bank, Contributor, PaymentGateway, PaymentMethod, Screenshot } from "./types";
 
 export const SOCIAL_LINKS = {
 	github: "https://github.com/mosabsomaer/Khazna",
 	figma: "https://www.figma.com/community/file/1639907833706485884/khazna",
 	email: "mosab.omaer@binary.ly",
 };
+
+export const CONTRIBUTORS: Contributor[] = [
+	{
+		name: "Mosab Omaer",
+		imageUrl: "/founders/sm/Mosab.webp",
+		url: "https://github.com/mosabsomaer",
+	},
+	{
+		name: "Sara Shemisa",
+		imageUrl: "/founders/sm/Sara.webp",
+		url: "https://www.linkedin.com/in/sara-shemisa-35545b305/",
+	},
+	{
+		name: "Moaad Alnaeli",
+		imageUrl: "/founders/sm/Moo.webp",
+		url: "https://www.linkedin.com/in/moaadalnaeli/",
+	},
+	{
+		name: "Yousef Obeida",
+		imageUrl: "/contributors/yousef.webp",
+		url: "https://github.com/yousef-obeida",
+	},
+	{ name: "Mohammed F. Alabasy", imageUrl: "/contributors/alabasy.webp" },
+	{
+		name: "Rida Labbar",
+		imageUrl: "/contributors/rida.webp",
+		url: "https://github.com/ridalabbar",
+	},
+	{ name: "Ahmed Bayt Almal" },
+	{
+		name: "Suliman Benhalim",
+		imageUrl: "/contributors/suliman.webp",
+		url: "https://github.com/sulimanbenhalim",
+	},
+	{
+		name: "MyPay",
+		imageUrl: "/cdn/v1/logos/payment-gateways/mypay.svg",
+		isLogo: true,
+		url: "https://mypay.ly",
+	},
+	{
+		name: "Islamic Finance Bank",
+		imageUrl: "/cdn/v1/logos/bank-icons/islamic-finance-bank.svg",
+		isLogo: true,
+	},
+];
 
 export const BANKS: Bank[] = [
 	{

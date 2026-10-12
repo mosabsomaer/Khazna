@@ -3,6 +3,7 @@ import { createContext, useCallback, useEffect, useMemo, useRef, useState } from
 import { flushSync } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-dom";
+import { Community } from "./components/Community";
 import { Contributors } from "./components/Contributors";
 import { DetailPanel } from "./components/DetailPanel";
 import { Navbar } from "./components/Navbar";
@@ -49,6 +50,7 @@ function Layout({ children }: { children: React.ReactNode }): JSX.Element {
 				className={`relative transition-[padding] duration-300 flex-1 flex flex-col ${isSidebarOpen ? "xl:pe-[400px]" : ""}`}
 			>
 				<main className="max-w-400 mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">{children}</main>
+				<Community />
 				<Contributors />
 				<footer className="border-t border-border/30 py-5 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
 					{/* Built by badge */}
