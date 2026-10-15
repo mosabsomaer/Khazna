@@ -77,16 +77,18 @@ function ColorPill({ color }: { color: string }): JSX.Element {
 	);
 }
 
+function recolorOutsideMasks(svg: string, color: string): string {
+	return svg.replace(/<mask[\s\S]*?<\/mask>|(fill|stroke)="(?!none)[^"]*"/g, (match, attr) =>
+		attr ? `${attr}="${color}"` : match,
+	);
+}
+
 function makeWhiteSvg(svg: string): string {
-	return svg
-		.replace(/fill="(?!none)[^"]*"/g, 'fill="white"')
-		.replace(/stroke="(?!none)[^"]*"/g, 'stroke="white"');
+	return recolorOutsideMasks(svg, "white");
 }
 
 function makeBlackSvg(svg: string): string {
-	return svg
-		.replace(/fill="(?!none)[^"]*"/g, 'fill="black"')
-		.replace(/stroke="(?!none)[^"]*"/g, 'stroke="black"');
+	return recolorOutsideMasks(svg, "black");
 }
 
 export function DetailPanel(): JSX.Element | null {
