@@ -17,8 +17,8 @@ function extractSvgInfo(svgString: string): SvgInfo {
 }
 
 function replaceNonNoneFills(content: string, replacement: string): string {
-	return content.replace(/fill="[^"]*"/g, (match) =>
-		match.includes("none") ? match : replacement,
+	return content.replace(/<mask[\s\S]*?<\/mask>|fill="[^"]*"/g, (match) =>
+		match.startsWith("<mask") || match.includes("none") ? match : replacement,
 	);
 }
 
