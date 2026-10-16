@@ -22,6 +22,14 @@
 		"github": "Open GitHub repository",
 		"figma": "Open Figma Community library"
 	},
+	"theme": {
+		"switchToLight": "Switch to light mode",
+		"switchToDark": "Switch to dark mode"
+	},
+	"sound": {
+		"mute": "Mute sounds",
+		"enable": "Enable sounds"
+	},
 	"search": {
 		"open": "Open search",
 		"close": "Close search",

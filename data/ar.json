@@ -22,6 +22,14 @@
 		"github": "فتح مستودع GitHub",
 		"figma": "فتح مكتبة Figma Community"
 	},
+	"theme": {
+		"switchToLight": "التبديل إلى الوضع الفاتح",
+		"switchToDark": "التبديل إلى الوضع الداكن"
+	},
+	"sound": {
+		"mute": "كتم الأصوات",
+		"enable": "تفعيل الأصوات"
+	},
 	"search": {
 		"open": "فتح البحث",
 		"close": "إغلاق البحث",

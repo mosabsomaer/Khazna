@@ -1,10 +1,12 @@
 import { Volume2, VolumeOff } from "lucide-react";
 import type { JSX } from "react";
 import { useCallback, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useUIContext } from "../hooks/useUIContext";
 
 export function SoundToggle(): JSX.Element {
 	const { soundEnabled, toggleSound } = useUIContext();
+	const { t } = useTranslation();
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	const handleClick = useCallback(() => {
@@ -26,7 +28,7 @@ export function SoundToggle(): JSX.Element {
 			type="button"
 			onClick={handleClick}
 			className="p-2 text-muted-foreground hover:text-primary hover:bg-surface-hover rounded-full transition-colors"
-			title={soundEnabled ? "Mute sounds" : "Enable sounds"}
+			title={soundEnabled ? t("sound.mute") : t("sound.enable")}
 		>
 			{soundEnabled ? <Volume2 size={20} /> : <VolumeOff size={20} />}
 		</button>
