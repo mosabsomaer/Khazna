@@ -51,14 +51,14 @@ Khazna/
 
 ## Code Style
 
-We use [Biome](https://biomejs.dev/) for linting and formatting. Biome is installed as a dev dependency — run it via `bunx`:
+We use [Biome](https://biomejs.dev/) for linting and formatting. Biome is installed as a dev dependency:
 
 ```bash
-# Check for lint and format issues
-bunx biome check .
+# Lint, format check and type-check
+bun run check
 
 # Auto-fix formatting and safe lint issues
-bunx biome check --write .
+bun run format
 ```
 
 Always run the formatter before committing. The project uses tabs for indentation and a 100-character line width (see `biome.json`).
@@ -96,8 +96,8 @@ Do **not** hardcode raw color values. Always use the semantic tokens so both the
 1. Fork the repository
 2. Create a feature branch: `git checkout -b your-feature-name`
 3. Make your changes
-4. Run `bunx biome check --write .` to fix formatting
-5. Run `bunx biome check .` to verify no lint errors
+4. Run `bun run format` to fix formatting
+5. Run `bun run check` to verify no lint or type errors
 6. Commit with a clear message describing the change
 7. Push and open a Pull Request
 
@@ -238,4 +238,4 @@ Check that your logo appears correctly in:
 - [ ] Banks have both a full logo and a logomark
 - [ ] `colors` array contains 1-3 hex values from the brand
 - [ ] Logo renders correctly in light and dark mode
-- [ ] `bunx biome check .` passes
+- [ ] `bun run check` passes

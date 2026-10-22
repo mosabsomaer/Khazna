@@ -1,4 +1,4 @@
-export type ToastIcon = "check" | "offline" | "online";
+export type ToastIcon = "check" | "error" | "offline" | "online";
 
 export type ToastAction = { label: string; onClick: () => void };
 
