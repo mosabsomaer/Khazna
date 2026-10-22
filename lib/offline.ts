@@ -1,5 +1,6 @@
 import { MOCK_SCREENSHOTS } from "../constants";
 import i18n from "../i18n";
+import { thumbUrl } from "./screenshots";
 import { showToast } from "./toast";
 
 /** App UI on the device: saved once the person asks for it in Settings, and kept complete after. */
@@ -28,7 +29,11 @@ const GIVE_UP_MS = 20000;
 const STOP_AFTER_FAILURES = 6;
 
 const SCREEN_URLS = [
-	...new Set(Object.values(MOCK_SCREENSHOTS).flatMap((screens) => screens.map((s) => s.url))),
+	...new Set(
+		Object.values(MOCK_SCREENSHOTS).flatMap((screens) =>
+			screens.flatMap((s) => [s.url, thumbUrl(s)]),
+		),
+	),
 ];
 
 function chosen(): boolean {

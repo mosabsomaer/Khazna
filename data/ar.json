@@ -76,6 +76,14 @@
 		"cdnUrl": "رابط CDN",
 		"shareLink": "مشاركة الرابط"
 	},
+	"viewer": {
+		"close": "إغلاق",
+		"previous": "الواجهة السابقة",
+		"next": "الواجهة التالية",
+		"download": "تحميل {{label}}",
+		"position": "{{current}} من {{total}}",
+		"allScreens": "كل الواجهات"
+	},
 	"contributors": {
 		"contributors": "المساهمون",
 		"dontLoseThis": "لا تفقد هذا الموقع",

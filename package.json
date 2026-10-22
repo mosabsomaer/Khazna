@@ -6,7 +6,11 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"check": "biome check . && tsc --noEmit",
+		"format": "biome check --write .",
+		"screenshots": "bun scripts/screenshots.ts",
+		"logos:optimize": "bun scripts/optimize-logos.ts"
 	},
 	"dependencies": {
 		"@radix-ui/react-tabs": "^1.1.13",
@@ -30,6 +34,8 @@
 		"@types/react": "^19.2.14",
 		"@vitejs/plugin-react": "^5.0.0",
 		"shadcn": "^4.0.8",
+		"sharp": "^0.35.5",
+		"svgo": "^4.1.0",
 		"tailwindcss": "^4.2.2",
 		"typescript": "~5.8.2",
 		"vite": "^6.2.0",

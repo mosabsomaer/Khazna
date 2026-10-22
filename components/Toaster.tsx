@@ -1,4 +1,4 @@
-import { Check, Wifi, WifiOff } from "lucide-react";
+import { Check, CircleAlert, Wifi, WifiOff } from "lucide-react";
 import type { JSX } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { onToast, type ToastDetail } from "../lib/toast";
@@ -7,7 +7,7 @@ const TOAST_DURATION = 2500;
 // Long enough to reach the button.
 const ACTION_TOAST_DURATION = 8000;
 
-const ICONS = { check: Check, offline: WifiOff, online: Wifi };
+const ICONS = { check: Check, error: CircleAlert, offline: WifiOff, online: Wifi };
 
 export function Toaster(): JSX.Element {
 	const [toasts, setToasts] = useState<ToastDetail[]>([]);
@@ -24,7 +24,7 @@ export function Toaster(): JSX.Element {
 	}, [remove]);
 
 	return (
-		<div className="fixed inset-x-4 bottom-[calc(1.5rem+var(--tab-bar-h,0px)+env(safe-area-inset-bottom))] z-[100] flex flex-col items-center gap-2 pointer-events-none">
+		<div className="fixed inset-x-4 bottom-[calc(1.5rem+max(var(--tab-bar-h,0px)+env(safe-area-inset-bottom),var(--viewer-bar-h,0px)))] z-[100] flex flex-col items-center gap-2 pointer-events-none">
 			{toasts.map((t) => {
 				const Icon = ICONS[t.icon];
 				return (

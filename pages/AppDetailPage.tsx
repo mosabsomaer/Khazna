@@ -1,92 +1,40 @@
-import {
-	ArrowLeft,
-	ChevronLeft,
-	ChevronRight,
-	Download,
-	DownloadCloud,
-	Landmark,
-	Loader2,
-	X,
-	ZoomIn,
-} from "lucide-react";
+import { ArrowLeft, DownloadCloud, Landmark, Loader2, ZoomIn } from "lucide-react";
 import type { JSX } from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { trackEvent } from "@/lib/analytics";
 import { saveFile } from "@/lib/download";
+import { thumbUrl } from "@/lib/screenshots";
 import { showToast } from "@/lib/toast";
-import { cn } from "@/lib/utils";
 import { FallbackImage, ScreenPlaceholder } from "../components/FallbackImage";
 import { FigmaLink } from "../components/FigmaLink";
+import { ScreenViewer, type ScreenViewerHandle } from "../components/ScreenViewer";
 import { BANKS, MOCK_SCREENSHOTS } from "../constants";
 import { useBackToClose } from "../hooks/useBackToClose";
-import { useLanguage } from "../hooks/useLanguage";
 import { useSound } from "../hooks/useSound";
-import { useSwipe } from "../hooks/useSwipe";
 import type { Screenshot } from "../types";
+
+function findThumbnail(screen: Screenshot): HTMLElement | null {
+	return document.querySelector(`[data-screen-id="${screen.id}"]`);
+}
 
 export function AppDetailPage(): JSX.Element {
 	const { bankId } = useParams<{ bankId: string }>();
 	const { t } = useTranslation();
 	const play = useSound();
-	const [selectedScreen, setSelectedScreen] = useState<Screenshot | null>(null);
+	const [viewer, setViewer] = useState<{ bankId: string; index: number } | null>(null);
 	const [isDownloadingAll, setIsDownloadingAll] = useState(false);
 	const [isDownloadingSingle, setIsDownloadingSingle] = useState(false);
-	const [isImageLoading, setIsImageLoading] = useState(false);
+	const viewerRef = useRef<ScreenViewerHandle>(null);
 
 	const bank = BANKS.find((b) => b.id === bankId);
 	const screenshots = bankId ? MOCK_SCREENSHOTS[bankId] || [] : [];
-
-	const navigateLightbox = useCallback(
-		(direction: "next" | "prev") => {
-			if (!selectedScreen) return;
-			const currentIndex = screenshots.findIndex((s) => s.id === selectedScreen.id);
-			if (currentIndex === -1) return;
-
-			play("swipe");
-			const newIndex =
-				direction === "next"
-					? (currentIndex + 1) % screenshots.length
-					: (currentIndex - 1 + screenshots.length) % screenshots.length;
-
-			setIsImageLoading(true);
-			setSelectedScreen(screenshots[newIndex]);
-		},
-		[selectedScreen, screenshots, play],
-	);
-
-	const { isRTL } = useLanguage();
-	const closeViewer = useBackToClose(!!selectedScreen, () => setSelectedScreen(null));
-	const swipe = useSwipe({
-		axis: "both",
-		onSwipe: (direction) => {
-			if (direction === "down") {
-				play("select");
-				closeViewer();
-			} else if (direction !== "up") {
-				// Arabic reads right to left, so the next screen comes in from the left.
-				navigateLightbox(direction === (isRTL ? "right" : "left") ? "next" : "prev");
-			}
-		},
+	const closeViewer = useCallback(() => setViewer(null), []);
+	useBackToClose(!!viewer, () => {
+		if (viewerRef.current) viewerRef.current.close();
+		else setViewer(null);
 	});
-
-	useEffect(() => {
-		if (!selectedScreen) return;
-
-		function handleKeyDown(e: KeyboardEvent): void {
-			if (e.key === "Escape") {
-				closeViewer();
-			} else if (e.key === "ArrowRight") {
-				navigateLightbox("next");
-			} else if (e.key === "ArrowLeft") {
-				navigateLightbox("prev");
-			}
-		}
-
-		window.addEventListener("keydown", handleKeyDown);
-		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [selectedScreen, navigateLightbox, closeViewer]);
 
 	const handleDownloadSingle = useCallback(
 		async (screen: Screenshot) => {
@@ -110,7 +58,7 @@ export function AppDetailPage(): JSX.Element {
 				});
 			} catch (error) {
 				console.error("Download failed:", error);
-				alert(t("sidebar.downloadImageFailed"));
+				showToast(t("sidebar.downloadImageFailed"), { icon: "error" });
 			} finally {
 				setIsDownloadingSingle(false);
 			}
@@ -155,7 +103,7 @@ export function AppDetailPage(): JSX.Element {
 			});
 		} catch (error) {
 			console.error("Batch download failed:", error);
-			alert(t("sidebar.zipFailed"));
+			showToast(t("sidebar.zipFailed"), { icon: "error" });
 		} finally {
 			setIsDownloadingAll(false);
 		}
@@ -229,19 +177,20 @@ export function AppDetailPage(): JSX.Element {
 			{/* Gallery */}
 			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-8">
 				{screenshots.length > 0 ? (
-					screenshots.map((screen) => (
+					screenshots.map((screen, index) => (
 						<div key={screen.id} className="group flex flex-col gap-3">
 							<button
 								type="button"
+								data-screen-id={screen.id}
 								onClick={() => {
 									play("select");
-									setIsImageLoading(true);
-									setSelectedScreen(screen);
+									setViewer({ bankId: bank.id, index });
 								}}
-								className="relative aspect-9/19 w-full rounded-2xl overflow-hidden border border-border bg-surface cursor-pointer outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+								className="relative aspect-9/19 w-full rounded-2xl overflow-hidden border border-border bg-surface cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
 							>
 								<FallbackImage
-									src={screen.url}
+									src={thumbUrl(screen)}
+									decoding="async"
 									alt={t(`screenshotLabels.${screen.label}`)}
 									className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 									loadingClassName="bg-surface-hover motion-safe:animate-pulse"
@@ -272,117 +221,16 @@ export function AppDetailPage(): JSX.Element {
 				)}
 			</div>
 
-			{/* Lightbox - stays dark in both modes */}
-			{selectedScreen && (
-				// biome-ignore lint/a11y/noStaticElementInteractions: modal backdrop, can't be <button> (contains interactive children)
-				// biome-ignore lint/a11y/useKeyWithClickEvents: same reason
-				<div
-					className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm animate-in fade-in duration-200 touch-pinch-zoom"
-					onClick={() => {
-						play("select");
-						closeViewer();
-					}}
-					{...swipe.handlers}
-				>
-					<button
-						type="button"
-						onClick={(e) => {
-							e.stopPropagation();
-							navigateLightbox("prev");
-						}}
-						className="absolute start-4 top-1/2 -translate-y-1/2 p-3 text-zinc-400 hover:text-white bg-zinc-800/50 hover:bg-zinc-800 rounded-full transition-colors z-50 hidden md:block"
-					>
-						<ChevronLeft size={32} className="rtl:rotate-180" />
-					</button>
-
-					<button
-						type="button"
-						onClick={(e) => {
-							e.stopPropagation();
-							navigateLightbox("next");
-						}}
-						className="absolute end-4 top-1/2 -translate-y-1/2 p-3 text-zinc-400 hover:text-white bg-zinc-800/50 hover:bg-zinc-800 rounded-full transition-colors z-50 hidden md:block"
-					>
-						<ChevronRight size={32} className="rtl:rotate-180" />
-					</button>
-
-					<button
-						type="button"
-						onClick={(e) => {
-							e.stopPropagation();
-							play("select");
-							closeViewer();
-						}}
-						className="absolute top-4 end-4 p-2 text-zinc-400 hover:text-white bg-zinc-800/50 hover:bg-zinc-800 rounded-full transition-colors z-50"
-					>
-						<X size={24} />
-					</button>
-
-					<div className="relative w-full h-full flex items-center justify-center p-4">
-						<div
-							role="presentation"
-							className="relative flex flex-col items-center gap-4 max-h-full"
-							onClick={(e) => e.stopPropagation()}
-						>
-							{isImageLoading && (
-								<div className="absolute inset-0 flex items-center justify-center">
-									<Loader2 size={40} className="animate-spin text-zinc-400" />
-								</div>
-							)}
-							<FallbackImage
-								key={selectedScreen.id}
-								src={selectedScreen.url}
-								alt={t(`screenshotLabels.${selectedScreen.label}`)}
-								onLoad={() => setIsImageLoading(false)}
-								onError={() => setIsImageLoading(false)}
-								style={{
-									transform: `translate(${swipe.offset.x}px, ${Math.max(0, swipe.offset.y)}px)`,
-								}}
-								className={cn(
-									"max-h-[85dvh] w-auto object-contain rounded-lg shadow-2xl ring-1 ring-white/10 transition-opacity duration-200",
-									!swipe.dragging && "transition-[opacity,transform]",
-									isImageLoading ? "opacity-0" : "opacity-100",
-								)}
-								fallback={
-									<ScreenPlaceholder
-										label={t(`screenshotLabels.${selectedScreen.label}`)}
-										style={{
-											transform: `translate(${swipe.offset.x}px, ${Math.max(0, swipe.offset.y)}px)`,
-										}}
-										className={cn(
-											"h-[70dvh] w-auto aspect-9/19 rounded-lg bg-zinc-900 text-zinc-400 ring-1 ring-white/10",
-											!swipe.dragging && "transition-transform duration-200",
-										)}
-									/>
-								}
-							/>
-
-							<div className="flex items-center gap-4 bg-zinc-900/80 px-6 py-3 rounded-full backdrop-blur-md border border-white/10">
-								<div className="text-center">
-									<h3 className="text-sm font-medium text-white">
-										{t(`screenshotLabels.${selectedScreen.label}`)}
-									</h3>
-								</div>
-
-								<div className="h-4 w-px bg-zinc-700" />
-
-								<button
-									type="button"
-									onClick={() => handleDownloadSingle(selectedScreen)}
-									disabled={isDownloadingSingle}
-									className="flex items-center gap-2 px-3 py-1.5 bg-white text-black text-xs font-bold rounded-full hover:bg-zinc-200 transition-colors disabled:opacity-50"
-								>
-									{isDownloadingSingle ? (
-										<Loader2 size={12} className="animate-spin" />
-									) : (
-										<Download size={12} />
-									)}
-									{t("common.download")}
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
+			{viewer && viewer.bankId === bankId && (
+				<ScreenViewer
+					ref={viewerRef}
+					screens={screenshots}
+					initialIndex={viewer.index}
+					isDownloading={isDownloadingSingle}
+					onDownload={handleDownloadSingle}
+					onClose={closeViewer}
+					getThumbnail={findThumbnail}
+				/>
 			)}
 		</div>
 	);
