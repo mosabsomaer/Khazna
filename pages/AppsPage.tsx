@@ -3,6 +3,7 @@ import type { JSX } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { thumbUrl } from "@/lib/screenshots";
 import { Badge } from "../components/Badge";
 import { FallbackImage, ScreenPlaceholder } from "../components/FallbackImage";
 import { BANKS, MOCK_SCREENSHOTS } from "../constants";
@@ -60,7 +61,8 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 					<div className="w-full h-full relative bg-surface">
 						<div className="absolute inset-0 transition-opacity duration-300">
 							<FallbackImage
-								src={screenshots[currentSlide].url}
+								src={thumbUrl(screenshots[currentSlide])}
+								decoding="async"
 								alt={`${t(`entityNames.${app.id}`)} ${currentSlide + 1}`}
 								className="w-full h-full object-cover"
 								loadingClassName="bg-surface-hover motion-safe:animate-pulse"

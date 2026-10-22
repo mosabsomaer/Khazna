@@ -8,7 +8,7 @@ A centralized brand asset library and UI gallery for the Libyan fintech ecosyste
 
 ## What's Inside
 
-- **Logos** — SVG logos and logomarks for 12 Libyan banks and 13 payment providers, in branded and monochrome variants
+- **Logos** — SVG logos and logomarks for Libyan banks, payment methods and payment gateways, in branded and monochrome variants
 - **App Gallery** — curated UI screenshots across onboarding, dashboard, transaction, and settings flows
 - **Code Snippets** — auto-generated usage code for React, Vue, Svelte, and plain HTML
 - **Downloads** — export any logo as SVG, PNG, or WebP; batch-download the full set as a ZIP
@@ -25,9 +25,8 @@ A centralized brand asset library and UI gallery for the Libyan fintech ecosyste
 | Build | Vite 6 |
 | Styling | Tailwind CSS 4 |
 | UI Primitives | shadcn/ui (Radix UI) |
-| Animation | Framer Motion |
+| Routing | React Router 6 |
 | i18n | i18next + react-i18next |
-| Syntax Highlighting | Shiki |
 | ZIP Downloads | JSZip |
 | Linting | Biome |
 | Package Manager | Bun |
@@ -48,7 +47,7 @@ bun install
 bun dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
+Open [http://localhost:3000](http://localhost:3000).
 
 ### Build for production
 
@@ -70,10 +69,11 @@ Khazna/
 ├── lib/                 # Utilities (download, code generation, sound engine)
 ├── data/                # i18n translation files (en.json, ar.json)
 ├── public/
-│   ├── logos/
-│   │   ├── banks/           # Full bank logos (SVG)
-│   │   ├── bank-icons/      # Bank logomarks (SVG)
-│   │   └── payment-methods/ # Payment provider logos (SVG)
+│   ├── cdn/v1/logos/
+│   │   ├── banks/             # Full bank logos (SVG)
+│   │   ├── bank-icons/        # Bank logomarks (SVG)
+│   │   ├── payments/          # Payment method logos (SVG)
+│   │   └── payment-gateways/  # Payment gateway logos (SVG)
 │   ├── fonts/               # Ghroob Arabic font
 │   └── sounds/              # UI sound effects
 ├── constants.ts         # Bank, payment method + payment gateway data, contributors
@@ -91,6 +91,12 @@ Khazna/
 4. Run `bun dev` to verify it renders correctly in both light and dark modes
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full guide and submission checklist.
+
+---
+
+## npm package
+
+The logos are also published as an npm package with SVG files, typed metadata and React components. It is built from the site's files in this repository, and new logos are included in the next publish. See [packages/logos/README.md](./packages/logos/README.md).
 
 ---
 

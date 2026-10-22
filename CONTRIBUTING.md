@@ -51,14 +51,14 @@ Khazna/
 
 ## Code Style
 
-We use [Biome](https://biomejs.dev/) for linting and formatting. Biome is installed as a dev dependency — run it via `bunx`:
+We use [Biome](https://biomejs.dev/) for linting and formatting. Biome is installed as a dev dependency:
 
 ```bash
-# Check for lint and format issues
-bunx biome check .
+# Lint, format check and type-check
+bun run check
 
 # Auto-fix formatting and safe lint issues
-bunx biome check --write .
+bun run format
 ```
 
 Always run the formatter before committing. The project uses tabs for indentation and a 100-character line width (see `biome.json`).
@@ -96,8 +96,8 @@ Do **not** hardcode raw color values. Always use the semantic tokens so both the
 1. Fork the repository
 2. Create a feature branch: `git checkout -b your-feature-name`
 3. Make your changes
-4. Run `bunx biome check --write .` to fix formatting
-5. Run `bunx biome check .` to verify no lint errors
+4. Run `bun run format` to fix formatting
+5. Run `bun run check` to verify no lint or type errors
 6. Commit with a clear message describing the change
 7. Push and open a Pull Request
 
@@ -127,6 +127,8 @@ coordinates — never change it), but set the root `<svg>`'s `height="50"` and s
 For example, an asset authored with `viewBox="0 0 368 83"` becomes
 `<svg width="222" height="50" viewBox="0 0 368 83" ...>` (50 × 368 ÷ 83 ≈ 222).
 This applies to both full logos and logomarks.
+
+After adding or editing SVGs, run `bun run logos:optimize` to shrink them. It keeps the `viewBox`, the root `width`/`height`, `fill` attributes and `<mask>` blocks as they are, because the code snippets and black/white downloads depend on them. `bun run logos:optimize --check` lists files that can still shrink.
 
 **Banks** need two SVG files:
 - **Full logo** — the complete logo with wordmark
@@ -218,6 +220,8 @@ Add the display name to **both** translation files if the name differs between l
 - `data/en.json`
 - `data/ar.json`
 
+New logos are included in the next publish of the `@khazna/logos` npm package. After adding one, run `bun run logos:build` from the root, then `bun run test` in `packages/logos`, to check that the package still builds.
+
 ### 5. Verify
 
 ```bash
@@ -234,8 +238,30 @@ Check that your logo appears correctly in:
 
 - [ ] SVG files are clean (no fonts, no JS, no external refs)
 - [ ] Root `<svg>` is normalized to `height="50"` with proportional `width` (viewBox unchanged)
+- [ ] `bun run logos:optimize` has been run
 - [ ] Filenames are `kebab-case` and match the `id` in `constants.ts`
 - [ ] Banks have both a full logo and a logomark
 - [ ] `colors` array contains 1-3 hex values from the brand
 - [ ] Logo renders correctly in light and dark mode
-- [ ] `bunx biome check .` passes
+- [ ] `bun run check` passes
+
+---
+
+## Adding App Screenshots
+
+1. Put the original PNGs in `public/screenshots/<bank-id>/`, named in `kebab-case` (e.g. `account-statement.png`). The folder name matches the bank `id` in `constants.ts`.
+2. Run `bun run screenshots`. It creates a 480px thumbnail in `thumbs/` for the grids and, if there is no `.webp` next to a PNG, a display `.webp` for the viewer. Existing files are left alone; use `--force` to regenerate the thumbnails.
+3. Commit the PNG, the `.webp` and the thumbnail.
+4. Register each screen in `MOCK_SCREENSHOTS` in `constants.ts` and set `hasScreenshots: true` on the bank:
+
+```ts
+{
+  id: "s1",
+  url: "/screenshots/my-bank/account-statement.webp",
+  downloadUrl: "/screenshots/my-bank/account-statement.png",
+  label: "Account Statement",
+  category: "dashboard",
+},
+```
+
+The thumbnail path is derived from `url`, so it needs no entry of its own.

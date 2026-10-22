@@ -231,7 +231,7 @@ export function DetailPanel(): JSX.Element | null {
 			});
 		} catch (e) {
 			console.error("Download failed", e);
-			alert(t("sidebar.downloadFailed"));
+			showToast(t("sidebar.downloadFailed"), { icon: "error" });
 		} finally {
 			setIsProcessing(null);
 		}
