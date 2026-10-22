@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { trackEvent } from "@/lib/analytics";
 import { saveFile } from "@/lib/download";
+import { thumbUrl } from "@/lib/screenshots";
 import { showToast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 import { FallbackImage, ScreenPlaceholder } from "../components/FallbackImage";
@@ -110,7 +111,7 @@ export function AppDetailPage(): JSX.Element {
 				});
 			} catch (error) {
 				console.error("Download failed:", error);
-				alert(t("sidebar.downloadImageFailed"));
+				showToast(t("sidebar.downloadImageFailed"), { icon: "error" });
 			} finally {
 				setIsDownloadingSingle(false);
 			}
@@ -155,7 +156,7 @@ export function AppDetailPage(): JSX.Element {
 			});
 		} catch (error) {
 			console.error("Batch download failed:", error);
-			alert(t("sidebar.zipFailed"));
+			showToast(t("sidebar.zipFailed"), { icon: "error" });
 		} finally {
 			setIsDownloadingAll(false);
 		}
@@ -241,7 +242,8 @@ export function AppDetailPage(): JSX.Element {
 								className="relative aspect-9/19 w-full rounded-2xl overflow-hidden border border-border bg-surface cursor-pointer outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
 							>
 								<FallbackImage
-									src={screen.url}
+									src={thumbUrl(screen)}
+									decoding="async"
 									alt={t(`screenshotLabels.${screen.label}`)}
 									className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 									loadingClassName="bg-surface-hover motion-safe:animate-pulse"

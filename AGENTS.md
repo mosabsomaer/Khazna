@@ -7,14 +7,14 @@ Khazna is a brand asset library and UI gallery for the Libyan fintech ecosystem.
 ## Commands
 
 ```bash
-bun dev          # start dev server (localhost:5173)
+bun dev          # start dev server (localhost:3000)
 bun run build    # production build
 bun run preview  # preview production build locally
-bun check        # lint + type-check (Biome)
-bun format       # auto-fix lint + formatting
+bun run check    # Biome check + type-check
+bun run format   # auto-fix lint + formatting
 ```
 
-**Always use `bun`, never `npm` or `yarn`.** Run `bun format` before finishing any task.
+**Always use `bun`, never `npm` or `yarn`.** Run `bun run format` before finishing any task.
 
 ---
 
