@@ -4,6 +4,9 @@ import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
 import { Mode, plugin as markdown } from "vite-plugin-markdown";
 import { VitePWA } from "vite-plugin-pwa";
+import { BANKS, MOCK_SCREENSHOTS, PAYMENT_GATEWAYS, PAYMENT_METHODS } from "./constants";
+import ar from "./data/ar.json";
+import en from "./data/en.json";
 
 const MONTH = 60 * 60 * 24 * 30;
 
@@ -160,6 +163,69 @@ export default defineConfig(({ mode }) => {
 					],
 				},
 			}),
+			{
+				name: "agent-files",
+				apply: "build",
+				generateBundle() {
+					const site = "https://khazna.ly";
+					const apps = BANKS.filter((bank) => bank.hasScreenshots);
+					const enNames: Record<string, string> = en.entityNames;
+					const arNames: Record<string, string> = ar.entityNames;
+					const name = (id: string) => `${enNames[id]} (${arNames[id]})`;
+					const logos = (
+						title: string,
+						items: { id: string; logoUrl: string; logomarkUrl?: string }[],
+					) => [
+						`## ${title}`,
+						"",
+						...items.map(
+							(item) =>
+								`- ${name(item.id)}: [logo](${site}${item.logoUrl})${item.logomarkUrl ? `, [logomark](${site}${item.logomarkUrl})` : ""}`,
+						),
+						"",
+					];
+					this.emitFile({
+						type: "asset",
+						fileName: "sitemap.xml",
+						source: [
+							'<?xml version="1.0" encoding="UTF-8"?>',
+							'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+							...[
+								"/",
+								"/apps",
+								...apps.map((app) => `/apps/${app.id}`),
+								"/contributing",
+								"/about",
+							].map((page) => `\t<url><loc>${site}${page}</loc></url>`),
+							"</urlset>",
+							"",
+						].join("\n"),
+					});
+					this.emitFile({
+						type: "asset",
+						fileName: "index.md",
+						source: [
+							"# Khazna",
+							"",
+							"Logos of Libyan banks, payment methods and payment gateways as SVG files, plus screens from Libyan banking apps. The brand assets are the property of their respective companies.",
+							"",
+							...logos("Banks", BANKS),
+							...logos("Payment methods", PAYMENT_METHODS),
+							...logos("Payment gateways", PAYMENT_GATEWAYS),
+							"## Banking app screens",
+							"",
+							...apps.flatMap((app) => [
+								`### [${name(app.id)}](${site}/apps/${app.id})`,
+								"",
+								...(MOCK_SCREENSHOTS[app.id] ?? []).map(
+									(screen) => `- [${screen.label}](${site}${screen.downloadUrl})`,
+								),
+								"",
+							]),
+						].join("\n"),
+					});
+				},
+			},
 		],
 		build: {
 			rollupOptions: {

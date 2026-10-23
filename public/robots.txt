@@ -1,0 +1,8 @@
+User-agent: *
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+Sitemap: https://khazna.ly/sitemap.xml
