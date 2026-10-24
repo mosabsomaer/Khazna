@@ -1,6 +1,7 @@
 interface SvgInfo {
 	viewBox: string;
 	content: string;
+	noFill: boolean;
 }
 
 function extractSvgInfo(svgString: string): SvgInfo {
@@ -8,12 +9,12 @@ function extractSvgInfo(svgString: string): SvgInfo {
 	const doc = parser.parseFromString(svgString, "image/svg+xml");
 	const svg = doc.querySelector("svg");
 
-	if (!svg) return { viewBox: "0 0 24 24", content: "" };
+	if (!svg) return { viewBox: "0 0 24 24", content: "", noFill: false };
 
 	const viewBox = svg.getAttribute("viewBox") || "0 0 24 24";
 	const content = svg.innerHTML.trim();
 
-	return { viewBox, content };
+	return { viewBox, content, noFill: svg.getAttribute("fill") === "none" };
 }
 
 function replaceNonNoneFills(content: string, replacement: string): string {
@@ -42,7 +43,7 @@ export function generateCode(
 	svgString: string,
 	componentName: string = "Icon",
 ): string {
-	const { viewBox, content } = extractSvgInfo(svgString);
+	const { viewBox, content, noFill } = extractSvgInfo(svgString);
 	const pascalName = componentName.replace(/[^a-zA-Z0-9]/g, "");
 
 	switch (format) {
@@ -55,7 +56,7 @@ export function generateCode(
 
 			return `export const ${pascalName} = ({ size = 24, color = "#000000" }) => {
   return (
-    <svg width={size} height={size} viewBox="${viewBox}" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="${viewBox}" ${noFill ? 'fill="none"' : "fill={color}"} xmlns="http://www.w3.org/2000/svg">
       ${cleanContent}
     </svg>
   );
@@ -70,7 +71,7 @@ export function generateCode(
 </script>
 
 <template>
-  <svg :width="size" :height="size" viewBox="${viewBox}" :fill="color" xmlns="http://www.w3.org/2000/svg">
+  <svg :width="size" :height="size" viewBox="${viewBox}" ${noFill ? 'fill="none"' : ':fill="color"'} xmlns="http://www.w3.org/2000/svg">
     ${vueContent}
   </svg>
 </template>`;
@@ -84,13 +85,13 @@ export function generateCode(
   export let color = "#000000";
 </script>
 
-<svg width="{size}" height="{size}" viewBox="${viewBox}" fill={color} xmlns="http://www.w3.org/2000/svg">
+<svg width="{size}" height="{size}" viewBox="${viewBox}" ${noFill ? 'fill="none"' : "fill={color}"} xmlns="http://www.w3.org/2000/svg">
   ${svelteContent}
 </svg>`;
 		}
 
 		default:
-			return `<svg width="24" height="24" viewBox="${viewBox}" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+			return `<svg width="24" height="24" viewBox="${viewBox}" fill="${noFill ? "none" : "#000000"}" xmlns="http://www.w3.org/2000/svg">
   ${content}
 </svg>`;
 	}
