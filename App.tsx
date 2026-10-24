@@ -18,6 +18,7 @@ import { usePwa } from "./hooks/usePwa";
 import { useScrollSound } from "./hooks/useScrollSound";
 import { useUIContext } from "./hooks/useUIContext";
 import { canInstall, startInstall } from "./lib/pwa";
+import { getStored, setStored } from "./lib/storage";
 import { AboutPage } from "./pages/AboutPage";
 import { AppDetailPage } from "./pages/AppDetailPage";
 import { AppsPage } from "./pages/AppsPage";
@@ -178,18 +179,18 @@ function App(): JSX.Element {
 		[colorMode, logoStyle],
 	);
 	const [theme, setTheme] = useState<Theme>(() => {
-		const stored = localStorage.getItem("khazna-theme") as Theme | null;
+		const stored = getStored("khazna-theme") as Theme | null;
 		if (stored) return stored;
 		return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 	});
 
 	const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
-		const stored = localStorage.getItem("khazna-sound");
+		const stored = getStored("khazna-sound");
 		return stored === null ? true : stored === "true";
 	});
 
 	// Track whether the user has explicitly chosen a theme (vs auto-detected from system)
-	const hasExplicitChoice = useRef(!!localStorage.getItem("khazna-theme"));
+	const hasExplicitChoice = useRef(!!getStored("khazna-theme"));
 	const isAnimating = useRef(false);
 
 	const isSidebarOpen = !!selectedItem;
@@ -277,14 +278,14 @@ function App(): JSX.Element {
 			meta.setAttribute("content", THEME_BG[theme]);
 		}
 		if (hasExplicitChoice.current) {
-			localStorage.setItem("khazna-theme", theme);
+			setStored("khazna-theme", theme);
 		}
 	}, [theme]);
 
 	const toggleSound = useCallback(() => {
 		setSoundEnabled((prev) => {
 			const next = !prev;
-			localStorage.setItem("khazna-sound", String(next));
+			setStored("khazna-sound", String(next));
 			return next;
 		});
 	}, []);
