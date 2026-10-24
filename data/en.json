@@ -71,6 +71,7 @@
 		"downloadAll": "Download All",
 		"zipping": "Zipping...",
 		"downloadFailed": "Could not convert image. Try downloading as SVG.",
+		"webpUnsupported": "This browser can't save WebP. Try Chrome or Firefox on a computer.",
 		"downloadImageFailed": "Failed to download image.",
 		"zipFailed": "Failed to create zip file.",
 		"cdnUrl": "CDN URL",
