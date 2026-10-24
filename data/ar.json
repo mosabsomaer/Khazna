@@ -71,6 +71,7 @@
 		"downloadAll": "تحميل الكل",
 		"zipping": "جاري الضغط...",
 		"downloadFailed": "تعذر تحويل الصورة. جرب التحميل كـ SVG.",
+		"webpUnsupported": "هذا المتصفح لا يدعم حفظ WebP. جرّب Chrome أو Firefox على الكمبيوتر.",
 		"downloadImageFailed": "فشل تحميل الصورة.",
 		"zipFailed": "فشل إنشاء ملف مضغوط.",
 		"cdnUrl": "رابط CDN",

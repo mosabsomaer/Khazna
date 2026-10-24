@@ -52,6 +52,12 @@ function prepareSvgForCanvas(svgString: string, width: number, height: number): 
 	});
 }
 
+export const CAN_ENCODE_WEBP = (() => {
+	const canvas = document.createElement("canvas");
+	canvas.width = canvas.height = 1;
+	return canvas.toDataURL("image/webp").startsWith("data:image/webp");
+})();
+
 export function convertSvgToImage(
 	svgString: string,
 	width: number,
