@@ -47,9 +47,9 @@ export function TextMarquee({
 								} as React.CSSProperties
 							}
 						>
-							{/* biome-ignore lint/suspicious/noArrayIndexKey: React.Children.map has no stable key source */}
 							{React.Children.map(children, (child, index) => (
 								<div
+									// biome-ignore lint/suspicious/noArrayIndexKey: children are positional and never reordered
 									key={index}
 									className="h-[40px] flex items-center"
 									style={

@@ -110,7 +110,7 @@ export function AppDetailPage(): JSX.Element {
 				});
 			} catch (error) {
 				console.error("Download failed:", error);
-				alert(t("sidebar.downloadImageFailed"));
+				showToast(t("sidebar.downloadImageFailed"), { icon: "error" });
 			} finally {
 				setIsDownloadingSingle(false);
 			}
@@ -155,7 +155,7 @@ export function AppDetailPage(): JSX.Element {
 			});
 		} catch (error) {
 			console.error("Batch download failed:", error);
-			alert(t("sidebar.zipFailed"));
+			showToast(t("sidebar.zipFailed"), { icon: "error" });
 		} finally {
 			setIsDownloadingAll(false);
 		}
