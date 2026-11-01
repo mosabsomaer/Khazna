@@ -80,9 +80,11 @@ function ColorPill({ color }: { color: string }): JSX.Element {
 }
 
 function recolorOutsideMasks(svg: string, color: string): string {
-	return svg.replace(/<mask[\s\S]*?<\/mask>|(fill|stroke)="(?!none)[^"]*"/g, (match, attr) =>
-		attr ? `${attr}="${color}"` : match,
-	);
+	return svg
+		.replace(/<mask[\s\S]*?<\/mask>|(fill|stroke)="(?!none)[^"]*"/g, (match, attr) =>
+			attr ? `${attr}="${color}"` : match,
+		)
+		.replace(/<svg\b(?![^>]*\sfill=)/, `<svg fill="${color}"`);
 }
 
 function makeWhiteSvg(svg: string): string {
