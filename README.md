@@ -94,6 +94,12 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full guide and submission check
 
 ---
 
+## npm package
+
+The logos are also published as an npm package with SVG files, typed metadata and React components. It is built from the site's files in this repository, and new logos are included in the next publish. See [packages/logos/README.md](./packages/logos/README.md).
+
+---
+
 ## Contributing
 
 Contributions are welcome — new logos, app screenshots, translations, or code improvements.  
