@@ -281,6 +281,16 @@ function App(): JSX.Element {
 		}
 	}, [theme]);
 
+	useEffect(() => {
+		let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+		if (!canonical) {
+			canonical = document.createElement("link");
+			canonical.rel = "canonical";
+			document.head.append(canonical);
+		}
+		canonical.href = `https://khazna.ly${location.pathname.replace(/(.)\/+$/, "$1")}`;
+	}, [location.pathname]);
+
 	const toggleSound = useCallback(() => {
 		setSoundEnabled((prev) => {
 			const next = !prev;
