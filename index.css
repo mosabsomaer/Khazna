@@ -568,3 +568,8 @@ html[lang="ar"] {
 		animation-duration: 0s !important;
 	}
 }
+
+/* ─── A tooltip that only explains something never blocks taps on what's beneath it ─── */
+[data-radix-popper-content-wrapper]:has(> .pointer-events-none) {
+	pointer-events: none;
+}

@@ -18,14 +18,16 @@ import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { trackEvent } from "@/lib/analytics";
-import { convertSvgToImage, saveFile } from "@/lib/download";
+import { CAN_ENCODE_WEBP, convertSvgToImage, saveFile } from "@/lib/download";
 import { generateCode } from "@/lib/generators";
 import { showToast } from "@/lib/toast";
+import { cn } from "@/lib/utils";
 import { useSound } from "../hooks/useSound";
 import { useUIContext } from "../hooks/useUIContext";
 import { FigmaLink } from "./FigmaLink";
 import { CodeBlock } from "./ui/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 const FORMAT_TO_LANG: Record<string, string> = {
 	React: "tsx",
@@ -109,6 +111,7 @@ export function DetailPanel(): JSX.Element | null {
 	const play = useSound();
 	const [codeFormat, setCodeFormat] = useState("React");
 	const [copied, setCopied] = useState(false);
+	const [webpHint, setWebpHint] = useState(false);
 	const [cdnCopied, setCdnCopied] = useState<"branded" | "logomark" | null>(null);
 	const [svgContent, setSvgContent] = useState<string>("");
 	const [isProcessing, setIsProcessing] = useState<string | null>(null);
@@ -409,27 +412,64 @@ export function DetailPanel(): JSX.Element | null {
 
 							<TabsContent value="download" className="mt-6">
 								<div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-									{["SVG", "PNG", "WebP"].map((fmt) => (
-										<button
-											type="button"
-											key={fmt}
-											onClick={() => handleDownload(fmt)}
-											disabled={!!isProcessing}
-											className="group w-full flex items-center justify-between px-4 py-3.5 rounded-xl border border-border bg-surface/30 hover:bg-surface hover:border-border-subtle active:scale-[0.98] transition-all duration-200 outline-none focus:ring-1 focus:ring-ring"
-										>
-											<span className="text-sm font-medium text-dim group-hover:text-primary transition-colors">
-												{fmt}
-											</span>
-
-											<div className="text-dim group-hover:text-primary transition-colors">
-												{isProcessing === fmt ? (
-													<Loader2 size={18} className="animate-spin" />
-												) : (
-													<Download size={18} />
+									{["SVG", "PNG", "WebP"].map((fmt) => {
+										const unavailable = fmt === "WebP" && !CAN_ENCODE_WEBP;
+										const button = (
+											<button
+												type="button"
+												key={fmt}
+												onClick={(event) => {
+													if (!unavailable) return handleDownload(fmt);
+													event.preventDefault();
+													setWebpHint(true);
+												}}
+												disabled={!!isProcessing}
+												aria-disabled={unavailable || undefined}
+												className={cn(
+													"group w-full flex items-center justify-between px-4 py-3.5 rounded-xl border border-border bg-surface/30 transition-all duration-200 outline-none focus:ring-1 focus:ring-ring",
+													unavailable
+														? "opacity-50 cursor-not-allowed"
+														: "hover:bg-surface hover:border-border-subtle active:scale-[0.98]",
 												)}
-											</div>
-										</button>
-									))}
+											>
+												<span
+													className={cn(
+														"text-sm font-medium text-dim transition-colors",
+														!unavailable && "group-hover:text-primary",
+													)}
+												>
+													{fmt}
+												</span>
+
+												<div
+													className={cn(
+														"text-dim transition-colors",
+														!unavailable && "group-hover:text-primary",
+													)}
+												>
+													{isProcessing === fmt ? (
+														<Loader2 size={18} className="animate-spin" />
+													) : (
+														<Download size={18} />
+													)}
+												</div>
+											</button>
+										);
+										if (!unavailable) return button;
+										return (
+											<TooltipProvider key={fmt} delayDuration={200}>
+												<Tooltip open={webpHint} onOpenChange={setWebpHint}>
+													<TooltipTrigger asChild>{button}</TooltipTrigger>
+													<TooltipContent
+														className="max-w-64 pointer-events-none"
+														collisionPadding={8}
+													>
+														{t("sidebar.webpUnsupported")}
+													</TooltipContent>
+												</Tooltip>
+											</TooltipProvider>
+										);
+									})}
 								</div>
 							</TabsContent>
 
