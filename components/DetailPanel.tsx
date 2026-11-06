@@ -262,6 +262,7 @@ export function DetailPanel(): JSX.Element | null {
 						play("swipe");
 						closeSidebar();
 					}}
+					aria-label={t("sidebar.close")}
 					className="p-2 text-muted-subtle hover:text-primary hover:bg-surface-hover rounded-full transition-colors outline-none focus:bg-surface-hover"
 				>
 					<X size={20} />

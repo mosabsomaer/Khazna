@@ -76,6 +76,7 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 								<button
 									type="button"
 									onClick={prevSlide}
+									aria-label={t("apps.previousScreen")}
 									className="absolute start-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-sm"
 								>
 									<ChevronLeft size={16} className="rtl:rotate-180" />
@@ -83,6 +84,7 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 								<button
 									type="button"
 									onClick={nextSlide}
+									aria-label={t("apps.nextScreen")}
 									className="absolute end-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-sm"
 								>
 									<ChevronRight size={16} className="rtl:rotate-180" />
@@ -135,9 +137,9 @@ function AppCard({ app }: { app: Bank }): JSX.Element {
 					/>
 				</div>
 				<div className="flex flex-col">
-					<h3 className="text-sm font-semibold text-primary leading-tight group-hover:underline decoration-border-subtle underline-offset-4">
+					<h2 className="text-sm font-semibold text-primary leading-tight group-hover:underline decoration-border-subtle underline-offset-4">
 						{t(`entityNames.${app.id}`)}
-					</h3>
+					</h2>
 					<span className="text-xs text-muted-subtle mt-0.5">
 						{screenCount} {t("common.screens")}
 					</span>

@@ -60,10 +60,13 @@
 		"title": "App UI Gallery",
 		"description": "Explore user interface patterns from real Libyan applications. Curated screenshots for research and inspiration.",
 		"noAppsFound": "No apps found matching your search.",
-		"noScreenshotsBank": "No screenshots available for this bank."
+		"noScreenshotsBank": "No screenshots available for this bank.",
+		"previousScreen": "Previous screen",
+		"nextScreen": "Next screen"
 	},
 	"sidebar": {
 		"details": "Details",
+		"close": "Close",
 		"assets": "Assets",
 		"code": "Code",
 		"noLogoSelected": "No logo selected",
