@@ -3,7 +3,15 @@ import type { JSX } from "react";
 import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { Link, Route, Routes, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+	Link,
+	Route,
+	Routes,
+	useLocation,
+	useNavigate,
+	useNavigationType,
+	useSearchParams,
+} from "react-router-dom";
 import { Community } from "./components/Community";
 import { Contributors } from "./components/Contributors";
 import { DetailPanel } from "./components/DetailPanel";
@@ -163,6 +171,7 @@ function ScrollToTop(): null {
 function App(): JSX.Element {
 	const location = useLocation();
 	const navigate = useNavigate();
+	const navigationType = useNavigationType();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const logoId = searchParams.get("logo");
 	const selectedItem = useMemo<SelectedItem>(
@@ -210,6 +219,21 @@ function App(): JSX.Element {
 			{ replace: true },
 		);
 	}, [location, navigate, setSearchParams]);
+
+	// Wide screens keep the grid in view and scrollable beside the panel, so closing it (a step back
+	// in history) leaves the grid where it is instead of where the browser saved it on opening.
+	const previousLocation = useRef(location);
+	useEffect(() => {
+		const closedFromGrid =
+			navigationType === "POP" &&
+			previousLocation.current.state?.closeWithBack &&
+			location.pathname === "/" &&
+			!selectedItem;
+		previousLocation.current = location;
+		if (!closedFromGrid) return;
+		const top = window.scrollY;
+		requestAnimationFrame(() => window.scrollTo(0, top));
+	}, [location, navigationType, selectedItem]);
 
 	const setSelectedItem = useCallback(
 		(item: SelectedItem) => {
