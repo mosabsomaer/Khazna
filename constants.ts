@@ -386,6 +386,13 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		colors: ["#404041", "#FFE000"],
 		type: "payment_method",
 	},
+	{
+		id: "runpay",
+		name: "RunPay",
+		logoUrl: "/cdn/v1/logos/payments/runpay.svg",
+		colors: ["#1F478D", "#71B92F"],
+		type: "payment_method",
+	},
 ];
 
 export const PAYMENT_GATEWAYS: PaymentGateway[] = [
