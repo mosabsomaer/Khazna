@@ -2,10 +2,11 @@ import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import ar from "./data/ar.json";
 import en from "./data/en.json";
+import { getStored, setStored } from "./lib/storage";
 
 function detectLanguage(): string {
 	// 1. Respect any previously saved user preference
-	const saved = localStorage.getItem("khazna-lang");
+	const saved = getStored("khazna-lang");
 	if (saved) return saved;
 
 	// 2. Detect from browser settings
@@ -42,8 +43,8 @@ document.documentElement.lang = savedLang;
 document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
 
 // Persist detected language so future visits skip detection
-if (!localStorage.getItem("khazna-lang")) {
-	localStorage.setItem("khazna-lang", savedLang);
+if (!getStored("khazna-lang")) {
+	setStored("khazna-lang", savedLang);
 }
 
 export default i18next;

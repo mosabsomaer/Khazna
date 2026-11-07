@@ -109,13 +109,18 @@
     <!-- FOUC prevention: apply theme + language before paint -->
     <script>
       (() => {
-        var theme = localStorage.getItem('khazna-theme');
+        var theme = null;
+        var lang = null;
+        try {
+          theme = localStorage.getItem('khazna-theme');
+          lang = localStorage.getItem('khazna-lang');
+        } catch {}
         if (!theme) {
           theme = window.matchMedia?.('(prefers-color-scheme: dark)').matches
             ? 'dark'
             : 'light';
         }
-        var lang = localStorage.getItem('khazna-lang') || 'ar';
+        lang = lang || 'ar';
         if (theme === 'dark') document.documentElement.classList.add('dark');
         // The status bar follows the in-app theme, not only the OS one. The installed iOS app
         // ignores theme-color and only reads its own style at launch, so that's set here too.
