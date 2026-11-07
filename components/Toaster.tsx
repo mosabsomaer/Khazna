@@ -24,7 +24,7 @@ export function Toaster(): JSX.Element {
 	}, [remove]);
 
 	return (
-		<div className="fixed inset-x-4 bottom-[calc(1.5rem+var(--tab-bar-h,0px)+env(safe-area-inset-bottom))] z-[100] flex flex-col items-center gap-2 pointer-events-none">
+		<div className="fixed inset-x-4 bottom-[calc(1.5rem+max(var(--tab-bar-h,0px)+env(safe-area-inset-bottom),var(--viewer-bar-h,0px)))] z-[100] flex flex-col items-center gap-2 pointer-events-none">
 			{toasts.map((t) => {
 				const Icon = ICONS[t.icon];
 				return (
