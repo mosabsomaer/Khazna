@@ -105,4 +105,4 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a pull request.
 
 The **source code** is released under the [MIT License](./LICENSE).
 
-The **brand assets** (logos, logomarks, app screenshots) are the intellectual property of their respective companies. They are provided here solely as a reference library to assist developers and designers in building Libyan fintech products. No ownership or license over these marks is claimed or implied.
+The **brand assets** (logos, logomarks, app screenshots) are the intellectual property of their respective companies. They are provided here solely as a reference library to assist developers and designers in building Libyan fintech products. No ownership or license over these marks is claimed or implied. See [BRAND-ASSETS.md](./BRAND-ASSETS.md).
