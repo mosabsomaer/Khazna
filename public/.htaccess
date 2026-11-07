@@ -3,12 +3,17 @@
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
+  RewriteCond %{HTTP:Accept} text/markdown [OR]
+  RewriteCond %{HTTP_USER_AGENT} ^(curl|wget)/|ChatGPT-User|Claude-User|Perplexity-User [NC]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ /index.md [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
 </IfModule>
 
 AddType application/manifest+json .webmanifest
+AddType "text/markdown; charset=utf-8" .md
 
 # Compression
 <IfModule mod_deflate.c>
@@ -27,8 +32,13 @@ AddType application/manifest+json .webmanifest
   </FilesMatch>
 
   # HTML must always revalidate so deploys go live
-  <FilesMatch "\.(?:html)$">
+  <FilesMatch "\.(?:html|md)$">
     Header set Cache-Control "no-cache"
+    Header append Vary "Accept, User-Agent"
+  </FilesMatch>
+
+  <FilesMatch "\.html$">
+    Header set Link '</index.md>; rel="alternate"; type="text/markdown"'
   </FilesMatch>
 
   # Same for the service worker and the manifest, or the installed app stops getting updates
