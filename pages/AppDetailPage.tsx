@@ -174,6 +174,7 @@ export function AppDetailPage(): JSX.Element {
 						<Link
 							to="/apps"
 							onClick={() => play("select")}
+							aria-label={t("common.back")}
 							className="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:bg-surface-hover transition-colors text-muted-foreground hover:text-primary"
 						>
 							<ArrowLeft size={20} className="rtl:rotate-180" />
@@ -256,9 +257,9 @@ export function AppDetailPage(): JSX.Element {
 								</div>
 							</button>
 							<div className="text-center">
-								<h3 className="text-sm font-medium text-muted-foreground">
+								<h2 className="text-sm font-medium text-muted-foreground">
 									{t(`screenshotLabels.${screen.label}`)}
-								</h3>
+								</h2>
 								<p className="text-[10px] text-muted-subtle uppercase tracking-wider mt-0.5">
 									{t(`screenshotCategories.${screen.category}`)}
 								</p>
