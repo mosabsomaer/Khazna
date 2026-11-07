@@ -76,6 +76,14 @@
 		"cdnUrl": "CDN URL",
 		"shareLink": "Share link"
 	},
+	"viewer": {
+		"close": "Close",
+		"previous": "Previous screen",
+		"next": "Next screen",
+		"download": "Download {{label}}",
+		"position": "{{current}} / {{total}}",
+		"allScreens": "All screens"
+	},
 	"contributors": {
 		"contributors": "Contributors",
 		"dontLoseThis": "Don't lose this",
