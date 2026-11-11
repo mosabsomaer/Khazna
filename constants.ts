@@ -40,6 +40,11 @@ export const CONTRIBUTORS: Contributor[] = [
 		url: "https://github.com/sulimanbenhalim",
 	},
 	{
+		name: "Sohaib Kanon",
+		imageUrl: "/contributors/sohaib.webp",
+		url: "https://github.com/Sokanon",
+	},
+	{
 		name: "MyPay",
 		imageUrl: "/cdn/v1/logos/payment-gateways/mypay.svg",
 		isLogo: true,
@@ -392,6 +397,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		logoUrl: "/cdn/v1/logos/payments/runpay.svg",
 		colors: ["#1F478D", "#71B92F"],
 		type: "payment_method",
+		isNew: true,
 	},
 ];
 
